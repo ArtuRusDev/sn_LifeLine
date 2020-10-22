@@ -2,6 +2,9 @@ body {
     background-color: #efefef;
 }
 
+.navbar {
+     background-color: #9fcdff;
+}
 .content {
     border: 1px solid #e2e2e2;
     border-top: none;
