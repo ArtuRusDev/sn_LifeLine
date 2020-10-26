@@ -21,7 +21,6 @@ class RegisterForm(UserCreationForm):
             field.label = ''
 
 
-# todo: Вывод ошибки при неправильном входе
 class LoginForm(AuthenticationForm):
     class Meta:
         model = Person

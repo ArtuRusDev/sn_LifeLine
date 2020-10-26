@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from mainapp.views import HomeView
+from mainapp.views import NewsView, main_page
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', HomeView.as_view(), name='main'),
-    path('auth/', include('authapp.urls', namespace='auth')),
+    path('', main_page, name='main'),
+    path('news/', NewsView.as_view(), name='news'),
+    path('users/', include('authapp.urls', namespace='auth')),
 ]

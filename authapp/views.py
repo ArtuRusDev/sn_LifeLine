@@ -1,12 +1,12 @@
-from django.contrib import messages, auth
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views import View
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import TemplateView
 
 from authapp.forms import RegisterForm, LoginForm
+from authapp.models import Person
 
 
 class RegisterView(TemplateView):
@@ -17,7 +17,6 @@ class RegisterView(TemplateView):
             form = RegisterForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Вы успешно зарегистрировались!")
                 return HttpResponseRedirect(reverse('auth:login'))
         else:
             form = RegisterForm()
@@ -30,37 +29,15 @@ class RegisterView(TemplateView):
         return render(request, self.template_name, content)
 
 
-class LoginView(View):
+class UsersLoginView(LoginView):
     template_name = "authapp/login.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        form = LoginForm(request.POST)
-
-        if request.method == 'POST' and form.is_valid:
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-
-            user = auth.authenticate(username=username, password=password)
-            if user and user.is_active:
-                auth.login(request, user)
-                messages.success(request, "Вы успешно вошли!")
-                return HttpResponseRedirect(reverse('main'))
-        else:
-            form = LoginForm()
-
-        content = {
-            'title': 'Вход',
-            'form': form
-        }
-
-        return render(request, self.template_name, content)
+    model = Person
+    success_url = reverse_lazy('main')
+    form_class = LoginForm
 
 
-class LogoutView(View):
-    def dispatch(self, request, *args, **kwargs):
-        logout(request)
-        messages.success(request, "Вы успешно вышли!")
-        return HttpResponseRedirect(reverse('main'))
+class UsersLogoutView(LogoutView):
+    next_page = reverse_lazy('main')
 
 
 class ProfileView(TemplateView):
