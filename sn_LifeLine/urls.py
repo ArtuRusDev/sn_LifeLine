@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from mainapp.views import NewsView, main_page
+from profileapp.views import UserUpdateInfo
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', main_page, name='main'),
     path('news/', NewsView.as_view(), name='news'),
+    path('profile/', include('profileapp.urls', namespace='profile')),
     path('users/', include('authapp.urls', namespace='auth')),
 ]
