@@ -13,4 +13,5 @@ class NewsView(TemplateView):
 
 
 def main_page(request):
+    # request.user.is_authenticated
     return HttpResponseRedirect(reverse('news'))

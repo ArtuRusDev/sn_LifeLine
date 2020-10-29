@@ -13,11 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+
 from mainapp.views import NewsView, main_page
 from profileapp.views import UserUpdateInfo
+from sn_LifeLine import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -26,3 +29,6 @@ urlpatterns = [
     path('profile/', include('profileapp.urls', namespace='profile')),
     path('users/', include('authapp.urls', namespace='auth')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

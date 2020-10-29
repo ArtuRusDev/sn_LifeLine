@@ -3,17 +3,18 @@
     <div class="container content">
         <h2>Профиль Пользователя</h2>
         <div>
-            <p>UserName: {{ user.username }}</p>
-            <p>First Name: {{ user.first_name }}</p>
-            <p>Last Name: {{ user.last_name }}</p>
+            <img src="/media/{{ user.avatar }}" alt="Аватарка">
+            <p>Логин: {% if user.username %} {{ user.username }} {% else %} {{ Нет }} {% endif %}</p>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
             <p>Email: {{ user.email }}</p>
-            <p>Phone Number: {{ user.phone_number }}</p>
-            <p>Avatar: {{ user.avatar }}</p>
-            <p>Bio: {{ user.bio }}</p>
-            <p>City: {{ user.city }}</p>
-            <p>Birthday: {{ user.birth_date }}</p>
-            <p>Gender: {{ user.get_gender }}</p>
-            <p>Relationships: {{ user.relationship }}</p>
+            <p>Телефон: {{ user.phone_number }}</p>
+            <p>О Себе: {{ user.bio }}</p>
+            <p>Город: {{ user.city }}</p>
+            <p>День рождения: {{ user.birth_date }}</p>
+            <p>Пол: {{ user.get_gender }}</p>
+            <p>Отношения: {{ user.get_rel }}</p>
+            <a href="{% url 'profile:edit' %}">Изменить</a>
         </div>
     </div>
 {% endblock %}
