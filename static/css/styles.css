@@ -7,7 +7,36 @@ body {
 }
 .content {
     border-radius: 0 0 4px 4px;
-    background: white;
+    /*background: white;*/
     min-height: 500px;
     padding: 20px;
+}
+
+.news_block {
+    max-width: 550px;
+    min-height: 300px;
+    /*outline: 3px solid black;*/
+    margin: 0 auto;
+}
+
+.news_item {
+    background-color: white;
+    width: 100%;
+    min-height: 150px;
+    padding: 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.news_item_title-username {
+    font-size: 20px;
+}
+
+.news_item_title_post-date {
+    color: #c0c0c0;
+}
+
+.news_item_text {
+    margin-top: 20px;
 }

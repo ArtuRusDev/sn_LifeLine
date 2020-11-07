@@ -8,10 +8,5 @@ from django.views.generic import TemplateView, UpdateView
 from authapp.models import Person
 
 
-class NewsView(TemplateView):
-    template_name = 'mainapp/news.html'
-
-
 def main_page(request):
-    # request.user.is_authenticated
-    return HttpResponseRedirect(reverse('news'))
+    return HttpResponseRedirect(reverse('news:main'))

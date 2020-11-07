@@ -18,14 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-from mainapp.views import NewsView, main_page
+from mainapp.views import main_page
 from profileapp.views import UserUpdateInfo
 from sn_LifeLine import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', main_page, name='main'),
-    path('news/', NewsView.as_view(), name='news'),
+    path('news/', include('newsapp.urls', namespace='news')),
     path('profile/', include('profileapp.urls', namespace='profile')),
     path('users/', include('authapp.urls', namespace='auth')),
 ]
