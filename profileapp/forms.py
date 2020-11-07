@@ -41,11 +41,11 @@ class UserUpdateInfoForm(forms.ModelForm):
             # validate content type
             main, sub = avatar.content_type.split('/')
             if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
-                raise forms.ValidationError('Пожалуйста, испльзуйте JPEG, GIF или PNG изображения.')
+                raise forms.ValidationError('Пожалуйста, используйте JPEG, GIF или PNG изображения.')
 
             # validate file size
-            if len(avatar) > (20 * 1024):
-                raise forms.ValidationError('Размер файла не может превышать 20 кб.')
+            if len(avatar) > (200 * 1024):
+                raise forms.ValidationError('Размер файла не может превышать 200 кб.')
 
         except AttributeError:
             """

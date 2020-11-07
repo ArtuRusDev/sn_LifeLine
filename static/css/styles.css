@@ -8,7 +8,7 @@ body {
 .content {
     border-radius: 0 0 4px 4px;
     /*background: white;*/
-    min-height: 500px;
+    /*min-height: 500px;*/
     padding: 20px;
 }
 
@@ -39,4 +39,14 @@ body {
 
 .news_item_text {
     margin-top: 20px;
+}
+
+.auth_form_wrapper {
+    display: inline-block;
+    width: 300px;
+}
+
+.user_avatar {
+    width: 200px;
+    border-radius: 100%;
 }

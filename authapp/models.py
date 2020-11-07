@@ -36,6 +36,16 @@ GENDER_DICT = {
 #     'complicated': "Все сложно",
 # }
 
+REL_DICT = {
+    0: "Не определенно",
+    1: "Холост",
+    2: "В отношениях",
+    3: "Помолвлен(а)",
+    4: "Женат/Замужем",
+    5: "Влюблен(а)",
+    6: "Все сложно",
+}
+
 
 class Person(AbstractUser):
     # NONE = 'NO'
@@ -45,7 +55,7 @@ class Person(AbstractUser):
     # MARRIED = 'MRD'
     # IN_LOVE = 'ILV'
     # COMPLICATED = 'CMP'
-    #
+
     # STATUS_CHOICES = (
     #     (NONE, "Не определенно"),
     #     (SINGLE, "Холост"),
@@ -71,13 +81,12 @@ class Person(AbstractUser):
     city = models.CharField(max_length=30, blank=True, null=True, verbose_name="Город")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
     gender = models.CharField(max_length=10, verbose_name="Пол", choices=GENDER_CHOICES, default="male")
-    relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES,
-                                    default=0)
+    relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES, default=0)
 
-    # @property
-    # def get_gender(self):
-    #     return GENDER_DICT.get(self.gender)
-    #
-    # @property
-    # def get_rel(self):
-    #     return REL_DICT.get(self.relationship)
+    @property
+    def get_gender(self):
+        return GENDER_DICT.get(self.gender)
+
+    @property
+    def get_rel(self):
+        return REL_DICT.get(self.relationship)

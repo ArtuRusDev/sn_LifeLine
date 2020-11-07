@@ -1,8 +1,8 @@
 {% extends 'mainapp/base.html' %}
 {% load staticfiles %}
 {% block content %}
-    <div class="container content" style="text-align: center;">
-        <div style="width: 300px; display: inline-block;">
+    <div class="container content text-center">
+         <div class="auth_form_wrapper">
             <h2>Регистрация</h2>
             <form method="post" class="bootstrap-form">
                 {% csrf_token %}

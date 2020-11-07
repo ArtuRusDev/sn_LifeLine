@@ -3,18 +3,20 @@
     <div class="container content">
         <h2>Профиль Пользователя</h2>
         <div>
-            <img src="/media/{{ user.avatar }}" alt="Аватарка">
-            <p>Логин: {% if user.username %} {{ user.username }} {% else %} {{ Нет }} {% endif %}</p>
-            <p>Имя: {{ user.first_name }}</p>
-            <p>Фамилия: {{ user.last_name }}</p>
-            <p>Email: {{ user.email }}</p>
-            <p>Телефон: {{ user.phone_number }}</p>
-            <p>О Себе: {{ user.bio }}</p>
-            <p>Город: {{ user.city }}</p>
-            <p>День рождения: {{ user.birth_date }}</p>
-            <p>Пол: {{ user.get_gender }}</p>
-            <p>Отношения: {{ user.get_rel }}</p>
-            <a href="{% url 'profile:edit' %}">Изменить</a>
+            <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка" class="user_avatar">
+{#            <p>Логин: {{ cur_user.username }}</p>#}
+            <p><b>Имя:</b> {{ cur_user.first_name }} {{ cur_user.last_name }}</p>
+            <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
+            <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
+            <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>
+            <p><b>Город:</b> {{ cur_user.city|default:"Не указано" }}</p>
+            <p><b>День рождения:</b> {{ cur_user.birth_date|default:"Не указано" }}</p>
+            <p><b>Пол:</b> {{ cur_user.get_gender|default:"Не указано" }}</p>
+            <p><b>Отношения:</b> {{ cur_user.get_rel|default:"Не указано" }}</p>
+
+            {% if cur_user.pk == user.pk %}
+                <a href="{% url 'profile:edit' %}">Изменить</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
