@@ -19,7 +19,6 @@ from django.urls import path, include
 
 
 from mainapp.views import main_page
-from profileapp.views import UserUpdateInfo
 from sn_LifeLine import settings
 
 urlpatterns = [
@@ -28,6 +27,7 @@ urlpatterns = [
     path('news/', include('newsapp.urls', namespace='news')),
     path('profile/', include('profileapp.urls', namespace='profile')),
     path('users/', include('authapp.urls', namespace='auth')),
+    path('friends/', include('friendsapp.urls', namespace='friends')),
 ]
 
 if settings.DEBUG:

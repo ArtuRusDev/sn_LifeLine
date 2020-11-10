@@ -12,3 +12,6 @@ class NewsItem(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+    def __str__(self):
+        return f'{self.user} - {self.text[:30]}'

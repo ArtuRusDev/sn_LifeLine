@@ -19,10 +19,9 @@ class UserUpdateInfoForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
-            field.label = ''
+            # field.label = ''
 
     def clean_avatar(self):
-
         avatar = self.cleaned_data['avatar']
 
         if not avatar:
@@ -31,19 +30,15 @@ class UserUpdateInfoForm(forms.ModelForm):
         try:
             w, h = get_image_dimensions(avatar)
 
-            # validate dimensions
-
             max_width = max_height = 1000
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     f'Пожалуйста, испльзуйте изображения {max_width} x {max_height} пикселов или меньше.')
 
-            # validate content type
             main, sub = avatar.content_type.split('/')
             if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
                 raise forms.ValidationError('Пожалуйста, используйте JPEG, GIF или PNG изображения.')
 
-            # validate file size
             if len(avatar) > (200 * 1024):
                 raise forms.ValidationError('Размер файла не может превышать 200 кб.')
 

@@ -55,7 +55,6 @@ class Person(AbstractUser):
     # MARRIED = 'MRD'
     # IN_LOVE = 'ILV'
     # COMPLICATED = 'CMP'
-
     # STATUS_CHOICES = (
     #     (NONE, "Не определенно"),
     #     (SINGLE, "Холост"),

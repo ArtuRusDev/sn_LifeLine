@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView, DetailView
 from authapp.models import Person
@@ -31,4 +31,3 @@ class UserProfile(DetailView):
         print(self.kwargs['pk'])
 
         return data
-

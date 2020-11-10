@@ -17,6 +17,10 @@
             {% if cur_user.pk == user.pk %}
                 <a href="{% url 'profile:edit' %}">Изменить</a>
             {% endif %}
+
+            {% if cur_user.pk != user.pk %}
+                <a href="{% url 'friends:add' cur_user.pk %}">Добавить в друзья</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
