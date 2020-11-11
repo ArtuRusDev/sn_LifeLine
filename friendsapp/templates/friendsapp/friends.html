@@ -8,7 +8,7 @@
             {% for friend in user.get_friends %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
-                        <a href="#" class="btn btn-danger">Удалить из друзей</a>
+                        <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">Удалить из друзей</a>
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">
