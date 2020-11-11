@@ -12,4 +12,7 @@ def send_friend_request(request, pk):
 
 class FriendsList(ListView):
     model = FriendRequests
-    # template_name =
+    template_name = 'friendsapp/friends.html'
+
+    def get_queryset(self):
+        return FriendRequests.objects.filter(status=1)

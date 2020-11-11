@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}Life Life | Друзья{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="news_block">
+            <h2 class="text-center">Вкладка "Друзья"</h2>
+            {% for friend in object_list %}
+{#                <div class="news_item">#}
+{#                    <div class="news_item_title">#}
+{#                        <div class="news_item_title-username">#}
+{#                            <a href="{% url 'profile:detail' news_item.user.pk %}">#}
+{#                                {% if news_item.user.first_name %}#}
+{#                                    {{ news_item.user.first_name }} {{ news_item.user.last_name }}#}
+{#                                {% else %}#}
+{#                                    {{ news_item.user.username }}#}
+{#                                {% endif %}#}
+{#                            </a>#}
+{#                        </div>#}
+{#                        <div class="news_item_title_post-date">#}
+{#                            {{ news_item.add_datetime }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="news_item_text">#}
+{#                        {{ news_item.text|safe }}#}
+{#                    </div>#}
+{#                </div>#}
+                {{ friend }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
