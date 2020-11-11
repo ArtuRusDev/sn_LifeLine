@@ -1,10 +1,8 @@
-import os
-from functools import partial
-from uuid import uuid4
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+
+from friendsapp.models import FriendRequests
 
 GENDER_CHOICES = [
     ['male', "Мужской"],
@@ -81,6 +79,23 @@ class Person(AbstractUser):
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
     gender = models.CharField(max_length=10, verbose_name="Пол", choices=GENDER_CHOICES, default="male")
     relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES, default=0)
+
+    @property
+    def get_friends(self):
+        user = Person.objects.get(pk=self.pk)
+        # Все подтвержденные запросы в друзья пользовалю и от него
+        all_requests = FriendRequests.objects.filter(status=1, initiator=user) | \
+                       FriendRequests.objects.filter(status=1, target=user)
+
+        # Получение pk всех друзей пользователя
+        friends_pk = []
+        for item in all_requests:
+            if item.target == user:
+                friends_pk.append(item.initiator.pk)
+            else:
+                friends_pk.append(item.target.pk)
+
+        return Person.objects.filter(pk__in=friends_pk)
 
     @property
     def get_gender(self):

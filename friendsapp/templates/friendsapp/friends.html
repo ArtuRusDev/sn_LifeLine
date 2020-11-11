@@ -5,7 +5,8 @@
     <div class="container content">
         <div class="news_block">
             <h2 class="text-center">Вкладка "Друзья"</h2>
-            {% for friend in object_list %}
+            {{ user.get_friends }}
+            {% for friend in user.get_friends %}
 {#                <div class="news_item">#}
 {#                    <div class="news_item_title">#}
 {#                        <div class="news_item_title-username">#}
