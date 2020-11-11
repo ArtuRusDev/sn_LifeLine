@@ -5,10 +5,33 @@
     <div class="container content">
         <div class="news_block">
             <h2 class="text-center">Вкладка "Друзья"</h2>
+
+            <h4>Ваши Друзья:</h4>
             {% for friend in user.get_friends %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
                         <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">Удалить из друзей</a>
+                    </div>
+                    <div class="friend_item_title">
+                        <div class="friend_item_title-username">
+                            <a href="{% url 'profile:detail' friend.pk %}">
+                                {% if friend.first_name %}
+                                    {{ friend.first_name }} {{ friend.last_name }}
+                                {% else %}
+                                    {{ friend.username }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <h4>Запросы в друзья:</h4>
+            {% for friend in user.get_friend_requests %}
+                <div class="friend_item">
+                    <div class="friend_item_unfriend">
+                        <a href="{% url 'friends:deny' friend.pk %}" class="btn btn-dark ml-1">Отклонить</a>
+                        <a href="{% url 'friends:confirm' friend.pk %}" class="btn btn-success">Добавить</a>
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">

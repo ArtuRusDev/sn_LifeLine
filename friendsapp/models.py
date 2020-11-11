@@ -11,6 +11,13 @@ class FriendRequests(models.Model):
         (3, "Отменено"),
     )
 
+    STATUS_DICT = {
+        0: "Запрошено",
+        1: "Одобрено",
+        2: "Не друзья",
+        3: "Отменено"
+    }
+
     initiator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Инициатор')
     target = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='friend_target',
                                verbose_name='Получатель')
@@ -30,4 +37,4 @@ class FriendRequests(models.Model):
         verbose_name_plural = 'Запросы в друзья'
 
     def __str__(self):
-        return f'({self.status}){self.initiator.username} - {self.target.username}'
+        return f'({self.STATUS_DICT[self.status]}) {self.initiator.username} - {self.target.username}'

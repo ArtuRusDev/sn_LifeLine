@@ -98,6 +98,21 @@ class Person(AbstractUser):
         return Person.objects.filter(pk__in=friends_pk)
 
     @property
+    def get_friend_requests(self):
+        user = Person.objects.get(pk=self.pk)
+        # Все запросы в друзья пользовалю
+        all_requests = FriendRequests.objects.filter(status=0, target=user)
+
+        # Получение pk всех друзей пользователя
+        friends_pk = []
+        for item in all_requests:
+            if item.target == user:
+                friends_pk.append(item.initiator.pk)
+            else:
+                friends_pk.append(item.target.pk)
+
+        return Person.objects.filter(pk__in=friends_pk)
+    @property
     def get_gender(self):
         return GENDER_DICT.get(self.gender)
 
