@@ -5,28 +5,23 @@
     <div class="container content">
         <div class="news_block">
             <h2 class="text-center">Вкладка "Друзья"</h2>
-            {{ user.get_friends }}
             {% for friend in user.get_friends %}
-{#                <div class="news_item">#}
-{#                    <div class="news_item_title">#}
-{#                        <div class="news_item_title-username">#}
-{#                            <a href="{% url 'profile:detail' news_item.user.pk %}">#}
-{#                                {% if news_item.user.first_name %}#}
-{#                                    {{ news_item.user.first_name }} {{ news_item.user.last_name }}#}
-{#                                {% else %}#}
-{#                                    {{ news_item.user.username }}#}
-{#                                {% endif %}#}
-{#                            </a>#}
-{#                        </div>#}
-{#                        <div class="news_item_title_post-date">#}
-{#                            {{ news_item.add_datetime }}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="news_item_text">#}
-{#                        {{ news_item.text|safe }}#}
-{#                    </div>#}
-{#                </div>#}
-                {{ friend }}
+                <div class="friend_item">
+                    <div class="friend_item_unfriend">
+                        <a href="#" class="btn btn-danger">Удалить из друзей</a>
+                    </div>
+                    <div class="friend_item_title">
+                        <div class="friend_item_title-username">
+                            <a href="{% url 'profile:detail' friend.pk %}">
+                                {% if friend.first_name %}
+                                    {{ friend.first_name }} {{ friend.last_name }}
+                                {% else %}
+                                    {{ friend.username }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
