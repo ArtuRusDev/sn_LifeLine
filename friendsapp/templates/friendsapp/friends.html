@@ -7,6 +7,9 @@
             <h2 class="text-center">Вкладка "Друзья"</h2>
 
             <h4>Ваши Друзья:</h4>
+            {% if not user.get_friends %}
+                Вы еще не добавили своих друзей
+            {% endif %}
             {% for friend in user.get_friends %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
@@ -27,6 +30,9 @@
             {% endfor %}
 
             <h4>Запросы в друзья:</h4>
+            {% if not user.get_friend_requests %}
+                Вы пока не получили запросов в друзья
+            {% endif %}
             {% for friend in user.get_friend_requests %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">

@@ -110,8 +110,10 @@ class Person(AbstractUser):
                 friends_pk.append(item.initiator.pk)
             else:
                 friends_pk.append(item.target.pk)
+        result = Person.objects.filter(pk__in=friends_pk)
+        print(result == True)
+        return result
 
-        return Person.objects.filter(pk__in=friends_pk)
     @property
     def get_gender(self):
         return GENDER_DICT.get(self.gender)
