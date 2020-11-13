@@ -13,11 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-
+import messengerapp.views as messengerapp
 from mainapp.views import main_page
 from sn_LifeLine import settings
 
@@ -28,6 +29,8 @@ urlpatterns = [
     path('profile/', include('profileapp.urls', namespace='profile')),
     path('users/', include('authapp.urls', namespace='auth')),
     path('friends/', include('friendsapp.urls', namespace='friends')),
+    path('dialogs/', include('messengerapp.urls', namespace='messenger')),
+
 ]
 
 if settings.DEBUG:

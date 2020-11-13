@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'profileapp',
     'newsapp',
     'friendsapp',
+    'messengerapp',
 ]
 
 MIDDLEWARE = [

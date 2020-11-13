@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}Life Life | Сообщения{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="news_block">
+            <h2 class="text-center">Вкладка "Чаты"</h2>
+
+            <h4>Ваши Чаты:</h4>
+            {% for chat in chats %}
+                <div class="friend_item">
+                    <div class="friend_item_unfriend">
+                        <a href="#" class="btn btn-success">Открыть Чат</a>
+                    </div>
+                    <div class="friend_item_title">
+                        <div class="friend_item_title-username">
+                            <a href="{% url 'messenger:messages' chat.pk %}">
+                                {{ chat.members.all }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

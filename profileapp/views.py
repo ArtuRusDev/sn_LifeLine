@@ -28,6 +28,5 @@ class UserProfile(DetailView):
 
         user = get_object_or_404(Person, pk=self.kwargs['pk'])
         data['cur_user'] = user
-        print(self.kwargs['pk'])
 
         return data
