@@ -33,7 +33,7 @@ class MessagesView(View):
             'messengerapp/messages.html',
             {
                 'chat': chat,
-                'form': MessageForm()
+                'form': MessageForm(),
             }
         )
 

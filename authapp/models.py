@@ -98,6 +98,12 @@ class Person(AbstractUser):
         return Person.objects.filter(pk__in=friends_pk)
 
     @property
+    def get_name(self):
+        if self.first_name:
+            return f'{self.first_name} {self.last_name}'
+        return self.username
+
+    @property
     def get_friend_requests(self):
         user = Person.objects.get(pk=self.pk)
         # Все запросы в друзья пользовалю

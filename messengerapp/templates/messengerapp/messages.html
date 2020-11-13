@@ -4,13 +4,24 @@
 {% block content %}
     <div class="container content">
         <div class="chat_block_wrapper">
+            <div class="dialog_title_wrapper flex-column">
+                <a href="{% url 'messenger:dialogs' %}" class="back_to_dialogs">Вернуться к диалогам</a>
+                <div class="dialog_name">
+                    {% if chat.type == 'D' %}
+                        {% for member in chat.members.all %}
+                            {% if member.pk != user.pk %}
+                                Диалог с пользователелем <a href="{% url 'profile:detail' member.pk%}">{{ member.get_name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Беседа {{ chat.title }}
+                    {% endif %}
+                </div>
+            </div>
             <div class="chat_block" id="chat_block">
                 {% if not chat %}
                     Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
                 {% else %}
-                    <div class="user_chat_info">
-
-                    </div>
                     {% if chat.message_set.all.count == 0 %}
                         Напишите сообщение первым!
                     {% endif %}

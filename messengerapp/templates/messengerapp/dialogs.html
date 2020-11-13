@@ -5,18 +5,23 @@
     <div class="container content">
         <div class="news_block">
             <h2 class="text-center">Вкладка "Чаты"</h2>
-
             <h4>Ваши Чаты:</h4>
             {% for chat in chats %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
-                        <a href="#" class="btn btn-success">Открыть Чат</a>
+                        <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success">Открыть Чат</a>
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">
-                            <a href="{% url 'messenger:messages' chat.pk %}">
-                                {{ chat.members.all }}
-                            </a>
+                            {% if chat.type == 'D' %}
+                                {% for member in chat.members.all %}
+                                    {% if member.pk != user.pk %}
+                                        {{ member.get_name }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {{ chat.title }} <small>(беседа)</small>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

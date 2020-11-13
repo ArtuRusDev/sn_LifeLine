@@ -11,7 +11,7 @@ body {
     border-radius: 0 0 4px 4px;
     /*background: white;*/
     /*min-height: 500px;*/
-    padding: 20px;
+    padding: 10px;
 }
 
 .news_block {
@@ -76,9 +76,14 @@ body {
 
 .chat_block {
     min-height: 300px;
-    height: 85vh;
+    height: 80vh;
     overflow: auto;
     padding: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+
 }
 
 .chat_form_wrapper {
@@ -122,4 +127,20 @@ body {
     width: 20%;
     right: 0;
     top: 0;
+}
+
+.dialog_title_wrapper {
+    position: relative;
+    height: 40px;
+    background-color: #fff;
+    line-height: 40px;
+    -webkit-box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);
+    box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);
+}
+
+.back_to_dialogs {
+    float: left;
+    margin-left: 20px;
+    margin-right: 40px;
 }
