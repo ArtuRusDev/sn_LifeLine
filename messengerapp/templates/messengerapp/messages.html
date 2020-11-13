@@ -3,32 +3,33 @@
 {% block title %}Life Life | Сообщения{% endblock %}
 {% block content %}
     <div class="container content">
-        <div class="news_block">
-            {% if not chat %}
-                <div class="panel panel-body">
+        <div class="chat_block_wrapper">
+            <div class="chat_block" id="chat_block">
+                {% if not chat %}
                     Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
-                </div>
-            {% else %}
-                {% if chat %}
-                    <div id="messages" class="panel">
-                        <div id="innerMessages">
-                            {% for message in chat.message_set.all %}
-                                {% include 'messengerapp/includes/message.html' with message_item=message %}
-                            {% endfor %}
-                        </div>
+                {% else %}
+                    <div class="user_chat_info">
+
+                    </div>
+                    {% if chat.message_set.all.count == 0 %}
+                        Напишите сообщение первым!
+                    {% endif %}
+                    {% for message in chat.message_set.all %}
+                        {% include 'messengerapp/includes/message_dialog.html' with message_item=message %}
+                    {% endfor %}
+                    <div class="chat_form_wrapper">
+                        <form method="post" class="form-inline">
+                            {% csrf_token %}
+                            <input name="message" class="form-control" placeholder="Ваше сообщение..." autofocus>
+                            <button type="submit" class="btn btn-primary mb-2">Отправить</button>
+                        </form>
                     </div>
                 {% endif %}
-                <div id="message_form">
-                    <form id="message-form" method="post">
-                        {% csrf_token %}
-                        <textarea name="message" cols="30" rows="2" class="input-group-text"></textarea>
-                        <button type="submit" class="btn btn-default btn-sm" onclick="return ETextEditor.validateForm('message-form')">
-                            <span class="ico ico-comment"></span>
-                            Отправить
-                        </button>
-                    </form>
-                </div>
-            {% endif %}
+            </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var block = document.getElementById("chat_block");
+        block.scrollTop = 9999;
+    </script>
 {% endblock %}

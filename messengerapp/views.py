@@ -12,8 +12,8 @@ class DialogsView(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(DialogsView, self).get_context_data()
-        # data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
-        data['chats'] = Chat.objects.all()
+        data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
+        # data['chats'] = Chat.objects.all()
         return data
 
 
