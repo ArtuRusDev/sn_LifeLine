@@ -79,10 +79,11 @@ body {
     height: 80vh;
     overflow: auto;
     padding: 0 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
+    /*background-color: #000;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: flex-end;*/
+    /*flex-wrap: nowrap;*/
 
 }
 
@@ -96,12 +97,22 @@ body {
     text-align: right;
 }
 
+/*.current_user .message_item {*/
+/*    background-image: url('../img/message_item_out.jpg');*/
+/*    background-size: 100% 100%;*/
+/*    background-repeat: no-repeat;*/
+/*    !*background-position-x: right;*!*/
+/*    word-wrap: break-word;*/
+/*}*/
+
 .message_item {
     padding: 1px 20px;
-    background-color: #fff;
     display: inline-block;
     border-radius: 10px;
     margin: 5px 0;
+    max-width: 55%;
+    background-color: #fff;
+    word-wrap: break-word;
 }
 
 .message_item p {

@@ -10,7 +10,8 @@
                     {% if chat.type == 'D' %}
                         {% for member in chat.members.all %}
                             {% if member.pk != user.pk %}
-                                Диалог с пользователелем <a href="{% url 'profile:detail' member.pk%}">{{ member.get_name }}</a>
+                                Диалог с пользователелем
+                                <a href="{% url 'profile:detail' member.pk %}">{{ member.get_name }}</a>
                             {% endif %}
                         {% endfor %}
                     {% else %}
@@ -19,23 +20,17 @@
                 </div>
             </div>
             <div class="chat_block" id="chat_block">
-                {% if not chat %}
-                    Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
-                {% else %}
-                    {% if chat.message_set.all.count == 0 %}
-                        Напишите сообщение первым!
-                    {% endif %}
-                    {% for message in chat.message_set.all %}
-                        {% include 'messengerapp/includes/message_dialog.html' with message_item=message %}
-                    {% endfor %}
-                    <div class="chat_form_wrapper">
-                        <form method="post" class="form-inline">
-                            {% csrf_token %}
-                            <input name="message" class="form-control" placeholder="Ваше сообщение..." autofocus>
-                            <button type="submit" class="btn btn-primary mb-2">Отправить</button>
-                        </form>
-                    </div>
-                {% endif %}
+                <div class="messages_block">
+                    {% include 'messengerapp/includes/message_dialog.html'%}
+                </div>
+                <div class="chat_form_wrapper">
+                    <form method="post" class="form-inline">
+                        {% csrf_token %}
+                        <input name="message" class="form-control" placeholder="Ваше сообщение..." autofocus>
+                        <input name="chat_pk" value="{{ chat.pk }}" type="hidden">
+                        <button type="submit" class="btn btn-primary mb-2">Отправить</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

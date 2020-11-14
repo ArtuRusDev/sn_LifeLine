@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 
 from messengerapp.forms import MessageForm
@@ -13,7 +15,6 @@ class DialogsView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(DialogsView, self).get_context_data()
         data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
-        # data['chats'] = Chat.objects.all()
         return data
 
 
@@ -45,3 +46,24 @@ class MessagesView(View):
             message.author = request.user
             message.save()
         return redirect(reverse('messenger:messages', kwargs={'chat_id': chat_id}))
+
+
+def get_messages(request, chat_id):
+    if request.is_ajax():
+        try:
+            chat = Chat.objects.get(id=chat_id)
+            if request.user in chat.members.all():
+                chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
+            else:
+                chat = None
+        except Chat.DoesNotExist:
+            chat = None
+
+        context = {
+            'chat': chat,
+            'user': request.user,
+        }
+
+        result = render_to_string('messengerapp/includes/message_dialog.html', context)
+
+        return JsonResponse({'result': result})

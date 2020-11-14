@@ -1,8 +1,18 @@
 {% load tz %}
-{% url 'users:profile' message_item.author.username as the_user_url %}
-<div class="message_item_wrapper {% if message_item.author.pk == user.pk %}current_user{% endif %}">
-    <div class="message_item{% if not message_item.is_read %} unread {% endif %}">
-        <small>{{ message_item.pub_date|time:"H:i" }}</small>
-        <p>{{ message_item.message|safe }}</p>
-    </div>
-</div>
+
+{% if not chat %}
+    Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
+{% else %}
+    {% if chat.message_set.all.count == 0 %}
+        Напишите сообщение первым!
+    {% endif %}
+    {% for message in chat.message_set.all %}
+        {% url 'users:profile' message.author.username as the_user_url %}
+        <div class="message_item_wrapper {% if message.author.pk == user.pk %}current_user{% endif %}">
+            <div class="message_item{% if not message.is_read %} unread {% endif %}">
+                <small>{{ message.pub_date|time:"H:i" }}</small>
+                <p>{{ message.message|safe }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
