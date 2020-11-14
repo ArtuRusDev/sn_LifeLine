@@ -1,13 +1,13 @@
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, UpdateView, DetailView
 from authapp.models import Person
 from newsapp.models import NewsItem
 from profileapp.forms import UserUpdateInfoForm
 
 
-class ProfileView(TemplateView):
-    template_name = "profileapp/profile.html"
+def profile_base_view(request):
+    return redirect(reverse('profile:detail', kwargs={'pk': request.user.pk}))
 
 
 class UserUpdateInfo(UpdateView):

@@ -1,0 +1,16 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life Life | Новости{% endblock %}
+{% block content %}
+    <div class="container content text-center">
+    <h5>Вы уверены что хотите удалить эту новость?</h5>
+        <form action="{% url 'news:delete' object.pk %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="удалить">
+            <a href="{% url 'profile:detail' user.pk %}" class="btn btn-success">
+                Отмена
+            </a>
+        </form>
+
+    </div>
+{% endblock %}

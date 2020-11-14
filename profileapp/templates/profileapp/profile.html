@@ -2,7 +2,8 @@
 {% block content %}
     <div class="container content">
         <div class="uer_info">
-            <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка" class="user_avatar">
+            <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
+                 class="user_avatar">
             <h3>{{ cur_user.get_name }}</h3>
             <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
             <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
@@ -41,6 +42,9 @@
                     <div class="news_item_text">
                         {{ news_item.text|safe }}
                     </div>
+                    <p class="text-right">
+                        <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
+                    </p>
                 </div>
             {% endfor %}
         </div>
