@@ -1,10 +1,9 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
     <div class="container content">
-        <h2>Профиль Пользователя</h2>
-        <div>
+        <div class="uer_info">
             <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка" class="user_avatar">
-            <p><b>Имя:</b> {{ cur_user.get_name }}</p>
+            <h3>{{ cur_user.get_name }}</h3>
             <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
             <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
             <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>
@@ -20,6 +19,30 @@
             {% if cur_user.pk != user.pk %}
                 <a href="{% url 'friends:add' cur_user.pk %}">Добавить в друзья</a>
             {% endif %}
+        </div>
+        <div class="news_block">
+            <h4 class="text-center">Новости пользователя:</h4>
+            {% for news_item in news %}
+                <div class="news_item">
+                    <div class="news_item_title">
+                        <div class="news_item_title-username">
+                            <a href="{% url 'profile:detail' news_item.user.pk %}">
+                                {% if news_item.user.first_name %}
+                                    {{ news_item.user.first_name }} {{ news_item.user.last_name }}
+                                {% else %}
+                                    {{ news_item.user.username }}
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="news_item_title_post-date">
+                            {{ news_item.add_datetime }}
+                        </div>
+                    </div>
+                    <div class="news_item_text">
+                        {{ news_item.text|safe }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

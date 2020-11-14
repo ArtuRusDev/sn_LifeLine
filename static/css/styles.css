@@ -115,6 +115,11 @@ body {
     word-wrap: break-word;
 }
 
+.uer_info {
+    width: 27%;
+    float: left;
+}
+
 .message_item p {
     font-size: 20px;
     margin-top: -5px;
