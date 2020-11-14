@@ -8,5 +8,6 @@ urlpatterns = [
     path('', messengerapp.DialogsView.as_view(), name='dialogs'),
     path('<chat_id>/', messengerapp.MessagesView.as_view(), name='messages'),
     path('get_messages/<chat_id>/', messengerapp.get_messages, name='get_messages'),
+    path('create_dialog/<friend_id>/', messengerapp.create_dialog, name='create_dialog'),
     # url(r'^dialogs/create/(?P<user_id>\d+)/$', messengerapp.CreateDialogView.as_view(), name='create_dialog'),
 ]

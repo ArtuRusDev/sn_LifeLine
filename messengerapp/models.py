@@ -25,6 +25,9 @@ class Chat(models.Model):
         verbose_name = 'Чаты'
         verbose_name_plural = 'Чаты'
 
+    def __str__(self):
+        return f'{self.type} - {self.members.all()}'
+
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, verbose_name="Чат", on_delete=models.CASCADE)
