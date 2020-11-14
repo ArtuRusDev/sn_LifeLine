@@ -28,7 +28,7 @@ class UserProfile(DetailView):
         data = super(UserProfile, self).get_context_data(**kwargs)
 
         user = get_object_or_404(Person, pk=self.kwargs['pk'])
-        news = NewsItem.objects.filter(user__pk=self.request.user.pk).order_by('-add_datetime')
+        news = NewsItem.objects.filter(user__pk=user.pk).order_by('-add_datetime')
         data['cur_user'] = user
         data['news'] = news
 
