@@ -1,8 +1,7 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.db.models import Q
 from authapp.models import Person
 from messengerapp.forms import MessageForm
 from messengerapp.models import Chat
@@ -50,11 +49,8 @@ class MessagesView(View):
 
 
 def create_dialog(request, friend_id):
-    # other_users = Person.objects.exclude(pk_in=[request.user.pk, friend_id])
-    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & Chat.objects.filter(members__id__icontains=request.user.pk, type='D')
-    # duplicate_2 =
-    print(duplicate)
-    # print(duplicate_2)
+    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & Chat.objects.filter(
+        members__id__icontains=request.user.pk, type='D')
     if duplicate.exists():
         return redirect(reverse('messenger:messages', kwargs={'chat_id': duplicate[0].pk}))
 
@@ -62,6 +58,12 @@ def create_dialog(request, friend_id):
     members = Person.objects.filter(pk__in=[friend_id, request.user.pk])
     chat.members.add(*members)
     return redirect(reverse('messenger:messages', kwargs={'chat_id': chat.pk}))
+
+
+def delete_dialog(request, chat_id):
+    chat = get_object_or_404(Chat, pk=chat_id)
+    chat.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def get_messages(request, chat_id):

@@ -4,8 +4,7 @@
         <h2>Профиль Пользователя</h2>
         <div>
             <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка" class="user_avatar">
-{#            <p>Логин: {{ cur_user.username }}</p>#}
-            <p><b>Имя:</b> {{ cur_user.first_name }} {{ cur_user.last_name }}</p>
+            <p><b>Имя:</b> {{ cur_user.get_name }}</p>
             <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
             <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
             <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>

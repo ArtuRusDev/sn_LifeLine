@@ -6,10 +6,14 @@
         <div class="news_block">
             <h2 class="text-center">Вкладка "Чаты"</h2>
             <h4>Ваши Чаты:</h4>
+            {% if chats.count == 0 %}
+                У вас еще нет созданных чатов
+            {% endif %}
             {% for chat in chats %}
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
-                        <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success">Открыть Чат</a>
+                        <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger">Удалить</a>
+                        <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success mr-1">Открыть чат</a>
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">

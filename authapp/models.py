@@ -117,7 +117,6 @@ class Person(AbstractUser):
             else:
                 friends_pk.append(item.target.pk)
         result = Person.objects.filter(pk__in=friends_pk)
-        print(result == True)
         return result
 
     @property
