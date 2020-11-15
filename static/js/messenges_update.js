@@ -1,4 +1,4 @@
-function update_messages () {
+function update_messages() {
     let chat_pk = $('input[name="chat_pk"]').val();
 
     $.ajax({

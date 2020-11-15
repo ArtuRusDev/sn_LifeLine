@@ -1,0 +1,26 @@
+{% for chat in chats %}
+    <div class="friend_item">
+        <div class="friend_item_unfriend">
+            <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success mr-1">Открыть чат</a>
+        </div>
+        <div class="friend_item_title">
+            <div class="friend_item_title-username">
+                {% if chat in unread_chats %}
+                    <span class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                {% else %}
+                    <span class="text-success"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                {% endif %}
+                {% if chat.type == 'D' %}
+                    {% for member in chat.members.all %}
+                        {% if member.pk != user.pk %}
+                            {{ member.get_name|default:'Пользователь удален' }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {{ chat.title }} <small>(беседа)</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
     <div class="container">
         <a class="navbar-brand" href="{% url 'main' %}">Life on Line</a>
-        {#    <img class="" src="/static/img/logo.png" alt="logo" style="max-height: 40px;">#}
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'news:main' %}">Новости</a>
@@ -9,9 +8,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'messenger:dialogs' %}">
                     Сообщения
+                    <span class="new_messages_counter text-danger">
                     {% if unread_chats.count > 0 %}
-                        <span class="text-danger">({{ unread_chats.count }})</span>
+                        ({{ unread_chats.count }})
                     {% endif %}
+                </span>
                 </a>
             </li>
             <li class="nav-item">
@@ -36,5 +37,4 @@
             {% endif %}
         </form>
     </div>
-
 </nav>

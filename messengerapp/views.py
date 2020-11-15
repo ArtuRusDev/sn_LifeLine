@@ -93,3 +93,25 @@ def get_messages(request, chat_id):
         result = render_to_string('messengerapp/includes/message_dialog.html', context)
 
         return JsonResponse({'result': result})
+
+
+def get_new_mes_count(request):
+    user = request.user
+    new_mess_count = user.chat_set.unreaded(user=user).count()
+    if new_mess_count == 0:
+        return JsonResponse({'result': False})
+
+    return JsonResponse({'result': f'({new_mess_count})'})
+
+
+def update_chats_list(request):
+    if request.is_ajax():
+        context = {
+            'user': request.user,
+            'chats': Chat.objects.filter(members__in=[request.user.id]),
+            'unread_chats': request.user.chat_set.unreaded(user=request.user)
+        }
+
+        result = render_to_string('messengerapp/includes/chats_list.html', context)
+
+        return JsonResponse({'result': result})
