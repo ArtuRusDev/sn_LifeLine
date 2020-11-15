@@ -5,7 +5,7 @@ function update_messages () {
         url: "/dialogs/get_messages/" + chat_pk + "/",
 
         success: function (data) {
-            // console.log(data.);
+
             if (data.result) {
                 $('.messages_block').html(data.result);
 

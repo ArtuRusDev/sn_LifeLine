@@ -14,8 +14,6 @@ class DialogsView(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(DialogsView, self).get_context_data()
-        user = self.request.user
-
         data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
 
         return data
@@ -52,8 +50,8 @@ class MessagesView(View):
 
 
 def create_dialog(request, friend_id):
-    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & Chat.objects.filter(
-        members__id__icontains=request.user.pk, type='D')
+    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & \
+                Chat.objects.filter(members__id__icontains=request.user.pk, type='D')
     if duplicate.exists():
         return redirect(reverse('messenger:messages', kwargs={'chat_id': duplicate[0].pk}))
 

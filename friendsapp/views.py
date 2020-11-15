@@ -75,8 +75,6 @@ class FriendsList(ListView):
         for friend in self.request.user.get_friend_requests:
             friends_requests_pk.append(friend.pk)
 
-        print(self.request.user.get_friends)
-
         data['all_users'] = Person.objects.exclude(pk=self.request.user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
         data['send_requests_pk'] = self.request.user.get_send_friend_requests_pk
 

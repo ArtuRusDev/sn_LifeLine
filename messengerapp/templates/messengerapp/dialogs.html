@@ -18,7 +18,9 @@
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">
                             {% if chat in unread_chats %}
-                                <span class="text-danger">*</span>
+                                <span class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            {% else %}
+                                <span class="text-success"><i class="fa fa-envelope" aria-hidden="true"></i></span>
                             {% endif %}
                             {% if chat.type == 'D' %}
                                 {% for member in chat.members.all %}
