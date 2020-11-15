@@ -9,7 +9,7 @@
                 <div class="news_item">
                     <div class="news_item_title">
                         <div class="news_item_title-username">
-                            <a href="{% url 'profile:info' news_item.user.pk %}">
+                            <a href="{% url 'profile:detail' news_item.user.pk %}">
                                 {% if news_item.user.first_name %}
                                     {{ news_item.user.first_name }} {{ news_item.user.last_name }}
                                 {% else %}
