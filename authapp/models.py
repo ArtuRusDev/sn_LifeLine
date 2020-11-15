@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
 from friendsapp.models import FriendRequests
 
 GENDER_CHOICES = [
@@ -13,26 +12,6 @@ GENDER_DICT = {
     'male': "Мужской",
     'female': "Женский"
 }
-
-# REL_CHOICES = [
-#     ['none', "Не определенно"],
-#     ['single', "Холост"],
-#     ['in_a_rel', "В отношениях"],
-#     ['engaged', "Помолвлен(а)"],
-#     ['married', "Женат/Замужем"],
-#     ['in_love', "Влюблен(а)"],
-#     ['complicated', "Все сложно"],
-# ]
-#
-# REL_DICT = {
-#     'none': "Не определенно",
-#     'single': "Холост",
-#     'in_a_rel': "В отношениях",
-#     'engaged': "Помолвлен(а)",
-#     'married': "Женат/Замужем",
-#     'in_love': "Влюблен(а)",
-#     'complicated': "Все сложно",
-# }
 
 REL_DICT = {
     0: "Не определенно",
@@ -46,23 +25,6 @@ REL_DICT = {
 
 
 class Person(AbstractUser):
-    # NONE = 'NO'
-    # SINGLE = 'SNG'
-    # IN_REL = 'REL'
-    # ENGAGED = 'ENG'
-    # MARRIED = 'MRD'
-    # IN_LOVE = 'ILV'
-    # COMPLICATED = 'CMP'
-    # STATUS_CHOICES = (
-    #     (NONE, "Не определенно"),
-    #     (SINGLE, "Холост"),
-    #     (IN_REL, "В отношениях"),
-    #     (ENGAGED, "Помолвлен(а)"),
-    #     (MARRIED, "Женат/Замужем"),
-    #     (IN_LOVE, "Влюблен(а)"),
-    #     (COMPLICATED, "Все сложно"),
-    # )
-
     STATUS_CHOICES = (
         (0, "Не определенно"),
         (1, "Холост"),
@@ -98,12 +60,6 @@ class Person(AbstractUser):
         return Person.objects.filter(pk__in=friends_pk)
 
     @property
-    def get_name(self):
-        if self.first_name:
-            return f'{self.first_name} {self.last_name}'
-        return self.username
-
-    @property
     def get_friend_requests(self):
         user = Person.objects.get(pk=self.pk)
         # Все запросы в друзья пользовалю
@@ -118,6 +74,29 @@ class Person(AbstractUser):
                 friends_pk.append(item.target.pk)
         result = Person.objects.filter(pk__in=friends_pk)
         return result
+
+    @property
+    def get_send_friend_requests(self):
+        user = Person.objects.get(pk=self.pk)
+
+        # Все запросы в друзья пользовалю
+        all_requests = FriendRequests.objects.filter(status=0, initiator=user)
+
+        # Получение pk всех друзей пользователя
+        friends_pk = []
+        for item in all_requests:
+            if item.target == user:
+                friends_pk.append(item.initiator.pk)
+            else:
+                friends_pk.append(item.target.pk)
+
+        return friends_pk
+
+    @property
+    def get_name(self):
+        if self.first_name:
+            return f'{self.first_name} {self.last_name}'
+        return self.username
 
     @property
     def get_gender(self):

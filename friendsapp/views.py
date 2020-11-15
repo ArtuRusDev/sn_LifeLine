@@ -63,3 +63,21 @@ def deny_friend_request(request, pk):
 class FriendsList(ListView):
     model = FriendRequests
     template_name = 'friendsapp/friends.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super(FriendsList, self).get_context_data()
+
+        friends_pk = []
+        for friend in self.request.user.get_friends:
+            friends_pk.append(friend.pk)
+
+        friends_requests_pk = []
+        for friend in self.request.user.get_friend_requests:
+            friends_requests_pk.append(friend.pk)
+
+        print(self.request.user.get_friends)
+
+        data['all_users'] = Person.objects.exclude(pk=self.request.user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
+        data['send_requests_pk'] = self.request.user.get_send_friend_requests
+
+        return data

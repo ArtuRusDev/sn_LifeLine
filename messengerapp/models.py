@@ -17,10 +17,6 @@ class Chat(models.Model):
     members = models.ManyToManyField(Person, verbose_name="Участник", blank=False)
     title = models.CharField(max_length=50, blank=False, verbose_name='Название')
 
-    # @models.permalink
-    def get_absolute_url(self):
-        return 'users:messages', (), {'chat_id': self.pk}
-
     class Meta:
         verbose_name = 'Чаты'
         verbose_name_plural = 'Чаты'

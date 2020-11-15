@@ -14,7 +14,8 @@
                 <div class="friend_item">
                     <div class="friend_item_unfriend">
                         <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">Удалить</a>
-                        <a href="{% url 'messenger:create_dialog' friend.pk %}" class="btn btn-success mr-1">Написать</a>
+                        <a href="{% url 'messenger:create_dialog' friend.pk %}"
+                           class="btn btn-success mr-1">Написать</a>
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">
@@ -47,6 +48,33 @@
                                     {{ friend.first_name }} {{ friend.last_name }}
                                 {% else %}
                                     {{ friend.username }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <h4>Все пользователи</h4>
+            {% if all_users.count == 0 %}
+                Вы уже добавили в друзья всех пользователей сайта
+            {% endif %}
+            {% for user_item in all_users %}
+                <div class="friend_item">
+                    <div class="friend_item_unfriend">
+                        {% if not user_item.pk in send_requests_pk %}
+                            <a href="{% url 'friends:add' user_item.pk %}" class="btn btn-success">Добавить в друзья</a>
+                        {% else %}
+                            <a href="#" class="btn btn-secondary not_active">Запрос отпрвлен</a>
+                        {% endif %}
+
+                    </div>
+                    <div class="friend_item_title">
+                        <div class="friend_item_title-username">
+                            <a href="{% url 'profile:detail' user_item.pk %}">
+                                {% if user_item.first_name %}
+                                    {{ user_item.first_name }} {{ user_item.last_name }}
+                                {% else %}
+                                    {{ user_item.username }}
                                 {% endif %}
                             </a>
                         </div>
