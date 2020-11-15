@@ -6,7 +6,6 @@
         <div class="news_block">
             <h2 class="text-center">Вкладка "Чаты"</h2>
             <h4>Ваши Чаты:</h4>
-        <h1>{{ unreaded_dialogs_counter }}</h1>
             {% if chats.count == 0 %}
                 У вас еще нет созданных чатов
             {% endif %}
@@ -18,6 +17,9 @@
                     </div>
                     <div class="friend_item_title">
                         <div class="friend_item_title-username">
+                            {% if chat in unread_chats %}
+                                <span class="text-danger">*</span>
+                            {% endif %}
                             {% if chat.type == 'D' %}
                                 {% for member in chat.members.all %}
                                     {% if member.pk != user.pk %}

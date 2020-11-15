@@ -9,8 +9,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'messenger:dialogs' %}">
                     Сообщения
-                    {% if unread_dialogs > 0 %}
-                        <span class="text-danger">({{ unread_dialogs }})</span>
+                    {% if unread_chats.count > 0 %}
+                        <span class="text-danger">({{ unread_chats.count }})</span>
                     {% endif %}
                 </a>
             </li>
