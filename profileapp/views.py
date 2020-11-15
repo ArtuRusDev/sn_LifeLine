@@ -29,7 +29,10 @@ class UserProfile(DetailView):
 
         user = get_object_or_404(Person, pk=self.kwargs['pk'])
         news = NewsItem.objects.filter(user__pk=user.pk).order_by('-add_datetime')
+
+        is_friend = user.pk in self.request.user.get_friends_pk
         data['cur_user'] = user
         data['news'] = news
+        data['is_friend'] = is_friend
 
         return data

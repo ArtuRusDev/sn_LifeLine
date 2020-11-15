@@ -64,7 +64,7 @@
                         {% if not user_item.pk in send_requests_pk %}
                             <a href="{% url 'friends:add' user_item.pk %}" class="btn btn-success">Добавить в друзья</a>
                         {% else %}
-                            <a href="#" class="btn btn-secondary not_active">Запрос отпрвлен</a>
+                            <a href="#" class="btn btn-secondary not_active">Запрос отправлен</a>
                         {% endif %}
 
                     </div>

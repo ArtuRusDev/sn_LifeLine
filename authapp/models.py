@@ -44,12 +44,18 @@ class Person(AbstractUser):
 
     @property
     def get_friends(self):
+        """ Вернет Person QuerySet друзей пользователя """
+        user = Person.objects.get(pk=self.pk)
+        return Person.objects.filter(pk__in=user.get_friends_pk)
+
+    @property
+    def get_friends_pk(self):
+        """ Вернет list с id друзей пользователя """
         user = Person.objects.get(pk=self.pk)
         # Все подтвержденные запросы в друзья пользовалю и от него
         all_requests = FriendRequests.objects.filter(status=1, initiator=user) | \
                        FriendRequests.objects.filter(status=1, target=user)
 
-        # Получение pk всех друзей пользователя
         friends_pk = []
         for item in all_requests:
             if item.target == user:
@@ -57,15 +63,15 @@ class Person(AbstractUser):
             else:
                 friends_pk.append(item.target.pk)
 
-        return Person.objects.filter(pk__in=friends_pk)
+        return friends_pk
 
     @property
     def get_friend_requests(self):
+        """ Return Person QuerySet of unconfirmed friends request TO user """
+
         user = Person.objects.get(pk=self.pk)
-        # Все запросы в друзья пользовалю
         all_requests = FriendRequests.objects.filter(status=0, target=user)
 
-        # Получение pk всех друзей пользователя
         friends_pk = []
         for item in all_requests:
             if item.target == user:
@@ -76,13 +82,14 @@ class Person(AbstractUser):
         return result
 
     @property
-    def get_send_friend_requests(self):
+    def get_send_friend_requests_pk(self):
+        """ Return list with users which user send friends request  """
+
         user = Person.objects.get(pk=self.pk)
 
         # Все запросы в друзья пользовалю
         all_requests = FriendRequests.objects.filter(status=0, initiator=user)
 
-        # Получение pk всех друзей пользователя
         friends_pk = []
         for item in all_requests:
             if item.target == user:

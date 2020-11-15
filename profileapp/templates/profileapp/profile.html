@@ -14,12 +14,17 @@
             <p><b>Отношения:</b> {{ cur_user.get_rel|default:"Не указано" }}</p>
 
             {% if cur_user.pk == user.pk %}
-                <a href="{% url 'profile:edit' %}">Изменить</a>
+                <a href="{% url 'profile:edit' %}" class="btn btn-success">Изменить</a>
+            {% elif is_friend %}
+                <a href="{% url 'friends:remove' cur_user.pk %}" class="btn btn-danger">Удалить из друзей</a>
+            {% else %}
+                {% if cur_user.pk in user.get_send_friend_requests_pk %}
+                    <a href="#" class="btn btn-secondary not_active">Запрос отправлен</a>
+                {% else %}
+                    <a href="{% url 'friends:add' cur_user.pk %}" class="btn btn-success">Добавить в друзья</a>
+                {% endif %}
             {% endif %}
 
-            {% if cur_user.pk != user.pk %}
-                <a href="{% url 'friends:add' cur_user.pk %}">Добавить в друзья</a>
-            {% endif %}
         </div>
         <div class="news_block">
             <h4 class="text-center">Новости пользователя:</h4>
@@ -42,9 +47,11 @@
                     <div class="news_item_text">
                         {{ news_item.text|safe }}
                     </div>
-                    <p class="text-right">
-                        <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
-                    </p>
+                    {% if cur_user.pk == user.pk %}
+                        <p class="text-right">
+                            <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
+                        </p>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

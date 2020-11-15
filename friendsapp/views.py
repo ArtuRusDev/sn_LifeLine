@@ -78,6 +78,6 @@ class FriendsList(ListView):
         print(self.request.user.get_friends)
 
         data['all_users'] = Person.objects.exclude(pk=self.request.user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
-        data['send_requests_pk'] = self.request.user.get_send_friend_requests
+        data['send_requests_pk'] = self.request.user.get_send_friend_requests_pk
 
         return data
