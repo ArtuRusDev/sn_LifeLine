@@ -73,10 +73,17 @@ def get_messages(request, chat_id):
     if request.is_ajax():
         try:
             chat = Chat.objects.get(id=chat_id)
-            if request.user in chat.members.all():
-                chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
+
+            # Проверка, что сообщение не прочитано и автор не текущий пользователь
+            is_update = chat.last_message.author != request.user and not chat.last_message.is_read
+
+            if is_update:
+                if request.user in chat.members.all():
+                    chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
+                else:
+                    chat = None
             else:
-                chat = None
+                return JsonResponse({'result': False})
         except Chat.DoesNotExist:
             chat = None
 

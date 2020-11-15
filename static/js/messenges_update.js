@@ -5,7 +5,14 @@ function update_messages () {
         url: "/dialogs/get_messages/" + chat_pk + "/",
 
         success: function (data) {
-            $('.messages_block').html(data.result);
+            // console.log(data.);
+            if (data.result) {
+                $('.messages_block').html(data.result);
+
+                let block = document.getElementById("chat_block");
+                block.scrollTop = 9999;
+            }
+
             console.log('ajax done');
         },
 
@@ -13,9 +20,6 @@ function update_messages () {
             console.log('ajax FAILED!');
         }
     });
-
-    var block = document.getElementById("chat_block");
-    block.scrollTop = 9999;
 }
 
 setInterval(update_messages, 1000);
