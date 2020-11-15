@@ -14,7 +14,10 @@ class DialogsView(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(DialogsView, self).get_context_data()
+        user = self.request.user
+
         data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
+
         return data
 
 

@@ -7,7 +7,12 @@
                 <a class="nav-link" href="{% url 'news:main' %}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'messenger:dialogs' %}">Сообщения</a>
+                <a class="nav-link" href="{% url 'messenger:dialogs' %}">
+                    Сообщения
+                    {% if unread_dialogs > 0 %}
+                        <span class="text-danger">({{ unread_dialogs }})</span>
+                    {% endif %}
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'friends:main' %}">Друзья</a>

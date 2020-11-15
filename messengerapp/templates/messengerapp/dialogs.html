@@ -6,6 +6,7 @@
         <div class="news_block">
             <h2 class="text-center">Вкладка "Чаты"</h2>
             <h4>Ваши Чаты:</h4>
+        <h1>{{ unreaded_dialogs_counter }}</h1>
             {% if chats.count == 0 %}
                 У вас еще нет созданных чатов
             {% endif %}
