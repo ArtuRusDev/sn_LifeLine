@@ -12,6 +12,7 @@ class NewsItem(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+        ordering = ('-add_datetime',)
 
     def __str__(self):
         return f'{self.user} - {self.text[:30]}'

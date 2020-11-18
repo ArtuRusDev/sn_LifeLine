@@ -9,9 +9,8 @@ class UserUpdateInfoForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = (
-            'username', 'first_name', 'last_name', 'email', 'phone_number', 'avatar', 'bio', 'city', 'birth_date',
-            'gender',
-            'relationship')
+            'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar', 'bio', 'city',
+            'birth_date', 'gender', 'relationship')
 
     def __init__(self, *args, **kwargs):
         super(UserUpdateInfoForm, self).__init__(*args, **kwargs)

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 from authapp.models import Person
@@ -6,8 +7,8 @@ from friendsapp.models import FriendRequests
 
 def send_friend_request(request, pk):
     # Получаю запрос в друзья между пользователями если такой есть
-    duplicate = FriendRequests.objects.filter(initiator=Person.objects.get(pk=pk), target=request.user) | \
-                FriendRequests.objects.filter(initiator=request.user, target=Person.objects.get(pk=pk))
+    duplicate = FriendRequests.objects.filter(Q(initiator=Person.objects.get(pk=pk), target=request.user) |
+                                              Q(initiator=request.user, target=Person.objects.get(pk=pk)))
 
     if not duplicate:
         friend_request = FriendRequests.objects.create(initiator=request.user, target=Person.objects.get(pk=pk))
@@ -67,13 +68,9 @@ class FriendsList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(FriendsList, self).get_context_data()
 
-        friends_pk = []
-        for friend in self.request.user.get_friends:
-            friends_pk.append(friend.pk)
+        friends_pk = [friend.pk for friend in self.request.user.get_friends]
 
-        friends_requests_pk = []
-        for friend in self.request.user.get_friend_requests:
-            friends_requests_pk.append(friend.pk)
+        friends_requests_pk = [friend.pk for friend in self.request.user.get_friend_requests]
 
         data['all_users'] = Person.objects.exclude(pk=self.request.user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
         data['send_requests_pk'] = self.request.user.get_send_friend_requests_pk

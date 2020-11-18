@@ -11,15 +11,12 @@
                 {% else %}
                     <span class="text-success"><i class="fa fa-envelope" aria-hidden="true"></i></span>
                 {% endif %}
-                {% if chat.type == 'D' %}
-                    {% for member in chat.members.all %}
-                        {% if member.pk != user.pk %}
-                            {{ member.get_name|default:'Пользователь удален' }}
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    {{ chat.title }} <small>(беседа)</small>
-                {% endif %}
+
+                {% for member in chat.members.all %}
+                    {% if member.pk != user.pk %}
+                        {{ member.get_name|default:'Пользователь удален' }}
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-
 from authapp.models import Person
 
 
@@ -31,10 +30,10 @@ class Chat(models.Model):
 
     objects = ChatManager()
 
-
     class Meta:
         verbose_name = 'Чаты'
         verbose_name_plural = 'Чаты'
+        ordering = ('-last_message',)
 
     def __str__(self):
         return f'{self.type} - {self.members.all()}'
@@ -48,7 +47,7 @@ class Message(models.Model):
     is_read = models.BooleanField('Прочитано', default=False)
 
     class Meta:
-        ordering = ['pub_date']
+        ordering = ('pub_date',)
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
 

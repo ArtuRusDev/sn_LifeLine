@@ -41,6 +41,7 @@ class Person(AbstractUser):
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
     gender = models.CharField(max_length=10, verbose_name="Пол", choices=GENDER_CHOICES, default="male")
     relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES, default=0)
+    patronymic = models.CharField(verbose_name="Отчество", max_length=30, blank=True)
 
     @property
     def get_friends(self):
@@ -101,7 +102,9 @@ class Person(AbstractUser):
 
     @property
     def get_name(self):
-        if self.first_name:
+        if self.patronymic:
+            return f'{self.last_name} {self.first_name} {self.patronymic}'
+        elif self.first_name:
             return f'{self.first_name} {self.last_name}'
         return self.username
 
