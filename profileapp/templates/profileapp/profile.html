@@ -1,7 +1,8 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
     <div class="container content">
-        <div class="uer_info">
+    <div class="row">
+        <div class="col-md-4 col-sm user_info">
             <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
                  class="user_avatar">
             <h3>{{ cur_user.get_name }}</h3>
@@ -26,7 +27,7 @@
             {% endif %}
 
         </div>
-        <div class="news_block">
+        <div  class="col-md-8 news_block ml-0">
             <h4 class="text-center">Новости пользователя:</h4>
             {% for news_item in news %}
                 <div class="news_item">
@@ -55,5 +56,7 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
+
     </div>
 {% endblock %}

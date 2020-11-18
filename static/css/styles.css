@@ -49,7 +49,8 @@ body {
 }
 
 .user_avatar {
-    width: 200px;
+    width: 230px;
+    height: 230px;
     border-radius: 100%;
 }
 
@@ -97,14 +98,6 @@ body {
     text-align: right;
 }
 
-/*.current_user .message_item {*/
-/*    background-image: url('../img/message_item_out.jpg');*/
-/*    background-size: 100% 100%;*/
-/*    background-repeat: no-repeat;*/
-/*    !*background-position-x: right;*!*/
-/*    word-wrap: break-word;*/
-/*}*/
-
 .message_item {
     padding: 1px 20px;
     display: inline-block;
@@ -112,12 +105,6 @@ body {
     margin: 5px 0;
     max-width: 55%;
     background-color: #fff;
-    word-wrap: break-word;
-}
-
-.uer_info {
-    width: 25%;
-    float: left;
     word-wrap: break-word;
 }
 
@@ -151,9 +138,6 @@ body {
     height: 40px;
     background-color: #fff;
     line-height: 40px;
-    /*-webkit-box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);*/
-    /*-moz-box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);*/
-    /*box-shadow: 1px 20px 21px -9px rgba(0, 0, 0, 0.6);*/
     border-bottom: 1px solid #ccc;
 }
 
@@ -167,4 +151,10 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 100%;
+}
+
+@media (max-width: 768px) {
+    .user_info {
+        text-align: center;
+    }
 }
