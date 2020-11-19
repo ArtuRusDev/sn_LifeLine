@@ -4,12 +4,14 @@
 {% block content %}
     <div class="container content">
         <div class="news_block">
-            <h2 class="text-center">Вкладка "Новости"</h2>
+            <h2 class="text-center">Ваши Новости</h2>
+{#            <a href="{% url 'news:create' %}" class="btn btn-success mr-1">Создать запись</a>#}
             {% for news_item in object_list %}
                 <div class="news_item">
                     <div class="news_item_title">
                         <div class="news_item_title-username">
-                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка" class="user_avatar_news">
+                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                                 alt="Аватарка" class="user_avatar_news">
                             <a href="{% url 'profile:detail' news_item.user.pk %}">
                                 {{ news_item.user.get_name }}
                             </a>

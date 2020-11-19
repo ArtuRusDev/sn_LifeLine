@@ -16,6 +16,7 @@
 
             {% if cur_user.pk == user.pk %}
                 <a href="{% url 'profile:edit' %}" class="btn btn-success">Изменить</a>
+                <a class="btn btn-danger" href="{% url 'auth:logout' %}">Выход</a>
             {% elif is_friend %}
                 <a href="{% url 'friends:remove' cur_user.pk %}" class="btn btn-danger">Удалить из друзей</a>
             {% else %}

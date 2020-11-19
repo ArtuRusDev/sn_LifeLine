@@ -19,7 +19,7 @@
                                class="btn btn-success mr-1">Написать</a>
                         </div>
                         <div class="friend_item_title">
-                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"
                                  alt="Аватарка" class="user_avatar_news user_avatar_friends">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' friend.pk %}">
@@ -41,7 +41,7 @@
                             <a href="{% url 'friends:confirm' friend.pk %}" class="btn btn-success">Добавить</a>
                         </div>
                         <div class="friend_item_title">
-                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"
                                  alt="Аватарка" class="user_avatar_news user_avatar_friends">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' friend.pk %}">
@@ -71,7 +71,7 @@
 
                         </div>
                         <div class="friend_item_title">
-                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                            <img src="/media/{{ user_item.avatar|default:"users_avatars/default.png" }}"
                                  alt="Аватарка" class="user_avatar_news user_avatar_friends">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' user_item.pk %}">
