@@ -33,6 +33,13 @@ body {
 
 .news_item_title-username, .friend_item_title-username {
     font-size: 20px;
+    max-height: 50px;
+    overflow: hidden;
+
+}
+
+.friend_item_title-username {
+    max-height: 30px;
 }
 
 .news_item_title_post-date {
@@ -70,10 +77,6 @@ body {
     /*display: flex;*/
     float: right;
     position: relative;
-}
-.friend_item_unfriend a {
-    /*float: right;*/
-    /*margin-top: calc(50% - 38px);*/
 }
 
 .chat_block_wrapper {
@@ -169,8 +172,94 @@ body {
     height: 60px;
 }
 
+.fixed-page {
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     .user_info {
         text-align: center;
     }
+
+    .navbar-nav {
+        display: block;
+        position: absolute;
+        top: 55px;
+        background: rgb(245, 246, 246);
+        width: 100%;
+        box-shadow: 0 4px 2px -2px rgba(36, 36, 36, 0.17);
+        left: -100%;
+        transition: all 0.4s ease;
+        z-index: 999;
+        overflow: auto;
+    }
+
+    .navbar-brand, .form-inline {
+        margin: 0 auto;
+    }
+
+    .navbar-brand {
+        margin-bottom: 10px;
+    }
+
+    .navbar-nav li {
+        margin: 10px;
+        font-size: 14px;
+    }
+
+    .navbar-nav.open-menu {
+        left: 0;
+    }
+
+    /* Burger styles START */
+    .menu-burger__header {
+        position: relative;
+        width: 40px;
+        height: 35px;
+        display: block;
+        margin-top: -10px;
+    }
+
+    .menu-burger__header span, .menu-burger__header:after, .menu-burger__header:before {
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        background: #515758;
+        margin: 0 auto;
+    }
+
+    .menu-burger__header span {
+        top: 16px;
+    }
+
+    .menu-burger__header:after, .menu-burger__header:before {
+        content: '';
+    }
+
+    .menu-burger__header:after {
+        bottom: 5px;
+    }
+
+    .menu-burger__header:before {
+        top: 5px;
+    }
+
+    .menu-burger__header.open-menu span {
+        opacity: 0;
+        transition: 0.5s;
+    }
+
+    .menu-burger__header.open-menu:before {
+        transform: rotate(38deg);
+        top: 16px;
+        transition: 0.4s;
+    }
+
+    .menu-burger__header.open-menu:after {
+        transform: rotate(-38deg);
+        bottom: 16px;
+        transition: 0.4s;
+    }
+
+    /* Burger styles END */
 }

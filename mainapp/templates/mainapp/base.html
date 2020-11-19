@@ -3,19 +3,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Life on Line{% endblock %}</title>
     <link href="{% static 'css/bootstrap-4/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap-4/bootstrap-grid.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap-4/bootstrap-reboot.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <link href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" >
+    <link href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 </head>
 <body>
-    {% include 'mainapp/includes/inc_navbar.html' %}
-    {% block content %}
-    {% endblock %}
+{% include 'mainapp/includes/inc_navbar.html' %}
+{% block content %}
+{% endblock %}
 
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+{% if user.is_authenticated %}
     <script src="{% static 'js/new_mess_count_update.js' %}"></script>
+{% endif %}
+<script src="{% static 'js/menu.js' %}"></script>
 </body>
 </html>
