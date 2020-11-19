@@ -6,8 +6,6 @@
         <div class="row">
             {#        <div class="news_block">#}
             <div class="col-md-9 m-auto col">
-                <h2 class="text-center">Вкладка "Друзья"</h2>
-
                 <h4>Ваши Друзья:</h4>
                 {% if not user.get_friends %}
                     Вы еще не добавили своих друзей
@@ -15,7 +13,8 @@
                 {% for friend in user.get_friends %}
                     <div class="friend_item">
                         <div class="friend_item_unfriend">
-                            <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">Удалить</a>
+                            <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger"><i class="fa fa-trash"
+                                                                                                     aria-hidden="true"></i></a>
                             <a href="{% url 'messenger:create_dialog' friend.pk %}"
                                class="btn btn-success mr-1">Написать</a>
                         </div>
@@ -42,6 +41,8 @@
                             <a href="{% url 'friends:confirm' friend.pk %}" class="btn btn-success">Добавить</a>
                         </div>
                         <div class="friend_item_title">
+                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' friend.pk %}">
                                     {% if friend.first_name %}
@@ -65,11 +66,13 @@
                                 <a href="{% url 'friends:add' user_item.pk %}" class="btn btn-success">Добавить в
                                     друзья</a>
                             {% else %}
-                                <a href="#" class="btn btn-secondary not_active">Запрос отправлен</a>
+                                <a href="#" class="btn btn-secondary not_active">Запрошено</a>
                             {% endif %}
 
                         </div>
                         <div class="friend_item_title">
+                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' user_item.pk %}">
                                     {% if user_item.first_name %}

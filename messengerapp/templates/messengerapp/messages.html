@@ -5,12 +5,12 @@
     <div class="container content">
         <div class="chat_block_wrapper">
             <div class="dialog_title_wrapper flex-column">
-                <a href="{% url 'messenger:dialogs' %}" class="back_to_dialogs">Вернуться к диалогам</a>
+                <a href="{% url 'messenger:dialogs' %}" class="back_to_dialogs">К диалогам</a>
                 <div class="dialog_name">
                     {% if chat.type == 'D' %}
                         {% for member in chat.members.all %}
                             {% if member.pk != user.pk %}
-                                Диалог с пользователелем
+                                Диалог с
                                 <a href="{% url 'profile:detail' member.pk %}">{{ member.get_name }}</a>
                             {% endif %}
                         {% endfor %}
