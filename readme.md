@@ -1,5 +1,5 @@
 ***
-For Linux:
+Deployment
 
 virtualenv venv  
 source ./venv/bin/activate  
