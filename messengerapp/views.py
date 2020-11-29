@@ -51,8 +51,8 @@ class MessagesView(View):
 
 
 def create_dialog(request, friend_id):
-    duplicate = Chat.objects.filter(Q(members__id__contains=friend_id, type='D') &
-                                    Q(members__id__icontains=request.user.pk, type='D'))
+    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & \
+                Chat.objects.filter(members__id__icontains=request.user.pk, type='D')
     if duplicate.exists():
         return redirect(reverse('messenger:messages', kwargs={'chat_id': duplicate[0].pk}))
 
