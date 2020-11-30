@@ -49,7 +49,19 @@
                         </div>
                         <div class="news_item_text">
                             {{ news_item.text|safe }}
+                            {% if news_item.image %}
+                                <div class="news_item_image">
+                                    <a href="/media/{{ news_item.image }}" target="_blank">
+                                        <img src="/media/{{ news_item.image }}" alt="Изображение новости">
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
+                        {% if cur_user.pk == user.pk %}
+                            <p class="text-right">
+                                <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
+                            </p>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

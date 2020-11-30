@@ -6,7 +6,7 @@ from authapp.models import Person
 class RegisterForm(UserCreationForm):
     class Meta:
         model = Person
-        fields = ('email', 'first_name', 'last_name', 'patronymic', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'patronymic', 'email',  'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -17,6 +17,8 @@ class RegisterForm(UserCreationForm):
                 field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             else:
                 field.widget.attrs['placeholder'] = 'Пароль'
+                if field_name == 'password2':
+                    field.widget.attrs['placeholder'] = 'Повторите пароль'
             field.help_text = ''
             field.label = ''
 

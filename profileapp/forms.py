@@ -48,4 +48,7 @@ class UserUpdateInfoForm(forms.ModelForm):
             """
             return avatar
 
+        except TypeError:
+            raise forms.ValidationError('Пожалуйста, используйте JPEG, GIF или PNG изображения.')
+
         return avatar
