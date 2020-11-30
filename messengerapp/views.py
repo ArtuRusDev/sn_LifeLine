@@ -73,6 +73,9 @@ def get_messages(request, chat_id):
         try:
             chat = Chat.objects.get(id=chat_id)
 
+            if not chat.last_message:
+                return JsonResponse({'result': False})
+
             # Проверка, что сообщение не прочитано и автор не текущий пользователь
             is_update = chat.last_message.author != request.user and not chat.last_message.is_read
 

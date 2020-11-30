@@ -79,6 +79,7 @@ WSGI_APPLICATION = 'sn_LifeLine.wsgi.application'
 
 
 AUTH_USER_MODEL = 'authapp.Person'
+AUTHENTICATION_BACKENDS = ['authapp.backends.EmailBackend']
 
 
 # Database
