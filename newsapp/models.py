@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from authapp.models import Person
 from sn_LifeLine import settings
 
 
@@ -17,3 +18,13 @@ class NewsItem(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.text[:30]}'
+
+
+class Likes(models.Model):
+    user = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name='Пользователь')
+    news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE, verbose_name='Запись', related_name='likes')
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+

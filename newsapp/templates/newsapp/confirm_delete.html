@@ -3,10 +3,34 @@
 {% block title %}Life Life | Новости{% endblock %}
 {% block content %}
     <div class="container content text-center">
-    <h5>Вы уверены что хотите удалить эту новость?</h5>
+        <h5>Вы уверены что хотите удалить эту новость?</h5>
+        <div class="news_item">
+            <div class="news_item_title">
+                <div class="news_item_title-username">
+                    <img src="/media/{{ object.user.avatar|default:"users_avatars/default.png" }}"
+                         alt="Аватарка" class="user_avatar_news">
+                    <a href="{% url 'profile:detail' object.user.pk %}">
+                        {{ object.user.get_name }}
+                    </a>
+                </div>
+                <div class="news_item_title_post-date">
+                    {{ object.add_datetime }}
+                </div>
+            </div>
+            <div class="news_item_text">
+                {{ object.text|safe }}
+                {% if object.image %}
+                    <div class="news_item_image">
+                        <a href="/media/{{ object.image }}" target="_blank">
+                            <img src="/media/{{ object.image }}" alt="Изображение новости">
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
         <form action="{% url 'news:delete' object.pk %}" method="post">
             {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="удалить">
+            <input class="btn btn-danger" type="submit" value="Удалить">
             <a href="{% url 'profile:detail' user.pk %}" class="btn btn-success">
                 Отмена
             </a>

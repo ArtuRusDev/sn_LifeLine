@@ -23,11 +23,21 @@
                         {{ news_item.text|safe }}
                         {% if news_item.image %}
                             <div class="news_item_image">
-                                <a href="/media/{{ news_item.image}}" target="_blank">
+                                <a href="/media/{{ news_item.image }}" target="_blank">
                                     <img src="/media/{{ news_item.image }}" alt="Изображение новости">
                                 </a>
                             </div>
                         {% endif %}
+                    </div>
+                    <div class="likes_block">
+                        <a href="{% url 'news:put_like' news_item.pk %}" class="text-danger">❤</a>
+
+                        {% if news_item.likes.count > 0 %}
+                            <span title="{% for item in news_item.likes.all%}{{ item.user.get_name }}, {% endfor %}">
+                                ({{ news_item.likes.count }})
+                            </span>
+                        {% endif %}
+
                     </div>
                 </div>
             {% endfor %}
