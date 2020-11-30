@@ -149,6 +149,14 @@ body {
     top: 0;
 }
 
+.trash_icon {
+    height: 20px;
+}
+
+.new_message_alert {
+    color: #dc3545;
+}
+
 .dialog_title_wrapper {
     position: relative;
     height: 40px;

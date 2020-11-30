@@ -1,17 +1,18 @@
+{% load static %}
 {% for chat in chats %}
 {#    <a href="{% url 'messenger:messages' chat.pk %}" class="chat_block_link">#}
         <div class="friend_item">
             <div class="friend_item_unfriend">
-                <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger"><i class="fa fa-trash"
-                                                                                              aria-hidden="true"></i></a>
+                <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger"><img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash"></a>
                 <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success mr-1">Чат</a>
             </div>
             <div class="friend_item_title">
                 <div class="friend_item_title-username">
                     {% if chat in unread_chats %}
-                        <span class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+{#                        <span class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i></span>#}
+                        <span class="new_message_alert">new</span>
                     {% else %}
-                        <span class="text-success"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+{#                        <span class="text-success"><i class="fa fa-envelope" aria-hidden="true"></i></span>#}
                     {% endif %}
 
                     {% for member in chat.members.all %}
