@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView
 from newsapp.forms import CreateNewsForm
@@ -9,7 +10,10 @@ class NewsView(ListView):
     template_name = 'newsapp/news.html'
 
     def get_queryset(self):
-        queryset = NewsItem.objects.all()
+        friends_pk = self.request.user.get_friends_pk
+        friend_requests_users_pk = self.request.user.get_send_friend_requests_pk
+        queryset = NewsItem.objects.filter(Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) |
+                                           Q(user__pk=self.request.user.pk)).order_by('-add_datetime')
         return queryset
 
 

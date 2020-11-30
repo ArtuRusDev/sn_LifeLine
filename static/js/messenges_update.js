@@ -13,7 +13,7 @@ function update_messages() {
                 block.scrollTop = 9999;
             }
 
-            console.log('ajax done');
+            // console.log('ajax done');
         },
 
         failed: function () {

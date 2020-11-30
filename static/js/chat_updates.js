@@ -8,7 +8,7 @@ function update_chats() {
                 $('.chats_list').html(data.result);
             }
 
-            console.log('ajax done');
+            // console.log('ajax done');
         },
 
         failed: function () {

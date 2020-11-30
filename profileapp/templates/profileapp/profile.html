@@ -1,59 +1,59 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
     <div class="container content">
-    <div class="row">
-        <div class="col-md-4 col-sm user_info">
-            <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
-                 class="user_avatar">
-            <h3>{{ cur_user.get_name }}</h3>
-            <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
-            <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
-            <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>
-            <p><b>Город:</b> {{ cur_user.city|default:"Не указано" }}</p>
-            <p><b>День рождения:</b> {{ cur_user.birth_date|default:"Не указано" }}</p>
-            <p><b>Пол:</b> {{ cur_user.get_gender|default:"Не указано" }}</p>
-            <p><b>Отношения:</b> {{ cur_user.get_rel|default:"Не указано" }}</p>
+        <div class="row">
+            <div class="col-md-4 col-sm user_info">
+                <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
+                     class="user_avatar">
+                <h3>{{ cur_user.get_name }}</h3>
+                <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
+                <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
+                <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>
+                <p><b>Город:</b> {{ cur_user.city|default:"Не указано" }}</p>
+                <p><b>День рождения:</b> {{ cur_user.birth_date|default:"Не указано" }}</p>
+                <p><b>Пол:</b> {{ cur_user.get_gender|default:"Не указано" }}</p>
+                <p><b>Отношения:</b> {{ cur_user.get_rel|default:"Не указано" }}</p>
 
-            {% if cur_user.pk == user.pk %}
-                <a href="{% url 'profile:edit' %}" class="btn btn-success">Изменить</a>
-                <a class="btn btn-danger" href="{% url 'auth:logout' %}">Выход</a>
-            {% elif is_friend %}
-                <a href="{% url 'friends:remove' cur_user.pk %}" class="btn btn-danger">Удалить из друзей</a>
-            {% else %}
-                {% if cur_user.pk in user.get_send_friend_requests_pk %}
-                    <a href="#" class="btn btn-secondary not_active">Запрос отправлен</a>
+                {% if cur_user.pk == user.pk %}
+                    <a href="{% url 'profile:edit' %}" class="btn btn-success">Изменить</a>
+                    <a class="btn btn-danger" href="{% url 'auth:logout' %}">Выход</a>
+                {% elif is_friend %}
+                    <a href="{% url 'friends:remove' cur_user.pk %}" class="btn btn-danger">Удалить из друзей</a>
                 {% else %}
-                    <a href="{% url 'friends:add' cur_user.pk %}" class="btn btn-success">Добавить в друзья</a>
-                {% endif %}
-            {% endif %}
-
-        </div>
-        <div  class="col-md-8 news_block ml-0">
-            <h4 class="text-center">Новости пользователя:</h4>
-            {% for news_item in news %}
-                <div class="news_item">
-                    <div class="news_item_title">
-                        <div class="news_item_title-username">
-                            <a href="{% url 'profile:detail' news_item.user.pk %}">
-                                {{ news_item.user.get_name }}
-                            </a>
-                        </div>
-                        <div class="news_item_title_post-date">
-                            {{ news_item.add_datetime }}
-                        </div>
-                    </div>
-                    <div class="news_item_text">
-                        {{ news_item.text|safe }}
-                    </div>
-                    {% if cur_user.pk == user.pk %}
-                        <p class="text-right">
-                            <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
-                        </p>
+                    {% if cur_user.pk in user.get_send_friend_requests_pk %}
+                        <a href="#" class="btn btn-secondary not_active">Запрос отправлен</a>
+                    {% else %}
+                        <a href="{% url 'friends:add' cur_user.pk %}" class="btn btn-success">Добавить в друзья</a>
                     {% endif %}
-                </div>
-            {% endfor %}
+                {% endif %}
+
+                {% if cur_user.pk != user.pk %}
+                    <a href="{% url 'messenger:create_dialog' cur_user.pk %}"
+                       class="btn btn-success mr-1">Написать</a>
+                {% endif %}
+
+            </div>
+            <div class="col-md-8 news_block ml-0">
+                <h4 class="text-center">Новости пользователя:</h4>
+                {% for news_item in news %}
+                    <div class="news_item">
+                        <div class="news_item_title">
+                            <div class="news_item_title-username">
+                                <a href="{% url 'profile:detail' news_item.user.pk %}">
+                                    {{ news_item.user.get_name }}
+                                </a>
+                            </div>
+                            <div class="news_item_title_post-date">
+                                {{ news_item.add_datetime }}
+                            </div>
+                        </div>
+                        <div class="news_item_text">
+                            {{ news_item.text|safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
 
     </div>
 {% endblock %}
