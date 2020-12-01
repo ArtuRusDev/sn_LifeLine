@@ -31,7 +31,7 @@ class CreateNewsForm(forms.ModelForm):
         try:
             w, h = get_image_dimensions(image)
 
-            max_width = max_height = 1080
+            max_width = max_height = 1920
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     f'Пожалуйста, испльзуйте изображения {max_width} x {max_height} пикселов или меньше.')
@@ -54,3 +54,8 @@ class CreateNewsForm(forms.ModelForm):
             raise forms.ValidationError('Пожалуйста, используйте JPEG, GIF или PNG изображения.')
 
         return image
+
+    def clean_text(self):
+        text = self.cleaned_data['text']
+        text = text.replace('\n', '<br>')
+        return text
