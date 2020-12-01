@@ -108,6 +108,7 @@ body {
     top: 100%;
     margin-top: -37px;
     margin-left: -6px;
+
 }
 
 .current_user {
@@ -127,6 +128,7 @@ body {
 .message_item p {
     font-size: 20px;
     margin-top: -5px;
+    position: relative;
 }
 
 .chat_form_wrapper {
@@ -136,7 +138,7 @@ body {
 
 .chat_form_wrapper input[name='message'] {
     position: absolute;
-    width: 75%;
+    width: 65%;
     margin-right: 105px;
     left: 0;
     top: 0;
@@ -144,7 +146,7 @@ body {
 
 .chat_form_wrapper button {
     position: absolute;
-    width: 25%;
+    width: 35%;
     right: 0;
     top: 0;
 }
@@ -194,9 +196,27 @@ body {
     overflow: hidden;
 }
 
+.unread:after {
+    content: '●';
+    font-size: 30px;
+    position: absolute;
+    left: -50px;
+    color: #007bff;
+    /*right: 75%;*/
+}
+
+.likes_block a:hover {
+    text-decoration: none;
+}
+
 @media (max-width: 992px) {
-    .chat_block {
-        height: 60vh;
+    .chat_block .message_item {
+        max-width: 70%;
+    }
+
+    .chat_block .message_item p {
+        font-size: 17px;
+        margin-bottom: 10px;
     }
 
     .user_info {

@@ -9,9 +9,9 @@
     {% for message in chat.message_set.all %}
         {% url 'users:profile' message.author.username as the_user_url %}
         <div class="message_item_wrapper {% if message.author.pk == user.pk %}current_user{% endif %}">
-            <div class="message_item{% if not message.is_read %} unread {% endif %}">
+            <div class="message_item">
                 <small>{{ message.pub_date|time:"H:i" }}</small>
-                <p>{{ message.message|safe }}</p>
+                <p class="{% if not message.is_read %} unread {% endif %}">{{ message.message|safe }}</p>
             </div>
         </div>
     {% endfor %}

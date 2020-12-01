@@ -1,6 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-{% block title %}Life Life | Новости{% endblock %}
+{% block title %}Life on Line | Новости{% endblock %}
 {% block content %}
     <div class="container content">
         <div class="news_block">
@@ -34,7 +34,7 @@
 
                         {% if news_item.likes.count > 0 %}
                             <span title="{% for item in news_item.likes.all%}{{ item.user.get_name }}, {% endfor %}">
-                                ({{ news_item.likes.count }})
+                                {{ news_item.likes.count }}
                             </span>
                         {% endif %}
 
