@@ -237,12 +237,23 @@ body {
     }
 
     .navbar-brand, .form-inline {
-        margin: 0 auto;
+        margin: 0;
+    }
+
+    .navbar .form-inline a {
+        line-height: 18px;
+        margin-right: 0;
+        max-width: 85px;
     }
 
     .navbar-nav li {
         margin: 10px;
         font-size: 14px;
+    }
+
+    .header_image-logo {
+        margin-left: 50px;
+        max-width: 200px;
     }
 
     .navbar-nav.open-menu {
@@ -251,7 +262,7 @@ body {
 
     /* Burger styles START */
     .menu-burger__header {
-        position: relative;
+        position: absolute;
         width: 40px;
         height: 35px;
         display: block;
