@@ -3,13 +3,15 @@
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
     <div class="container content">
-        <div class="news_block">
-            <h4>Ваши Чаты:</h4>
-            {% if chats.count == 0 %}
-                У вас еще нет созданных чатов
-            {% endif %}
-            <div class="chats_list">
-                {% include 'messengerapp/includes/chats_list.html' %}
+        <div class="row">
+            <div class="col-md-9 m-auto col">
+                <h4>Ваши Чаты:</h4>
+                {% if chats.count == 0 %}
+                    У вас еще нет созданных чатов
+                {% endif %}
+                <div class="chats_list">
+                    {% include 'messengerapp/includes/chats_list.html' %}
+                </div>
             </div>
         </div>
     </div>

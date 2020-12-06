@@ -27,7 +27,6 @@ class Chat(models.Model):
     title = models.CharField(max_length=50, blank=False, verbose_name='Название')
     last_message = models.ForeignKey('Message', related_name='last_message', null=True, blank=True,
                                      on_delete=models.SET_NULL)
-
     objects = ChatManager()
 
     class Meta:

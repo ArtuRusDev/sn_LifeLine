@@ -1,5 +1,11 @@
+/* ---------- BASE styles START ---------- */
 body {
     background-color: #efefef;
+}
+
+.content {
+    border-radius: 0 0 4px 4px;
+    padding: 10px;
 }
 
 .navbar {
@@ -8,11 +14,33 @@ body {
     padding: 8px 10px;
 }
 
-.content {
-    border-radius: 0 0 4px 4px;
-    padding: 10px;
+.auth_form_wrapper {
+    display: inline-block;
+    width: 300px;
 }
 
+.user_avatar {
+    width: 230px;
+    height: 230px;
+    border-radius: 100%;
+    margin-bottom: 1em;
+}
+
+.trash_icon {
+    height: 20px;
+}
+
+.fixed-page {
+    overflow: hidden;
+}
+
+.current_user {
+    text-align: right;
+}
+/* ---------- BASE styles END ---------- */
+
+
+/* ---------- News styles START ---------- */
 .news_block {
     max-width: 550px;
     min-height: 300px;
@@ -35,11 +63,6 @@ body {
     overflow: hidden;
 }
 
-
-.friend_item_title-username {
-    max-height: 30px;
-}
-
 .news_item_title_post-date {
     color: #c0c0c0;
 }
@@ -48,18 +71,47 @@ body {
     margin-top: 20px;
 }
 
-.auth_form_wrapper {
-    display: inline-block;
-    width: 300px;
-}
-
-.user_avatar {
-    width: 230px;
-    height: 230px;
+.user_avatar_news {
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
-    margin-bottom: 1em;
+    /*float: left;*/
 }
 
+.new_message_alert {
+    color: #dc3545;
+}
+
+.news_item_image img {
+    max-width: 100%;
+    margin: 10px 0;
+}
+
+.likes_block {
+    height: 30px;
+}
+
+.likes_block a:hover {
+    cursor: pointer;
+}
+
+.likes_block a {
+    display: block;
+    background-image: url("../img/like_btn.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.likes_block a:hover, a.liked {
+    background-image: url("../img/like_btn_full.png");
+}
+/* ---------- News styles START ---------- */
+
+
+
+/* ---------- Friends styles START ---------- */
 .friend_item {
     background-color: white;
     width: 100%;
@@ -81,6 +133,17 @@ body {
     position: relative;
 }
 
+.user_avatar_friends {
+    float: left;
+    margin: -10px 10px -10px -10px;
+    width: 60px;
+    height: 60px;
+}
+/* ---------- Friends styles END ---------- */
+
+
+
+/* ---------- Messenger styles START ---------- */
 .chat_block_wrapper {
     max-width: 800px;
     margin: 0 auto;
@@ -92,15 +155,10 @@ body {
     height: 80vh;
     overflow: auto;
     padding: 10px 5px 40px;
-    /*background-color: #000;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: flex-end;*/
-    /*flex-wrap: nowrap;*/
 }
 
 .chat_block_link {
-    display: inline-block;
+    display: block;
 }
 
 .chat_form_wrapper {
@@ -108,11 +166,6 @@ body {
     top: 100%;
     margin-top: -37px;
     margin-left: -6px;
-
-}
-
-.current_user {
-    text-align: right;
 }
 
 .message_item {
@@ -151,19 +204,6 @@ body {
     top: 0;
 }
 
-.trash_icon {
-    height: 20px;
-}
-
-.new_message_alert {
-    color: #dc3545;
-}
-
-.news_item_image img {
-    max-width: 100%;
-    margin: 10px 0;
-}
-
 .dialog_title_wrapper {
     position: relative;
     height: 40px;
@@ -178,56 +218,20 @@ body {
     margin: 0 15px;
 }
 
-.user_avatar_news {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    /*float: left;*/
-}
-
-.user_avatar_friends {
-    float: left;
-    margin: -10px 10px -10px -10px;
-    width: 60px;
-    height: 60px;
-}
-
-
-.fixed-page {
-    overflow: hidden;
-}
-
 .unread:after {
     content: '●';
     font-size: 30px;
     position: absolute;
     left: -50px;
     color: #007bff;
-    /*right: 75%;*/
 }
 
-.likes_block {
-    height: 30px;
+.friend_item_title-username {
+    max-height: 30px;
 }
+/* ---------- Messenger styles END ---------- */
 
-.likes_block a:hover {
-    cursor: pointer;
-}
 
-.likes_block a {
-    display: block;
-    background-image: url("../img/like_btn.png");
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    float: left;
-}
-
-.likes_block a:hover, a.liked {
-    background-image: url("../img/like_btn_full.png");
-}
-
-/*.likes_block.liked*/
 
 @media (max-width: 992px) {
     .chat_block .message_item {
@@ -261,9 +265,10 @@ body {
     }
 
     .navbar .form-inline a {
-        line-height: 18px;
+       line-height: 18px;
         margin-right: 0;
-        max-width: 85px;
+        max-width: 100px;
+        padding: 7px 5px;
     }
 
     .navbar-nav li {
@@ -280,7 +285,7 @@ body {
         left: 0;
     }
 
-    /* Burger styles START */
+    /* ---------- Burger styles START ---------- */
     .menu-burger__header {
         position: absolute;
         width: 40px;
@@ -329,5 +334,9 @@ body {
         transition: 0.4s;
     }
 
-    /* Burger styles END */
+    /* ---------- Burger styles END ---------- */
+
+    .user_avatar_friends {
+        display: none;
+    }
 }
