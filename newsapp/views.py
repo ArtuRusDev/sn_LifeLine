@@ -1,9 +1,10 @@
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes
+from django.template.loader import render_to_string
 
 
 class NewsView(ListView):
@@ -37,10 +38,20 @@ class DeleteNewsView(DeleteView):
 
 
 def put_like(request, pk):
-    duplicate = Likes.objects.filter(user=request.user, news_item_id=pk)
+    if request.is_ajax():
+        duplicate = Likes.objects.filter(user=request.user, news_item_id=pk)
 
-    if not duplicate:
-        record = Likes.objects.create(user=request.user, news_item_id=pk)
-        record.save()
+        if not duplicate:
+            record = Likes.objects.create(user=request.user, news_item_id=pk)
+            record.save()
+        else:
+            Likes.objects.filter(user=request.user, news_item_id=pk).delete()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        context = {
+            'user': request.user,
+            'news_item': NewsItem.objects.get(pk=pk)
+        }
+
+        result = render_to_string('newsapp/includes/likes_block.html', context)
+
+        return JsonResponse({'result': result})

@@ -5,44 +5,13 @@
     <div class="container content">
         <div class="news_block">
             <h2 class="text-center">Ваши Новости</h2>
+
             {% for news_item in object_list %}
-                <div class="news_item">
-                    <div class="news_item_title">
-                        <div class="news_item_title-username">
-                            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
-                                 alt="Аватарка" class="user_avatar_news">
-                            <a href="{% url 'profile:detail' news_item.user.pk %}">
-                                {{ news_item.user.get_name }}
-                            </a>
-                        </div>
-                        <div class="news_item_title_post-date">
-                            {{ news_item.add_datetime }}
-                        </div>
-                    </div>
-                    <div class="news_item_text">
-                        {{ news_item.text|safe }}
-                        {% if news_item.image %}
-                            <div class="news_item_image">
-                                <a href="/media/{{ news_item.image }}" target="_blank">
-                                    <img src="/media/{{ news_item.image }}" alt="Изображение новости">
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="likes_block" title="{% for item in news_item.likes.all%}{{ item.user.get_name }}, {% endfor %}">
-                        <a href="{% url 'news:put_like' news_item.pk %}" class="text-danger">❤</a>
-
-                        {% if news_item.likes.count > 0 %}
-                            <span>
-                                {{ news_item.likes.count }}
-                            </span>
-                        {% endif %}
-
-                    </div>
-                </div>
+                {% include 'newsapp/includes/inc_news_item.html'%}
             {% endfor %}
+
             {% if object_list.count == 0 %}
-                У вас пока нет ни одной новости.
+                У вас пока нет ни одной новости. <br>
                 Добавьте ее сами или добавьтесь в друзья к пользователям.
             {% endif %}
         </div>

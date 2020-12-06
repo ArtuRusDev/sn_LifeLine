@@ -1,0 +1,6 @@
+<div class="likes_block" title="{{ news_item.all_liker }}" data-news_pk="{{ news_item.pk }}">
+    <a onclick="put_like({{ news_item.pk }})" class="{% if user.pk in news_item.all_liker_pk %}liked{% endif %}"></a>
+    <span>
+        {{ news_item.likes.count|default:'' }}
+    </span>
+</div>

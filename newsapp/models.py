@@ -19,6 +19,14 @@ class NewsItem(models.Model):
     def __str__(self):
         return f'{self.user} - {self.text[:30]}'
 
+    @property
+    def all_liker_pk(self):
+        return [item.user.pk for item in self.likes.all()]
+
+    @property
+    def all_liker(self):
+        return ', '.join([item.user.get_name for item in self.likes.all()])
+
 
 class Likes(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -27,4 +35,3 @@ class Likes(models.Model):
     class Meta:
         verbose_name = 'Лайк'
         verbose_name_plural = 'Лайки'
-

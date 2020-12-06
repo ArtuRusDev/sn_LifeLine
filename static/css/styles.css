@@ -192,6 +192,7 @@ body {
     height: 60px;
 }
 
+
 .fixed-page {
     overflow: hidden;
 }
@@ -205,9 +206,28 @@ body {
     /*right: 75%;*/
 }
 
-.likes_block a:hover {
-    text-decoration: none;
+.likes_block {
+    height: 30px;
 }
+
+.likes_block a:hover {
+    cursor: pointer;
+}
+
+.likes_block a {
+    display: block;
+    background-image: url("../img/like_btn.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.likes_block a:hover, a.liked {
+    background-image: url("../img/like_btn_full.png");
+}
+
+/*.likes_block.liked*/
 
 @media (max-width: 992px) {
     .chat_block .message_item {
