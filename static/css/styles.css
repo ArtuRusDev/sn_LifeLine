@@ -37,6 +37,10 @@ body {
 .current_user {
     text-align: right;
 }
+
+.make_news_btn {
+    display: none;
+}
 /* ---------- BASE styles END ---------- */
 
 
@@ -337,6 +341,19 @@ body {
     /* ---------- Burger styles END ---------- */
 
     .user_avatar_friends {
+        display: none;
+    }
+
+    .make_news_btn {
+        display: block;
+        padding: 0;
+    }
+
+    .make_news_btn img {
+        max-height: 39px;
+    }
+
+    .make_news_btn-green {
         display: none;
     }
 }
