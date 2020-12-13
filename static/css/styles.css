@@ -229,39 +229,34 @@ body {
     width: 40px;
     height: 35px;
     display: block; }
+    .menu-burger__header span {
+      top: 16px; }
 
-  .menu-burger__header span, .menu-burger__header:after, .menu-burger__header:before {
+  .menu-burger__header:before, .menu-burger__header:after, .menu-burger__header span {
     height: 3px;
     width: 100%;
     position: absolute;
     background: #515758;
     margin: 0 auto; }
 
-  .menu-burger__header span {
-    top: 16px; }
-
-  .menu-burger__header:after, .menu-burger__header:before {
-    content: ""; }
-
-  .menu-burger__header:after {
-    bottom: 5px; }
-
   .menu-burger__header:before {
+    content: "";
     top: 5px; }
-
-  .menu-burger__header.open-menu span {
-    opacity: 0;
-    transition: 0.5s; }
+  .menu-burger__header:after {
+    content: "";
+    bottom: 5px; }
 
   .menu-burger__header.open-menu:before {
     transform: rotate(38deg);
     top: 16px;
     transition: 0.4s; }
-
   .menu-burger__header.open-menu:after {
     transform: rotate(-38deg);
     bottom: 16px;
     transition: 0.4s; }
+  .menu-burger__header.open-menu span {
+    opacity: 0;
+    transition: 0.5s; }
 
   /* ---------- Burger styles END ---------- */
   .user_avatar_friends {
