@@ -1,0 +1,300 @@
+/* ---------- BASE styles START ---------- */
+body
+    background-color: #efefef
+
+.content
+    border-radius: 0 0 4px 4px
+    padding: 10px
+
+.navbar
+    background-color: #ced4da
+    position: relative
+    padding: 8px 10px
+
+.auth_form_wrapper
+    display: inline-block
+    width: 300px
+
+.user_avatar
+    width: 230px
+    height: 230px
+    border-radius: 100%
+    margin-bottom: 1em
+
+.user_avatar_news
+    width: 50px
+    height: 50px
+    border-radius: 100%
+
+.trash_icon
+    height: 20px
+
+.fixed-page
+    overflow: hidden
+
+.current_user
+    text-align: right
+
+.make_news_btn
+    display: none
+
+/* ---------- BASE styles END ---------- */
+
+
+/* ---------- News styles START ---------- */
+.news_block
+    max-width: 550px
+    min-height: 300px
+    margin: 0 auto
+
+.news_item
+    background-color: white
+    width: 100%
+    min-height: 150px
+    padding: 20px
+    border-radius: 3px
+    margin-bottom: 20px
+    margin-top: 20px
+
+    .news_item_image img
+        max-width: 100%
+        margin: 10px 0
+
+    .news_item_title_post-date
+        color: #c0c0c0
+
+    .news_item_text
+        margin-top: 20px
+
+.news_item_title-username, .friend_item_title-username
+    font-size: 20px
+    max-height: 50px
+    overflow: hidden
+
+.new_message_alert
+    color: #dc3545
+
+.likes_block
+    height: 30px
+
+    a
+        display: block
+        background-image: url("../img/like_btn.png")
+        background-size: cover
+        width: 30px
+        height: 30px
+        float: left
+
+        &:hover
+            cursor: pointer
+            background-image: url("../img/like_btn_full.png")
+
+        &.liked
+            background-image: url("../img/like_btn_full.png")
+
+/* ---------- News styles END ---------- */
+
+
+
+/* ---------- Friends styles START ---------- */
+.friend_item
+    background-color: white
+    width: 100%
+    padding: 15px
+    border-radius: 3px
+    margin: 5px 0
+    display: inline-block
+
+    .friend_item_title
+        line-height: 40px
+
+    .friend_item_unfriend
+        height: 100%
+        float: right
+        position: relative
+
+.user_avatar_friends
+    float: left
+    margin: -10px 10px -10px -10px
+    width: 60px
+    height: 60px
+
+/* ---------- Friends styles END ---------- */
+
+
+
+/* ---------- Messenger styles START ---------- */
+.chat_block_wrapper
+    max-width: 800px
+    margin: 0 auto
+    position: relative
+    outline: 1px solid #cccccc
+
+.chat_block
+    height: 80vh
+    overflow: auto
+    padding: 10px 5px 40px
+
+.chat_block_link
+    display: block
+
+.chat_form_wrapper
+    position: absolute
+    top: 100%
+    margin-top: -37px
+    margin-left: -6px
+
+.message_item
+    padding: 1px 20px
+    display: inline-block
+    border-radius: 10px
+    margin: 5px 0
+    max-width: 55%
+    background-color: #fff
+    word-wrap: break-word
+
+.message_item p
+    font-size: 20px
+    margin-top: -5px
+    position: relative
+
+.chat_form_wrapper
+    width: 100%
+    background-color: #cccccc
+
+    input[name='message']
+        position: absolute
+        width: 65%
+        margin-right: 105px
+        left: 0
+        top: 0
+
+    button
+        position: absolute
+        width: 35%
+        right: 0
+        top: 0
+
+.dialog_title_wrapper
+    position: relative
+    height: 40px
+    background-color: #fff
+    line-height: 40px
+    border-bottom: 1px solid #ccc
+    overflow: hidden
+
+.back_to_dialogs
+    float: left
+    margin: 0 15px
+
+.unread:after
+    content: '●'
+    font-size: 30px
+    position: absolute
+    left: -50px
+    color: #007bff
+
+.friend_item_title-username
+    max-height: 30px
+
+/* ---------- Messenger styles END ---------- */
+
+
+
+@media (max-width: 992px)
+    .chat_block .message_item
+        max-width: 70%
+
+        p
+            font-size: 17px
+            margin-bottom: 10px
+
+    .user_info
+        text-align: center
+
+    .navbar-nav
+        display: block
+        position: absolute
+        top: 55px
+        background: rgb(245, 246, 246)
+        width: 100%
+        box-shadow: 0 4px 2px -2px rgba(36, 36, 36, 0.17)
+        left: -100%
+        transition: all 0.4s ease
+        z-index: 999
+        overflow: auto
+
+    .navbar-brand, .form-inline
+        margin: 0
+
+    .navbar .form-inline a
+        line-height: 18px
+        margin-right: 0
+        max-width: 100px
+        padding: 7px 5px
+
+    .navbar-nav li
+        margin: 10px
+        font-size: 14px
+
+    .header_image-logo
+        margin-left: 50px
+        max-width: 200px
+
+    .navbar-nav.open-menu
+        left: 0
+
+    /* ---------- Burger styles START ---------- */
+    .menu-burger__header
+        position: absolute
+        width: 40px
+        height: 35px
+        display: block
+
+    .menu-burger__header span, .menu-burger__header:after, .menu-burger__header:before
+        height: 3px
+        width: 100%
+        position: absolute
+        background: #515758
+        margin: 0 auto
+
+    .menu-burger__header span
+        top: 16px
+
+    .menu-burger__header:after, .menu-burger__header:before
+        content: ''
+
+    .menu-burger__header:after
+        bottom: 5px
+
+    .menu-burger__header:before
+        top: 5px
+
+    .menu-burger__header.open-menu span
+        opacity: 0
+        transition: 0.5s
+
+    .menu-burger__header.open-menu:before
+        transform: rotate(38deg)
+        top: 16px
+        transition: 0.4s
+
+    .menu-burger__header.open-menu:after
+        transform: rotate(-38deg)
+        bottom: 16px
+        transition: 0.4s
+
+    /* ---------- Burger styles END ---------- */
+
+    .user_avatar_friends
+        display: none
+
+    .make_news_btn
+        display: block
+        padding: 0
+
+        img
+            max-height: 39px
+
+    .make_news_btn-green
+        display: none
