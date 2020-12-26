@@ -30,6 +30,8 @@
                     {% endif %}
                 {% endfor %}
             </div>
+
+            - {{ chat.last_message|default:"*Нет сообщений*" }}
         </div>
     </div>
 

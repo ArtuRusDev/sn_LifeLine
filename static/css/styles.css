@@ -93,7 +93,8 @@ body {
   padding: 15px;
   border-radius: 3px;
   margin: 5px 0;
-  display: inline-block; }
+  display: inline-block;
+  max-height: 70px; }
   .friend_item .friend_item_title {
     line-height: 40px; }
   .friend_item .friend_item_unfriend {
@@ -178,7 +179,8 @@ body {
   color: #007bff; }
 
 .friend_item_title-username {
-  max-height: 30px; }
+  max-height: 30px;
+  line-height: 20px; }
 
 /* ---------- Messenger styles END ---------- */
 @media (max-width: 992px) {

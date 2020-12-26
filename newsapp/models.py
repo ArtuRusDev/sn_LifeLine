@@ -17,7 +17,7 @@ class NewsItem(models.Model):
         ordering = ('-add_datetime',)
 
     def __str__(self):
-        return f'{self.user} - {self.text[:30]}'
+        return f'{self.user} - {self.text[:120]}'
 
     @property
     def all_liker_pk(self):
