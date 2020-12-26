@@ -31,7 +31,7 @@
                 {% endfor %}
             </div>
 
-            - {{ chat.last_message|default:"*Нет сообщений*" }}
+            - {{ chat.last_message|default:"*Нет сообщений*" }} {% if chat.last_message and not chat.last_message.is_read %}<div class="unread_chat_circle">●</div>{% endif %}
         </div>
     </div>
 

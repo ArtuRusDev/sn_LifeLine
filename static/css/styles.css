@@ -182,6 +182,10 @@ body {
   max-height: 30px;
   line-height: 20px; }
 
+.unread_chat_circle {
+  color: #007bff;
+  display: inline; }
+
 /* ---------- Messenger styles END ---------- */
 @media (max-width: 992px) {
   .chat_block .message_item {
