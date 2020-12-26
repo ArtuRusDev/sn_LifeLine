@@ -182,7 +182,7 @@ body {
   color: #007bff; }
 
 .friend_item_title-username {
-  max-height: 30px;
+  max-height: 20px;
   line-height: 20px; }
 
 .unread_chat_circle {
@@ -203,7 +203,7 @@ body {
   .navbar-nav {
     display: block;
     position: absolute;
-    top: 55px;
+    top: 70px;
     background: #f5f6f6;
     width: 100%;
     box-shadow: 0 4px 2px -2px rgba(36, 36, 36, 0.17);

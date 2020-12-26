@@ -1,5 +1,5 @@
 
-var snowmax=45
+var snowmax=5
 
 // Set the colors for the snow. Add as many colors as you like
 // var snowcolor=new Array("#b9dff5","#b9dff5","#b9dff5","#b9dff5","#b9dff5")
