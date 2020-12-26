@@ -1,7 +1,8 @@
 @charset "UTF-8";
 /* ---------- BASE styles START ---------- */
 body {
-  background-color: #efefef; }
+  background-color: #efefef;
+  min-height: 100vh; }
 
 .content {
   border-radius: 0 0 4px 4px;
@@ -54,13 +55,15 @@ body {
   border-radius: 3px;
   margin-bottom: 20px;
   margin-top: 20px; }
-  .news_item .news_item_image img {
-    max-width: 100%;
-    margin: 10px 0; }
+  .news_item .news_item_image {
+    text-align: center; }
+    .news_item .news_item_image img {
+      max-width: 100%;
+      margin: 10px 0; }
   .news_item .news_item_title_post-date {
     color: #c0c0c0; }
   .news_item .news_item_text {
-    margin-top: 20px; }
+    margin-top: 10px; }
 
 .news_item_title-username, .friend_item_title-username {
   font-size: 20px;
