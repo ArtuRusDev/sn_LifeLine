@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 from authapp.models import Person
 from sn_LifeLine import settings
 

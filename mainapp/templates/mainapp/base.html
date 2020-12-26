@@ -12,16 +12,16 @@
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 </head>
 <body>
+
 {% include 'mainapp/includes/inc_navbar.html' %}
+<script src="{% static 'js/snowflakes.js' %}"></script>
 {% block content %}
 {% endblock %}
-
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 {% if user.is_authenticated %}
     <script src="{% static 'js/new_mess_count_update.js' %}"></script>
 {% endif %}
 <script src="{% static 'js/menu.js' %}"></script>
 <script src="{% static 'js/put_like.js' %}"></script>
-<script src="{% static 'js/snowflakes.js' %}"></script>
 </body>
 </html>
