@@ -20,7 +20,7 @@
                         </div>
                         <div class="friend_item_title">
                             <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"
-                                 alt="Аватарка" class="user_avatar_friends">
+                                 alt="Аватарка" class="user_avatar_friends user_avatar_news">
                             <div class="friend_item_title-username">
                                 <a href="{% url 'profile:detail' friend.pk %}">
                                     {{ friend.get_name }}
