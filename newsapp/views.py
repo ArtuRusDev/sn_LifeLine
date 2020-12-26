@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, DeleteView
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 
 class NewsView(ListView):
@@ -27,6 +28,7 @@ class CreateNews(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.add_datetime = timezone.now()
         self.object = form.save()
         return super().form_valid(form)
 
