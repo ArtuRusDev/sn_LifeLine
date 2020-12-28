@@ -7,10 +7,13 @@
         <a class="navbar-brand" href="{% url 'main' %}"><img class="header_image-logo" src="{% static "img/logo.png" %}" alt="header_logo"></a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'news:main' %}">Новости</a>
+                <a class="nav-link
+                   {% if 'news' in request.resolver_match.namespaces %}active{% endif %}" href="{% url 'news:main' %}">
+                   Новости
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'messenger:dialogs' %}">
+                <a class="nav-link {% if 'messenger' in request.resolver_match.namespaces %}active{% endif %}" href="{% url 'messenger:dialogs' %}">
                     Сообщения
                     <span class="new_messages_counter text-danger">
                     {% if unread_chats.count > 0 %}
@@ -20,10 +23,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'friends:main' %}">Друзья</a>
+                <a class="nav-link {% if 'friends' in request.resolver_match.namespaces %}active{% endif %}" href="{% url 'friends:main' %}">Друзья</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile:detail' user.pk %}">Личный Кабинет</a>
+                <a class="nav-link {% if 'profile' in request.resolver_match.namespaces %}active{% endif %}" href="{% url 'profile:detail' user.pk %}">Личный Кабинет</a>
             </li>
             {% if user.is_superuser or user.is_staff %}
                 <li class="nav-item">
