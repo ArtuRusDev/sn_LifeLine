@@ -1,8 +1,10 @@
 <div class="news_item">
     <div class="news_item_title">
         <div class="news_item_title-username">
-            <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
+            <a href="{% url 'profile:detail' news_item.user.pk %}">
+                <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
                  alt="Аватарка" class="user_avatar_news">
+            </a>
             <a href="{% url 'profile:detail' news_item.user.pk %}">
                 {{ news_item.user.get_name }}
             </a>

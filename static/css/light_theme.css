@@ -1,6 +1,4 @@
 @charset "UTF-8";
-/* ---------- COLORS styles START ---------- */
-/* ---------- COLORS styles START ---------- */
 /* ---------- BASE styles START ---------- */
 body {
   background-color: #efefef;
@@ -144,7 +142,7 @@ body {
   position: absolute;
   top: 100%;
   margin-top: -37px;
-  margin-left: -6px; }
+  margin-left: -5px; }
 
 .message_item {
   padding: 1px 20px;
@@ -303,4 +301,4 @@ body {
     font-size: 25px;
     left: -45px; } }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=light_theme.css.map */

@@ -9,7 +9,7 @@ class UserUpdateInfoForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = (
-            'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar', 'bio', 'city',
+            'is_dark_theme', 'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar', 'bio', 'city',
             'birth_date', 'gender', 'relationship')
 
     def __init__(self, *args, **kwargs):
@@ -19,6 +19,11 @@ class UserUpdateInfoForm(forms.ModelForm):
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
             # field.label = ''
+
+            if field_name == 'is_dark_theme':
+                field.widget.attrs['class'] = ''
+
+
 
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']

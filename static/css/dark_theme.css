@@ -1,10 +1,8 @@
 @charset "UTF-8";
-/* ---------- COLORS styles START ---------- */
-/* ---------- COLORS styles START ---------- */
 /* ---------- BASE styles START ---------- */
 body {
-  background-color: #efefef;
-  color: #212529;
+  background-color: #2a2d2e;
+  color: #dedcd9;
   min-height: 100vh; }
 
 .content {
@@ -12,13 +10,13 @@ body {
   padding: 10px; }
 
 .navbar {
-  background-color: #ced4da;
+  background-color: #383c3d;
   position: relative;
   padding: 8px 10px; }
   .navbar .nav-item a.nav-link {
-    color: rgba(0, 0, 0, 0.5); }
+    color: rgba(222, 220, 217, 0.5); }
     .navbar .nav-item a.nav-link:hover, .navbar .nav-item a.nav-link:visited {
-      color: rgba(0, 0, 0, 0.7); }
+      color: #ccc; }
 
 .auth_form_wrapper {
   display: inline-block;
@@ -55,7 +53,7 @@ body {
   margin: 0 auto; }
 
 .news_item {
-  background-color: #fff;
+  background-color: #222425;
   width: 100%;
   min-height: 150px;
   padding: 20px;
@@ -70,7 +68,7 @@ body {
   .news_item .news_item_title-username a:first-child:hover {
     text-decoration: none; }
   .news_item .news_item_title_post-date {
-    color: #ccc; }
+    color: #cac6c1; }
   .news_item .news_item_text {
     margin-top: 10px; }
 
@@ -103,7 +101,7 @@ body {
 /* ---------- News styles END ---------- */
 /* ---------- Friends styles START ---------- */
 .friend_item {
-  background-color: #fff;
+  background-color: #222425;
   width: 100%;
   padding: 15px;
   border-radius: 3px;
@@ -130,7 +128,7 @@ body {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
-  outline: 1px solid #ccc; }
+  outline: 1px solid #5e5e5e; }
 
 .chat_block {
   height: 80vh;
@@ -144,7 +142,7 @@ body {
   position: absolute;
   top: 100%;
   margin-top: -37px;
-  margin-left: -6px; }
+  margin-left: -5px; }
 
 .message_item {
   padding: 1px 20px;
@@ -152,7 +150,7 @@ body {
   border-radius: 10px;
   margin: 5px 0;
   max-width: 55%;
-  background-color: #fff;
+  background-color: #222425;
   word-wrap: break-word; }
 
 .message_item p {
@@ -162,7 +160,7 @@ body {
 
 .chat_form_wrapper {
   width: 100%;
-  background-color: #ccc; }
+  background-color: #5e5e5e; }
   .chat_form_wrapper input[name='message'] {
     position: absolute;
     width: 65%;
@@ -178,9 +176,9 @@ body {
 .dialog_title_wrapper {
   position: relative;
   height: 40px;
-  background-color: #fff;
+  background-color: #222425;
   line-height: 40px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #5e5e5e;
   overflow: hidden; }
 
 .back_to_dialogs {
@@ -203,9 +201,9 @@ body {
   display: inline; }
 
 .form-control, .form-control:focus {
-  color: #212529;
-  background-color: #fff;
-  border-color: #ccc; }
+  color: #dedcd9;
+  background-color: #222425;
+  border-color: #5e5e5e; }
 
 /* ---------- Messenger styles END ---------- */
 @media (max-width: 992px) {
@@ -303,4 +301,4 @@ body {
     font-size: 25px;
     left: -45px; } }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=dark_theme.css.map */

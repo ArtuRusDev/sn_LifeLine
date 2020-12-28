@@ -34,6 +34,7 @@ class Person(AbstractUser):
         (5, "Влюблен(а)"),
         (6, "Все сложно"),
     )
+    patronymic = models.CharField(verbose_name="Отчество", max_length=30, blank=True)
     avatar = models.FileField(verbose_name="Аватарка", upload_to='users_avatars', blank=True, default=None)
     phone_number = PhoneNumberField(null=True, blank=True, unique=True)
     bio = models.TextField(max_length=500, blank=True, null=True, verbose_name="О себе")
@@ -41,7 +42,7 @@ class Person(AbstractUser):
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
     gender = models.CharField(max_length=10, verbose_name="Пол", choices=GENDER_CHOICES, default="male")
     relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES, default=0)
-    patronymic = models.CharField(verbose_name="Отчество", max_length=30, blank=True)
+    is_dark_theme = models.BooleanField(verbose_name="Использовать темную тему", default=False)
 
     @property
     def get_friends(self):

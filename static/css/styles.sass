@@ -1,7 +1,9 @@
 @charset "UTF-8"
+
 /* ---------- BASE styles START ---------- */
 body
-    background-color: #efefef
+    background-color: $body-bg-color
+    color: $body-text-color
     min-height: 100vh
 
 .content
@@ -9,9 +11,15 @@ body
     padding: 10px
 
 .navbar
-    background-color: #ced4da
+    background-color: $navbar-bg-color
     position: relative
     padding: 8px 10px
+
+    .nav-item a.nav-link
+        color: $navbar-text-color
+
+        &:hover, &:visited
+            color: $navbar-text-hover-color
 
 .auth_form_wrapper
     display: inline-block
@@ -51,7 +59,7 @@ body
     margin: 0 auto
 
 .news_item
-    background-color: white
+    background-color: $white-block-bg-color
     width: 100%
     min-height: 150px
     padding: 20px
@@ -61,13 +69,15 @@ body
 
     .news_item_image
         text-align: center
-
         img
             max-width: 100%
             margin: 10px 0
 
+    .news_item_title-username a:first-child:hover
+        text-decoration: none
+
     .news_item_title_post-date
-        color: #c0c0c0
+        color: $news-pub-data-text-color
 
     .news_item_text
         margin-top: 10px
@@ -98,19 +108,24 @@ body
         &.liked
             background-image: url("../img/like_btn_full.png")
 
+    span
+        line-height: 30px
+        margin-left: 1px
+
 /* ---------- News styles END ---------- */
 
 
 
 /* ---------- Friends styles START ---------- */
 .friend_item
-    background-color: white
+    background-color: $white-block-bg-color
     width: 100%
     padding: 15px
     border-radius: 3px
     margin: 5px 0
     display: inline-block
     max-height: 70px
+    overflow: hidden
 
     .friend_item_title
         line-height: 40px
@@ -135,7 +150,7 @@ body
     max-width: 800px
     margin: 0 auto
     position: relative
-    outline: 1px solid #cccccc
+    outline: 1px solid $white-color
 
 .chat_block
     height: 80vh
@@ -149,7 +164,7 @@ body
     position: absolute
     top: 100%
     margin-top: -37px
-    margin-left: -6px
+    margin-left: -5px
 
 .message_item
     padding: 1px 20px
@@ -157,7 +172,7 @@ body
     border-radius: 10px
     margin: 5px 0
     max-width: 55%
-    background-color: #fff
+    background-color: $white-block-bg-color
     word-wrap: break-word
 
 .message_item p
@@ -167,7 +182,7 @@ body
 
 .chat_form_wrapper
     width: 100%
-    background-color: #cccccc
+    background-color: $white-color
 
     input[name='message']
         position: absolute
@@ -185,9 +200,9 @@ body
 .dialog_title_wrapper
     position: relative
     height: 40px
-    background-color: #fff
+    background-color: $white-block-bg-color
     line-height: 40px
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid $white-color
     overflow: hidden
 
 .back_to_dialogs
@@ -210,6 +225,10 @@ body
     color: #007bff
     display: inline
 
+.form-control, .form-control:focus
+    color: $body-text-color
+    background-color: $white-block-bg-color
+    border-color: $white-color
 
 /* ---------- Messenger styles END ---------- */
 
@@ -257,6 +276,7 @@ body
 
     .navbar-nav.open-menu
         left: 0
+
 
     /* ---------- Burger styles START ---------- */
     .menu-burger__header
@@ -314,3 +334,8 @@ body
 
     .make_news_btn-green
         display: none
+
+    .unread:after
+        content: '●'
+        font-size: 25px
+        left: -45px
