@@ -220,13 +220,15 @@ body {
     display: block;
     position: absolute;
     top: 70px;
-    background: #f5f6f6;
+    background: #222425;
     width: 100%;
     box-shadow: 0 4px 2px -2px rgba(36, 36, 36, 0.17);
     left: -100%;
     transition: all 0.4s ease;
     z-index: 999;
     overflow: auto; }
+    .navbar-nav .nav-item {
+      background: #222425; }
 
   .navbar-brand, .form-inline {
     margin: 0; }
