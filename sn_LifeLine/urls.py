@@ -24,7 +24,8 @@ from mainapp.views import main_page
 from sn_LifeLine import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
+    path('django_admin_panel/', admin.site.urls, name='admin'),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('', main_page, name='main'),
     path('news/', include('newsapp.urls', namespace='news')),
     path('profile/', include('profileapp.urls', namespace='profile')),
