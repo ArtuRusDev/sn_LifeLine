@@ -24,7 +24,6 @@ class UserUpdateInfoForm(forms.ModelForm):
                 field.widget.attrs['class'] = ''
 
 
-
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']
 

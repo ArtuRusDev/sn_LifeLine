@@ -9,3 +9,7 @@ def main_page(request):
 
 def handler404(request, exception):
     return render(request, 'mainapp/404.html', {})
+
+
+def handler500(request, exception):
+    return render(request, 'mainapp/500.html', {})
