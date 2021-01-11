@@ -1,91 +1,90 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block title %}Life on Line | Друзья{% endblock %}
-{% block description %}Социальная сеть Life on Line | Друзья - Здесь вы можете найти новых друзей{% endblock %}
 {% block content %}
-    <div class="container content">
-        <div class="row">
-            <div class="col-md-9 m-auto col">
-                <h4>Ваши Друзья:</h4>
-                {% if not user.get_friends %}
-                    Вы еще не добавили своих друзей
-                {% endif %}
-                {% for friend in user.get_friends %}
-                    <div class="friend_item">
-                        <div class="friend_item_unfriend">
-                            <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">
-                                <img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash">
-                            </a>
-                            <a href="{% url 'messenger:create_dialog' friend.pk %}"
-                               class="btn btn-success mr-1">Написать</a>
-                        </div>
-                        <div class="friend_item_title">
-                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"
-                                 alt="Аватарка" class="user_avatar_friends user_avatar_news">
-                            <div class="friend_item_title-username">
-                                <a href="{% url 'profile:detail' friend.pk %}">
-                                    {{ friend.get_name }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <h4>Запросы в друзья:</h4>
-                {% if not user.get_friend_requests %}
-                    Вы пока не получили запросов в друзья
-                {% endif %}
-                {% for friend in user.get_friend_requests %}
-                    <div class="friend_item">
-                        <div class="friend_item_unfriend">
-                            <a href="{% url 'friends:deny' friend.pk %}" class="btn btn-dark ml-1">Отклонить</a>
-                            <a href="{% url 'friends:confirm' friend.pk %}" class="btn btn-success">Добавить</a>
-                        </div>
-                        <div class="friend_item_title">
-                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"
-                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">
-                            <div class="friend_item_title-username">
-                                <a href="{% url 'profile:detail' friend.pk %}">
-                                    {% if friend.first_name %}
-                                        {{ friend.first_name }} {{ friend.last_name }}
-                                    {% else %}
-                                        {{ friend.username }}
-                                    {% endif %}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                <h4>Все пользователи</h4>
-                {% if all_users.count == 0 %}
-                    Вы уже добавили в друзья всех пользователей сайта
-                {% endif %}
-                {% for user_item in all_users %}
-                    <div class="friend_item">
-                        <div class="friend_item_unfriend">
-                            {% if not user_item.pk in send_requests_pk %}
-                                <a href="{% url 'friends:add' user_item.pk %}" class="btn btn-success">Добавить в
-                                    друзья</a>
-                            {% else %}
-                                <a href="#" class="btn btn-secondary not_active">Запрошено</a>
-                            {% endif %}
-                        </div>
-                        <div class="friend_item_title">
-                            <img src="/media/{{ user_item.avatar|default:"users_avatars/default.png" }}"
-                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">
-                            <div class="friend_item_title-username">
-                                <a href="{% url 'profile:detail' user_item.pk %}">
-                                    {% if user_item.first_name %}
-                                        {{ user_item.first_name }} {{ user_item.last_name }}
-                                    {% else %}
-                                        {{ user_item.username }}
-                                    {% endif %}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+{#    <div class="container content">#}
+{#        <div class="row">#}
+{#            <div class="col-md-9 m-auto col">#}
+{#                <h4>Ваши Друзья:</h4>#}
+{#                {% if not friends %}#}
+{#                    Вы еще не добавили своих друзей#}
+{#                {% endif %}#}
+{#                {% for friend in friends %}#}
+{#                    <div class="friend_item">#}
+{#                        <div class="friend_item_unfriend">#}
+{#                            <a href="{% url 'friends:remove' friend.pk %}" class="btn btn-danger">#}
+{#                                <img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash">#}
+{#                            </a>#}
+{#                            <a href="{% url 'messenger:create_dialog' friend.pk %}"#}
+{#                               class="btn btn-success mr-1">Написать</a>#}
+{#                        </div>#}
+{#                        <div class="friend_item_title">#}
+{#                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"#}
+{#                                 alt="Аватарка" class="user_avatar_friends user_avatar_news">#}
+{#                            <div class="friend_item_title-username">#}
+{#                                <a href="{% url 'profile:detail' friend.pk %}">#}
+{#                                    {{ friend.get_name }}#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{##}
+{#                <h4>Запросы в друзья:</h4>#}
+{#                {% if not friend_requests %}#}
+{#                    Вы пока не получили запросов в друзья#}
+{#                {% endif %}#}
+{#                {% for friend in friend_requests %}#}
+{#                    <div class="friend_item">#}
+{#                        <div class="friend_item_unfriend">#}
+{#                            <a href="{% url 'friends:deny' friend.pk %}" class="btn btn-dark ml-1">Отклонить</a>#}
+{#                            <a href="{% url 'friends:confirm' friend.pk %}" class="btn btn-success">Добавить</a>#}
+{#                        </div>#}
+{#                        <div class="friend_item_title">#}
+{#                            <img src="/media/{{ friend.avatar|default:"users_avatars/default.png" }}"#}
+{#                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">#}
+{#                            <div class="friend_item_title-username">#}
+{#                                <a href="{% url 'profile:detail' friend.pk %}">#}
+{#                                    {% if friend.first_name %}#}
+{#                                        {{ friend.first_name }} {{ friend.last_name }}#}
+{#                                    {% else %}#}
+{#                                        {{ friend.username }}#}
+{#                                    {% endif %}#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#                <h4>Все пользователи</h4>#}
+{#                {% if not all_users %}#}
+{#                    Вы уже добавили в друзья всех пользователей сайта#}
+{#                {% endif %}#}
+{#                {% for user_item in all_users %}#}
+{#                    <div class="friend_item">#}
+{#                        <div class="friend_item_unfriend">#}
+{#                            {% if not user_item.pk in send_requests_pk %}#}
+{#                                <a href="{% url 'friends:add' user_item.pk %}" class="btn btn-success">Добавить в#}
+{#                                    друзья</a>#}
+{#                            {% else %}#}
+{#                                <a href="#" class="btn btn-secondary not_active">Запрошено</a>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                        <div class="friend_item_title">#}
+{#                            <img src="/media/{{ user_item.avatar|default:"users_avatars/default.png" }}"#}
+{#                                 alt="Аватарка" class="user_avatar_news user_avatar_friends">#}
+{#                            <div class="friend_item_title-username">#}
+{#                                <a href="{% url 'profile:detail' user_item.pk %}">#}
+{#                                    {% if user_item.first_name %}#}
+{#                                        {{ user_item.first_name }} {{ user_item.last_name }}#}
+{#                                    {% else %}#}
+{#                                        {{ user_item.username }}#}
+{#                                    {% endif %}#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}

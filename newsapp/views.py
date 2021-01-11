@@ -13,7 +13,8 @@ class NewsView(ListView):
     template_name = 'newsapp/news.html'
 
     def get_queryset(self):
-        friends_pk = self.request.user.get_friends_pk
+        friends = self.request.user.get_friends
+        friends_pk = [friend.pk for friend in friends]
         friend_requests_users_pk = self.request.user.get_send_friend_requests_pk
         queryset = NewsItem.objects.filter(Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) |
                                            Q(user__pk=self.request.user.pk)).order_by('-add_datetime').select_related()

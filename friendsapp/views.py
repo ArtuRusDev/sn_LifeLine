@@ -67,12 +67,17 @@ class FriendsList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(FriendsList, self).get_context_data()
+        user = self.request.user
 
-        friends_pk = [friend.pk for friend in self.request.user.get_friends]
+        friend_requests = user.get_friend_requests
+        friends = user.get_friends
 
-        friends_requests_pk = [friend.pk for friend in self.request.user.get_friend_requests]
+        friends_pk = [friend.pk for friend in friends]
+        friends_requests_pk = [friend.pk for friend in friend_requests]
 
-        data['all_users'] = Person.objects.exclude(pk=self.request.user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
-        data['send_requests_pk'] = self.request.user.get_send_friend_requests_pk
+        data['all_users'] = Person.objects.exclude(pk=user.pk).exclude(pk__in=friends_pk).exclude(pk__in=friends_requests_pk)
+        data['send_requests_pk'] = user.get_send_friend_requests_pk
+        data['friend_requests'] = friend_requests
+        data['friends'] = friends
 
         return data
