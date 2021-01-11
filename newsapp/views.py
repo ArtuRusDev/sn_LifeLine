@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView
 from newsapp.forms import CreateNewsForm
@@ -37,6 +37,16 @@ class DeleteNewsView(DeleteView):
     model = NewsItem
     template_name = 'newsapp/confirm_delete.html'
     success_url = reverse_lazy('profile:info')
+
+    def get_context_data(self, **kwargs):
+        data = super(DeleteNewsView, self).get_context_data()
+
+        news_owner_pk = NewsItem.objects.get(pk=self.kwargs['pk']).user.pk
+        user_pk = self.request.user.pk
+
+        if user_pk != news_owner_pk:
+            raise Http404("You can't delete someone else's record")
+        return data
 
 
 def put_like(request, pk):
