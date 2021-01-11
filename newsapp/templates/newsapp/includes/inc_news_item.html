@@ -10,7 +10,6 @@
                 {{ news_item.user.get_name }}
             </a>
             {% if news_item.user.is_staff %}
-{#                <span class="staff_icon" title="Статут персонала" >♛</span>#}
                 <img src="{% static 'img/staff_icon.png' %}" class="staff_icon" alt="Статус персонала" title="Статус персонала">
             {% endif %}
         </div>

@@ -66,7 +66,7 @@ class FriendsList(ListView):
     template_name = 'friendsapp/friends.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        data = super(FriendsList, self).get_context_data()
+        data = {}
         user = self.request.user
 
         friend_requests = user.get_friend_requests

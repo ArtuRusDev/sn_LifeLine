@@ -12,13 +12,17 @@ class NewsView(ListView):
     model = NewsItem
     template_name = 'newsapp/news.html'
 
-    def get_queryset(self):
-        friends = self.request.user.get_friends
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = {}
+        user = self.request.user
+        friends = user.get_friends
         friends_pk = [friend.pk for friend in friends]
-        friend_requests_users_pk = self.request.user.get_send_friend_requests_pk
-        queryset = NewsItem.objects.filter(Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) |
-                                           Q(user__pk=self.request.user.pk)).order_by('-add_datetime').select_related()
-        return queryset
+        friend_requests_users_pk = user.get_send_friend_requests_pk
+        data['all_news'] = NewsItem.objects.filter(
+            Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) |
+            Q(user__pk=user.pk)
+        ).select_related().order_by('-add_datetime')
+        return data
 
 
 class CreateNews(CreateView):

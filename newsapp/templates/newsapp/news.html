@@ -6,11 +6,11 @@
         <div class="news_block">
             <h2 class="text-center">Ваши Новости</h2>
 
-            {% for news_item in object_list %}
+            {% for news_item in all_news %}
                 {% include 'newsapp/includes/inc_news_item.html'%}
             {% endfor %}
 
-            {% if object_list.count == 0 %}
+            {% if not all_news %}
                 У вас пока нет ни одной новости. <br>
                 Добавьте ее сами или добавьтесь в друзья к пользователям.
             {% endif %}
