@@ -48,6 +48,9 @@ body {
 .staff_icon {
   max-width: 15px; }
 
+form input[type='file'] {
+  padding: 3px; }
+
 /* ---------- BASE styles END ---------- */
 /* ---------- News styles START ---------- */
 .news_block {

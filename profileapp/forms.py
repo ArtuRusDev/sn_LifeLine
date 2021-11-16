@@ -9,8 +9,8 @@ class UserUpdateInfoForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = (
-            'is_dark_theme', 'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar', 'bio', 'city',
-            'birth_date', 'gender', 'relationship')
+            'is_dark_theme', 'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar',
+            'bio', 'city', 'birth_date', 'gender', 'relationship')
 
     def __init__(self, *args, **kwargs):
         super(UserUpdateInfoForm, self).__init__(*args, **kwargs)
@@ -18,11 +18,15 @@ class UserUpdateInfoForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
-            # field.label = ''
 
             if field_name == 'is_dark_theme':
-                field.widget.attrs['class'] = ''
+                field.widget.attrs['class'] = 'а'
 
+            if field_name == 'phone_number':
+                field.widget.attrs['placeholder'] = '+7 (123) 456-78-90'
+
+            if field_name == 'email':
+                field.widget.attrs['placeholder'] = 'example@gmail.com'
 
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']

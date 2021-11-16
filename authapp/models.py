@@ -34,15 +34,15 @@ class Person(AbstractUser):
         (5, "Влюблен(а)"),
         (6, "Все сложно"),
     )
-    patronymic = models.CharField(verbose_name="Отчество", max_length=30, blank=True)
-    avatar = models.FileField(verbose_name="Аватарка", upload_to='users_avatars', blank=True, default=None)
-    phone_number = PhoneNumberField(null=True, blank=True, unique=True)
+    patronymic = models.CharField(max_length=30, blank=True, verbose_name="Отчество")
+    avatar = models.FileField(upload_to='users_avatars', blank=True, default=None, verbose_name="Аватарка")
+    phone_number = PhoneNumberField(null=True, blank=True, unique=True, verbose_name="Номер телефона")
     bio = models.TextField(max_length=500, blank=True, null=True, verbose_name="О себе")
     city = models.CharField(max_length=30, blank=True, null=True, verbose_name="Город")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
-    gender = models.CharField(max_length=10, verbose_name="Пол", choices=GENDER_CHOICES, default="male")
-    relationship = models.IntegerField(verbose_name="Статус отношений", choices=STATUS_CHOICES, default=0)
-    is_dark_theme = models.BooleanField(verbose_name="Использовать темную тему", default=False)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="male", verbose_name="Пол")
+    relationship = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name="Статус отношений")
+    is_dark_theme = models.BooleanField(default=False, verbose_name="Использовать темную тему")
 
     @property
     def get_friends(self):
@@ -60,7 +60,6 @@ class Person(AbstractUser):
                 friends.append(item.target)
 
         return friends
-
 
     @property
     def get_friend_requests(self):
