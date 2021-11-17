@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Life on Line{% endblock %}</title>
+    <meta name="description" content="Социальная сеть Life on Line - место где вы можете познакомиться и пообщаться с
+    интересными людьми, найти единомышленников, объединиться в группы по интересам и поделиться новостями."/>
+    <link href="{% static 'css/lib/bootstrap-4/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lib/bootstrap-4/bootstrap-grid.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lib/bootstrap-4/bootstrap-reboot.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lib/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lib/jquery.fancybox.min.css' %}" rel="stylesheet">
+
+    {% if user.is_dark_theme %}
+        <link href="{% static 'css/dark_theme.css' %}" rel="stylesheet">
+    {% else %}
+        <link href="{% static 'css/light_theme.css' %}" rel="stylesheet">
+    {% endif %}
+
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+</head>
+<body>
+{% include 'mainapp/includes/inc_navbar.html' %}
+<script src="{% static 'js/lib/snowflakes.js' %}"></script>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-md-5">
+            <h1 class="h3">Административная панель</h1>
+        </div>
+        <div class="col-md-3 offset-md-4 d-flex admin_navbar_table-list justify-content-around">
+            <a href="{% url 'admin:user_read' %}" class="btn {% if 'users' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Пользователи</a>
+            <a href="{% url 'admin:news_read' %}" class="btn {% if 'news' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Новости</a>
+        </div>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+
+<script src="{% static 'js/lib/jquery-3.2.1.min.js' %}"></script>
+
+{% if user.is_authenticated %}
+    <script src="{% static 'js/new_mess_count_update.js' %}"></script>
+{% endif %}
+
+<script src="{% static 'js/menu.js' %}"></script>
+<script src="{% static 'js/put_like.js' %}"></script>
+
+<script src="{% static 'js/lib/jquery.fancybox.min.js' %}"></script>
+</body>
+</html>

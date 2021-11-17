@@ -240,7 +240,45 @@ form input[type='file']
 
 /* ---------- Messenger styles END ---------- */
 
+/* ---------- Admin styles START ---------- */
+.admin-table
+  tr
+    position: relative
 
+  td, th
+    vertical-align: middle
+
+  tbody tr:hover
+    background-color: rgba(0, 0, 0, .075)
+
+  td.link-update-td
+    position: absolute
+    padding: 0
+    width: 100%
+    height: 100%
+
+    a
+      display: block
+      width: 100%
+      height: 100%
+
+
+  td.link-delete-td
+    position: relative
+    z-index: 2
+    padding: 0
+    vertical-align: middle
+    text-align: center
+
+  td.img-td
+    padding: 0
+
+img.admin-panel_img-value
+  max-width: 200px
+  max-height: 100px
+  
+
+/* ---------- Admin styles END ---------- */
 
 @media (max-width: 992px)
   .chat_block .message_item

@@ -1,0 +1,47 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Новости{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Список новостей</h2>
+
+                <table class="table admin-table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th scope="col">id</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Текст</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Изображение</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for news_item in news %}
+                        <tr>
+                            <td class="link-update-td">
+                                <a href="{% url 'admin:news_update' news_item.pk %}" class="d-inline-block"></a>
+                            </td>
+                            <th scope="row">{{ news_item.pk }}</th>
+                            <td>{{ news_item.user }}</td>
+                            <td>{{ news_item.text|safe }}</td>
+                            <td>{{ news_item.add_datetime }}</td>
+                            <td class="img-td">
+                                <img src="/media/{{ news_item.image }}" alt="Изображение новости"
+                                     class="admin-panel_img-value">
+                            </td>
+                            <td class="link-delete-td">
+                                <a href="{% url 'admin:news_delete' news_item.pk %}" class="btn btn-outline-danger">D</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

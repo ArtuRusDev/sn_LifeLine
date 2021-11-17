@@ -1,0 +1,48 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Новости{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Список пользователей</h2>
+
+                <table class="table admin-table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th scope="col">id</th>
+                        <th scope="col">Ник</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Отчество</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Телефон</th>
+                        <th scope="col">Аватарка</th>
+                        <th scope="col">Город</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for user_item in users %}
+                        <tr>
+                            <td class="link-td">
+                                <a href="{% url 'admin:user_update' user_item.pk %}" class="d-inline-block"></a>
+                            </td>
+                            <th scope="row">{{ user_item.pk }}</th>
+                            <td>{{ user_item.username }}</td>
+                            <td>{{ user_item.first_name }}</td>
+                            <td>{{ user_item.last_name }}</td>
+                            <td>{{ user_item.patronymic }}</td>
+                            <td>{{ user_item.email }}</td>
+                            <td>{{ user_item.phone_number }}</td>
+                            <td>{{ user_item.avatar }}</td>
+                            <td>{{ user_item.city }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

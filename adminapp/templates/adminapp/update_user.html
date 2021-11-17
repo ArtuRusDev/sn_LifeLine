@@ -1,0 +1,18 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Новости{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-12">
+                <h2>Изменение Пользователя</h2>
+
+                <form method="post" class="bootstrap-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success" value="Сохранить изменения">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

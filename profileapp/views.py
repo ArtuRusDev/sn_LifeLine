@@ -14,7 +14,7 @@ class UserUpdateInfo(UpdateView):
     template_name = "profileapp/profile_edit.html"
     model = Person
     form_class = UserUpdateInfoForm
-    success_url = reverse_lazy('profile:edit')
+    success_url = reverse_lazy('profile:info')
 
     def get_object(self, *args, **kwargs):
         return get_object_or_404(Person, pk=self.request.user.pk)
