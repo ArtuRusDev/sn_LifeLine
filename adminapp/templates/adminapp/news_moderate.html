@@ -1,0 +1,35 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Новости{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Модерация новостей</h2>
+
+                {% for news_item in news %}
+                    <div class="d-flex align-items-center news-moderate_wrap">
+                        {% include 'newsapp/includes/inc_news_item.html' %}
+
+                        <div class="news-moderate_btns">
+                            <button onclick="accept_news({{ news_item.pk }})" class="btn btn-outline-success">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+
+                            <button onclick="cancel_news({{ news_item.pk }})" class="btn btn-outline-danger">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% if not news_item %}
+                <p class="text-center">Нет новостей для модерации</p>
+            {% endif %}
+
+                <a href="{% url 'admin:news_read' %}" class="btn btn-success">Завершить модерирование</a>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

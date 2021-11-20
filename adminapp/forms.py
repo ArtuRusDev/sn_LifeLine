@@ -66,7 +66,6 @@ class UpdateNewsForm(forms.ModelForm):
     class Meta:
         model = NewsItem
         fields = ('text', 'image')
-        # fields = ('text')
 
     def __init__(self, *args, **kwargs):
         super(UpdateNewsForm, self).__init__(*args, **kwargs)
@@ -74,11 +73,6 @@ class UpdateNewsForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
-            # field.label = ''
-
-    # def clean_user(self, request):
-    #     user = request.user
-    #     return user
 
     def clean_image(self):
         image = self.cleaned_data['image']

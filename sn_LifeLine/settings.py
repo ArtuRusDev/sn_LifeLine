@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'newsapp',
     'friendsapp',
     'messengerapp',
-    # 'debug_toolbar',
+    'debug_toolbar',
     'template_profiler_panel',
     'adminapp',
 ]
@@ -55,7 +55,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mainapp.middleware.AllowAuthUserOnly',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'adminapp.middleware.AllowStaffUserOnly',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'sn_LifeLine.urls'

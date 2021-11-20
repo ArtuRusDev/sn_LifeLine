@@ -8,6 +8,8 @@ class NewsItem(models.Model):
     text = models.TextField(blank=False, null=False, max_length=1024, verbose_name='Текст Новости')
     add_datetime = models.DateTimeField(verbose_name='Дата Добавления')
     image = models.FileField(verbose_name="Изображние", upload_to='news_images', blank=True, default=None)
+    is_moderated = models.BooleanField(verbose_name='Проверено модераторами', default=False)
+    is_accepted = models.BooleanField(verbose_name='Публикация принята', default=False)
 
     class Meta:
         verbose_name = 'Новость'

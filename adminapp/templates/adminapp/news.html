@@ -10,12 +10,13 @@
                 <table class="table admin-table">
                     <thead class="thead-dark">
                     <tr>
-                        <th></th>
                         <th scope="col">id</th>
                         <th scope="col">Автор</th>
                         <th scope="col">Текст</th>
                         <th scope="col">Дата</th>
                         <th scope="col">Изображение</th>
+                        <th scope="col">Модерировано</th>
+                        <th scope="col">Принято</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -23,19 +24,21 @@
                     <tbody>
                     {% for news_item in news %}
                         <tr>
-                            <td class="link-update-td">
-                                <a href="{% url 'admin:news_update' news_item.pk %}" class="d-inline-block"></a>
-                            </td>
                             <th scope="row">{{ news_item.pk }}</th>
                             <td>{{ news_item.user }}</td>
-                            <td>{{ news_item.text|safe }}</td>
+                            <td class="admin-panel_text-value">{{ news_item.text|safe }}</td>
                             <td>{{ news_item.add_datetime }}</td>
                             <td class="img-td">
                                 <img src="/media/{{ news_item.image }}" alt="Изображение новости"
                                      class="admin-panel_img-value">
                             </td>
-                            <td class="link-delete-td">
-                                <a href="{% url 'admin:news_delete' news_item.pk %}" class="btn btn-outline-danger">D</a>
+                             <td>{{ news_item.is_moderated }}</td>
+                             <td>{{ news_item.is_accepted }}</td>
+                            <td class="action-list-td">
+                                <a href="{% url 'admin:news_update' news_item.pk %}"
+                                   class="btn btn-outline-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="{% url 'admin:news_delete' news_item.pk %}"
+                                   class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

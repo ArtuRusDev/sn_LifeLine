@@ -20,6 +20,7 @@
                         <th scope="col">Телефон</th>
                         <th scope="col">Аватарка</th>
                         <th scope="col">Город</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
 
@@ -38,6 +39,12 @@
                             <td>{{ user_item.phone_number }}</td>
                             <td>{{ user_item.avatar }}</td>
                             <td>{{ user_item.city }}</td>
+                            <td class="action-list-td">
+                                <a href="{% url 'admin:user_update' user_item.pk %}"
+                                   class="btn btn-outline-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="{% url 'admin:user_delete' user_item.pk %}"
+                                   class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

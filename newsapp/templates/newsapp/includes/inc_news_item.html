@@ -1,16 +1,17 @@
 {% load static %}
-<div class="news_item wow bounceInLeft" data-wow-offset="10">
+<div class="news_item wow bounceInLeft" data-wow-offset="10" data-news-id="{{ news_item.pk }}">
     <div class="news_item_title">
         <div class="news_item_title-username">
             <a href="{% url 'profile:detail' news_item.user.pk %}">
                 <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
-                 alt="Аватарка" class="user_avatar_news">
+                     alt="Аватарка" class="user_avatar_news">
             </a>
             <a href="{% url 'profile:detail' news_item.user.pk %}">
                 {{ news_item.user.get_name }}
             </a>
             {% if news_item.user.is_staff %}
-                <img src="{% static 'img/staff_icon.png' %}" class="staff_icon" alt="Статус персонала" title="Статус персонала">
+                <img src="{% static 'img/staff_icon.png' %}" class="staff_icon" alt="Статус персонала"
+                     title="Статус персонала">
             {% endif %}
         </div>
         <div class="news_item_title_post-date">
@@ -28,12 +29,18 @@
         {% endif %}
     </div>
 
-    {#  Remove (work only for profileapp)  #}
     {% if cur_user.pk == user.pk %}
         <p class="float-right">
             <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
         </p>
     {% endif %}
-    {# end remove block #}
+
+    {% if cur_user.pk == user.pk and news_item.is_moderated == 1 and news_item.is_accepted == 0 %}
+        <p class="float-right mr-3">
+            <strong class="text-danger">НЕ ПРИНЯТО!</strong>
+            <a href="{% url 'admin:news_update' news_item.pk %}" class="text-primary">Изменить</a>
+        </p>
+    {% endif %}
+
     {% include 'newsapp/includes/likes_block.html' %}
 </div>

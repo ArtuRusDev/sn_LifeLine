@@ -1,0 +1,31 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Удаление Пользователя{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3 class="text-center">Вы уверены, что хотите удалить этого пользователя?</h3>
+
+                <img src="/media/{{ object.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
+                     class="user_avatar">
+                <h3>{{ object.get_name }}</h3>
+                <p><b>Email:</b> {{ object.email|default:"Не указано" }}</p>
+                <p><b>Телефон:</b> {{ object.phone_number|default:"Не указано" }}</p>
+                <p><b>О Себе:</b> {{ object.bio|default:"Не указано" }}</p>
+                <p><b>Город:</b> {{ object.city|default:"Не указано" }}</p>
+                <p><b>День рождения:</b> {{ object.birth_date|default:"Не указано" }}</p>
+                <p><b>Пол:</b> {{ object.get_gender|default:"Не указано" }}</p>
+                <p><b>Отношения:</b> {{ object.get_rel|default:"Не указано" }}</p>
+
+                <form action="{% url 'admin:user_delete' object.pk %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" value="Удалить">
+                    <a href="{% url 'admin:user_read' %}" class="btn btn-success">
+                        Отмена
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes
 from django.template.loader import render_to_string
@@ -18,9 +18,9 @@ class NewsView(ListView):
         friends = user.get_friends
         friends_pk = [friend.pk for friend in friends]
         friend_requests_users_pk = user.get_send_friend_requests_pk
-        data['all_news'] = NewsItem.objects.filter(
-            Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) |
-            Q(user__pk=user.pk)
+        data['all_news'] = NewsItem.objects.filter((
+                Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
+                ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)))
         ).select_related().order_by('-add_datetime')
         return data
 
