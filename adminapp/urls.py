@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/delete/<pk>/', adminapp.DeleteUserView.as_view(), name='user_delete'),
 
     path('news/read/', adminapp.NewsList.as_view(), name='news_read'),
+    path('news/create/', adminapp.CreateNewsItem.as_view(), name='news_create'),
     path('news/moderate/', adminapp.ModerateNewsList.as_view(), name='news_moderate'),
     path('news/moderate/accept/<pk>/', adminapp.accept_news, name='news_moderate_accept'),
     path('news/moderate/cancel/<pk>/', adminapp.cancel_news, name='news_moderate_cancel'),

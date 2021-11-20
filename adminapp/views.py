@@ -2,10 +2,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
-from django.views.generic import ListView, UpdateView, DeleteView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 
 from adminapp.forms import UserUpdateForm, UpdateNewsForm
 from authapp.models import Person
+from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem
 
 
@@ -42,6 +43,19 @@ class NewsList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = {'news': NewsItem.objects.all()}
         return data
+
+
+class CreateNewsItem(CreateView):
+    model = NewsItem
+    form_class = CreateNewsForm
+    template_name = 'newsapp/create_news.html'
+    success_url = reverse_lazy('admin:news_read')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.add_datetime = timezone.now()
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 class ModerateNewsList(ListView):

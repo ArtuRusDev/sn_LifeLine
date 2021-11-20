@@ -32,8 +32,8 @@
                                 <img src="/media/{{ news_item.image }}" alt="Изображение новости"
                                      class="admin-panel_img-value">
                             </td>
-                             <td>{{ news_item.is_moderated }}</td>
-                             <td>{{ news_item.is_accepted }}</td>
+                            <td>{{ news_item.is_moderated }}</td>
+                            <td>{{ news_item.is_accepted }}</td>
                             <td class="action-list-td">
                                 <a href="{% url 'admin:news_update' news_item.pk %}"
                                    class="btn btn-outline-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -44,6 +44,11 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <a href="{% url 'admin:news_create' %}" class="btn btn-success">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Создать новость
+                </a>
             </div>
         </div>
     </div>
