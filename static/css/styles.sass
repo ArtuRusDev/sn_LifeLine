@@ -101,6 +101,7 @@ form input[type='file']
 
 .likes_block
   height: 30px
+  display: inline-block
 
   a
     display: block
@@ -121,6 +122,31 @@ form input[type='file']
     line-height: 30px
     margin-left: 1px
 
+.comments_block
+  display: inline-block
+  margin-left: .5rem
+
+  a
+    font-size: 1.5rem
+
+.comments-list
+  padding-top: 1rem
+
+.comment-item
+  padding: 1rem 0
+  border-top: 1px solid #ccc
+
+  &:last-of-type
+    padding-bottom: 0
+
+  .comment__date
+    color: #ccc
+    font-size: .8rem
+
+  .comment__img-wrap
+    float: left
+    img
+      max-width: 45px
 /* ---------- News styles END ---------- */
 
 

@@ -1,0 +1,19 @@
+<div class="comments-list">
+    {% for comment in news_item.all_comments %}
+        <div class="comment-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="comment__img-wrap mr-2">
+                    <a href="/profile/user/{{ comment.author.pk }}">
+                        <img src="/media/{{ comment.author.avatar|default:"users_avatars/default.png" }}"
+                             alt="Аватарка">
+                    </a>
+                </div>
+                <div class="comment__content">
+                    <a href="/profile/user/{{ comment.author.pk }}" class="comment__author">Тестовый пользователь</a>
+                    <div class="comment__text">{{ comment.text }}</div>
+                    <div class="comment__date">{{ comment.add_datetime }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

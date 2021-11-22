@@ -88,7 +88,8 @@ form input[type='file'] {
   color: #dc3545; }
 
 .likes_block {
-  height: 30px; }
+  height: 30px;
+  display: inline-block; }
   .likes_block a {
     display: block;
     background-image: url("../img/like_btn.png");
@@ -104,6 +105,28 @@ form input[type='file'] {
   .likes_block span {
     line-height: 30px;
     margin-left: 1px; }
+
+.comments_block {
+  display: inline-block;
+  margin-left: 0.5rem; }
+  .comments_block a {
+    font-size: 1.5rem; }
+
+.comments-list {
+  padding-top: 1rem; }
+
+.comment-item {
+  padding: 1rem 0;
+  border-top: 1px solid #ccc; }
+  .comment-item:last-of-type {
+    padding-bottom: 0; }
+  .comment-item .comment__date {
+    color: #ccc;
+    font-size: 0.8rem; }
+  .comment-item .comment__img-wrap {
+    float: left; }
+    .comment-item .comment__img-wrap img {
+      max-width: 45px; }
 
 /* ---------- News styles END ---------- */
 /* ---------- Friends styles START ---------- */

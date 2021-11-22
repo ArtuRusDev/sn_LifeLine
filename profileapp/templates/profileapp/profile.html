@@ -34,7 +34,7 @@
 
             </div>
             <div class="col-md-8 news_block ml-0">
-                <h4 class="text-center">Новости пользователя:</h4>
+                <h4 class="text-center">Новости пользователя {{ cur_user.first_name }}</h4>
 
                 {% for news_item in news %}
                      {% include 'newsapp/includes/inc_news_item.html'%}

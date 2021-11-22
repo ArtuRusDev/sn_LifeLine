@@ -27,6 +27,10 @@ class NewsItem(models.Model):
     def all_liker(self):
         return ', '.join([item.user.get_name for item in self.likes.all()])
 
+    @property
+    def all_comments(self):
+        return Comments.objects.filter(news_item=self.id)
+
 
 class Likes(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -35,3 +39,14 @@ class Likes(models.Model):
     class Meta:
         verbose_name = 'Лайк'
         verbose_name_plural = 'Лайки'
+
+
+class Comments(models.Model):
+    news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE, verbose_name='Комментируемая новость')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Автор')
+    text = models.TextField(blank=False, null=False, max_length=1024, verbose_name='Текст комментария')
+    add_datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата комментирования')
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'

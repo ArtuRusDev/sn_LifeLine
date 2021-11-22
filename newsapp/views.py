@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from newsapp.forms import CreateNewsForm
-from newsapp.models import NewsItem, Likes
+from newsapp.models import NewsItem, Likes, Comments
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -22,6 +22,7 @@ class NewsView(ListView):
                 Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
                 ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)))
         ).select_related().order_by('-add_datetime')
+        data['all_comments'] = Comments.objects.all();
         return data
 
 
@@ -52,6 +53,25 @@ class DeleteNewsView(DeleteView):
         if user_pk != news_owner_pk:
             raise Http404("You can't delete someone else's record")
         return data
+
+
+def add_comment(request):
+    if request.method == 'POST':
+        news_pk = request.POST.get('news_pk')
+        content = request.POST.get('content')
+
+        if content:
+            Comments.objects.create(news_item=NewsItem.objects.get(id=news_pk), author=request.user, text=content)
+        else:
+            return JsonResponse({'result': 'empty_input'})
+
+        context = {
+            'news_item': NewsItem.objects.get(pk=news_pk),
+        }
+
+        result = render_to_string('newsapp/includes/comments_list_block.html', context)
+
+        return JsonResponse({'result': result})
 
 
 def put_like(request, pk):
