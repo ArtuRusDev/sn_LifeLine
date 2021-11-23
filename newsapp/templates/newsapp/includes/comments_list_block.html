@@ -1,4 +1,4 @@
-<div class="comments-list">
+<div class="comments-list" data-news-id="{{ news_item.id }}">
     {% for comment in news_item.all_comments %}
         <div class="comment-item d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -14,6 +14,9 @@
                     <div class="comment__date">{{ comment.add_datetime }}</div>
                 </div>
             </div>
+            {% if comment.author.pk == user.pk %}
+                <a onclick="delete_comment({{ comment.pk }})" class="text-danger float-right delete-comment_btn">Удалить</a>
+            {% endif %}
         </div>
     {% endfor %}
 </div>

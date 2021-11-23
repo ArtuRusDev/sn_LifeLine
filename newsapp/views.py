@@ -67,11 +67,29 @@ def add_comment(request):
 
         context = {
             'news_item': NewsItem.objects.get(pk=news_pk),
+            'user': request.user
         }
 
         result = render_to_string('newsapp/includes/comments_list_block.html', context)
 
         return JsonResponse({'result': result})
+
+
+def delete_comment(request, pk):
+    comment_item = Comments.objects.get(pk=pk)
+    comment_news = comment_item.news_item
+    comment_item.delete()
+    total_comments_cnt = Comments.objects.filter(news_item_id=comment_news.id).count()
+
+    result = {
+        'comments_cnt': total_comments_cnt,
+        'comments_html': render_to_string('newsapp/includes/comments_list_block.html',
+                                          {'news_item': NewsItem.objects.get(pk=comment_news.id),
+                                           'user': request.user}),
+        'news_id': comment_news.id
+    }
+
+    return JsonResponse(result)
 
 
 def put_like(request, pk):

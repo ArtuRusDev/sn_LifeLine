@@ -112,6 +112,10 @@ form input[type='file'] {
   .comments_block a {
     font-size: 1.5rem; }
 
+.delete-comment_btn {
+  cursor: pointer;
+  font-size: 0.7rem; }
+
 .comments-list {
   padding-top: 1rem; }
 
