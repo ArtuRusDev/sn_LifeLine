@@ -1,0 +1,22 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-4 col-sm user_info">
+                <img src="/media/{{ object.image|default:"users_avatars/default.png" }}" alt="{{ object.name }}"
+                     class="user_avatar">
+                <h3>{{ object.name }}</h3>
+                <p><b>Описание:</b> {{ object.description|default:"Не указано" }}</p>
+                <p><b>Дата создания:</b> {{ object.crate_date|default:"Не указано" }}</p>
+            </div>
+            <div class="col-md-8 news_block ml-0">
+                <h4 class="text-center">Новости сообщества {{ object.name }}</h4>
+
+{#                {% for news_item in news %}#}
+{#                     {% include 'newsapp/includes/inc_news_item.html'%}#}
+{#                {% endfor %}#}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

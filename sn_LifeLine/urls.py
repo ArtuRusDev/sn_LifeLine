@@ -14,6 +14,7 @@ urlpatterns = [
     path('users/', include('authapp.urls', namespace='auth')),
     path('friends/', include('friendsapp.urls', namespace='friends')),
     path('dialogs/', include('messengerapp.urls', namespace='messenger')),
+    path('community/', include('communityapp.urls', namespace='community')),
     path('admin/', include('adminapp.urls', namespace='admin')),
 ]
 

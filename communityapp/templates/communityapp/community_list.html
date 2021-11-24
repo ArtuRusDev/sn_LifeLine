@@ -1,0 +1,20 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Сообщества{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="news_block">
+            <h2 class="text-center">Все сообщества</h2>
+
+            <ul>
+                {% for community in object_list %}
+                    <li> {{ community.name }}</li>
+                {% endfor %}
+            </ul>
+
+            {% if not object_list %}
+                Еще нет ни одного сообщества
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}ро

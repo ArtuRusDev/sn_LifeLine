@@ -35,15 +35,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'admin_honeypot',
+    'debug_toolbar',
+    'template_profiler_panel',
     'mainapp',
     'authapp',
     'profileapp',
     'newsapp',
     'friendsapp',
     'messengerapp',
-    'debug_toolbar',
-    'template_profiler_panel',
     'adminapp',
+    'communityapp',
 ]
 
 MIDDLEWARE = [
