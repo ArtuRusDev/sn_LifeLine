@@ -1,11 +1,10 @@
 from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound, Http404
+from django.http import JsonResponse, Http404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes, Comments
 from django.template.loader import render_to_string
-from django.utils import timezone
 
 
 class NewsView(ListView):
@@ -21,8 +20,8 @@ class NewsView(ListView):
         data['all_news'] = NewsItem.objects.filter((
                 Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
                 ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)))
-        ).select_related().order_by('-add_datetime')
-        data['all_comments'] = Comments.objects.all();
+        ).prefetch_related().order_by('-add_datetime')
+        data['all_comments'] = Comments.objects.all()
         return data
 
 
@@ -34,7 +33,6 @@ class CreateNews(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.add_datetime = timezone.now()
         self.object = form.save()
         return super().form_valid(form)
 

@@ -6,15 +6,32 @@
         <div class="news_block">
             <h2 class="text-center">Все сообщества</h2>
 
-            <ul>
+            <div class="communities_list">
                 {% for community in object_list %}
-                    <li> {{ community.name }}</li>
+                    <div class="friend_item">
+                        <div class="friend_item_unfriend">
+                            <a href="#" class="btn btn-success mr-1">Вступить</a>
+                        </div>
+                        <div class="friend_item_title">
+                            <img src="/media/{{ community.image|default:'users_avatars/default.png' }}"
+                                 alt="Аватарка" class="user_avatar_friends user_avatar_news">
+                            <div class="friend_item_title-username">
+                                <a href="{% url 'community:detail' community.pk %}">
+                                    {{ community.name }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
 
             {% if not object_list %}
-                Еще нет ни одного сообщества
+                <p>Еще нет ни одного сообщества</p>
             {% endif %}
+
+            <p>
+                <a href="{% url 'community:create' %}" class="btn btn-success">Создать сообщество</a>
+            </p>
         </div>
     </div>
 {% endblock %}ро

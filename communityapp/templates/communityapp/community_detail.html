@@ -8,13 +8,17 @@
                 <h3>{{ object.name }}</h3>
                 <p><b>Описание:</b> {{ object.description|default:"Не указано" }}</p>
                 <p><b>Дата создания:</b> {{ object.crate_date|default:"Не указано" }}</p>
+
+                <p>
+                    <a href="{% url 'community:add_news' object.pk %}" class="btn btn-success">Добавить новость</a>
+                </p>
             </div>
             <div class="col-md-8 news_block ml-0">
                 <h4 class="text-center">Новости сообщества {{ object.name }}</h4>
 
-{#                {% for news_item in news %}#}
-{#                     {% include 'newsapp/includes/inc_news_item.html'%}#}
-{#                {% endfor %}#}
+                {% for news_item in news %}
+                    {% include 'newsapp/includes/inc_news_item.html' %}
+                {% endfor %}
 
             </div>
         </div>

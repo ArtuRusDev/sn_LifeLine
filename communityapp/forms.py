@@ -1,8 +1,8 @@
 from django import forms
 from django.core.files.images import get_image_dimensions
 
-from communityapp.models import Community
-from newsapp.models import NewsItem
+from communityapp.models import Community, CommunityNewsItem
+from newsapp.forms import CreateNewsForm
 
 
 class CreateCommunityForm(forms.ModelForm):
@@ -53,3 +53,9 @@ class CreateCommunityForm(forms.ModelForm):
         description = self.cleaned_data['description']
         description = description.replace('\n', '<br>')
         return description
+
+
+class CreateCommunityNewsForm(CreateNewsForm):
+    class Meta:
+        model = CommunityNewsItem
+        fields = ('text', 'image')
