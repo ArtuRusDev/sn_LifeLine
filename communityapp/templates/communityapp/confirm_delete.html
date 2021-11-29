@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Удаление Новости{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="news_block">
+            <h3 class="text-center">Вы уверены, что хотите удалить это сообщество?</h3>
+
+            <div class="user_info text-center">
+                <img src="/media/{{ object.image|default:"users_avatars/default.png" }}" alt="{{ object.name }}"
+                     class="user_avatar">
+                <h3>{{ object.name }}</h3>
+                <p><b>Описание:</b> {{ object.description|default:"Не указано" }}</p>
+                <p><b>Дата создания:</b> {{ object.crate_date|default:"Не указано" }}</p>
+            </div>
+
+            <form action="{% url 'community:delete' object.pk %}" method="post">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" value="Удалить">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success">
+                    Отмена
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

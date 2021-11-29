@@ -1,0 +1,14 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container content">
+        <div class="news_block">
+            <h2 class="text-center">Изменение сообщества</h2>
+            <form method="post" class="bootstrap-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-success" value="Изменить">
+            </form>
+        </div>
+    </div>
+{% endblock %}

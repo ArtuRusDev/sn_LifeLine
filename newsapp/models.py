@@ -4,12 +4,13 @@ from sn_LifeLine import settings
 
 
 class NewsItem(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Пользователь')
-    text = models.TextField(blank=False, null=False, max_length=1024, verbose_name='Текст Новости')
-    add_datetime = models.DateTimeField(auto_now=True, verbose_name='Дата Добавления')
-    image = models.FileField(verbose_name="Изображние", upload_to='news_images', blank=True, default=None)
-    is_moderated = models.BooleanField(verbose_name='Проверено модераторами', default=False)
-    is_accepted = models.BooleanField(verbose_name='Публикация принята', default=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.DO_NOTHING)
+    text = models.TextField('Текст Новости', max_length=1024)
+    add_datetime = models.DateTimeField('Дата Добавления', auto_now=True)
+    image = models.FileField("Изображние", upload_to='news_images', null=True, blank=True, default=None)
+    is_community = models.BooleanField('Новость сообщества', default=False)
+    is_moderated = models.BooleanField('Проверено модераторами', default=False)
+    is_accepted = models.BooleanField('Публикация принята', default=False)
 
     class Meta:
         verbose_name = 'Новость'
@@ -44,8 +45,8 @@ class Likes(models.Model):
 class Comments(models.Model):
     news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE, verbose_name='Комментируемая новость')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Автор')
-    text = models.TextField(blank=False, null=False, max_length=1024, verbose_name='Текст комментария')
-    add_datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата комментирования')
+    text = models.TextField('Текст комментария', blank=False, null=False, max_length=1024)
+    add_datetime = models.DateTimeField('Дата комментирования', auto_now_add=True)
 
     class Meta:
         verbose_name = 'Комментарий'

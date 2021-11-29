@@ -1,7 +1,11 @@
+from itertools import chain
+
 from django.db.models import Q
-from django.http import JsonResponse, Http404
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+
+from communityapp.models import CommunityNewsItem, CommunityParticipant
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes, Comments
 from django.template.loader import render_to_string
@@ -17,11 +21,21 @@ class NewsView(ListView):
         friends = user.get_friends
         friends_pk = [friend.pk for friend in friends]
         friend_requests_users_pk = user.get_send_friend_requests_pk
-        data['all_news'] = NewsItem.objects.filter((
+
+        all_subscribed_communities = CommunityParticipant.objects.filter(user_id=self.request.user)
+        all_ids = [instance.community_id for instance in all_subscribed_communities]
+
+        all_news = NewsItem.objects.filter((
                 Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
-                ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)))
-        ).prefetch_related().order_by('-add_datetime')
+                ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)) &
+                Q(is_community=False)))
+
+        all_community_news = CommunityNewsItem.objects.filter(community_id__in=all_ids).select_related()
+
+        data['all_news'] = sorted(chain(all_news, all_community_news),
+                                  key=lambda instance: instance.add_datetime, reverse=True)
         data['all_comments'] = Comments.objects.all()
+
         return data
 
 

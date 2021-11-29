@@ -1,0 +1,66 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm user_info">
+                <img src="/media/{{ object.image|default:"users_avatars/default.png" }}" alt="{{ object.name }}"
+                     class="user_avatar">
+                <h3>{{ object.name }}</h3>
+                <p><b>Описание:</b> {{ object.description|default:"Не указано" }}</p>
+                <p><b>Дата создания:</b> {{ object.crate_date|default:"Не указано" }}</p>
+
+                {% if is_publisher %}
+                    <p>
+                        <a href="{% url 'community:add_news' object.pk %}" class="btn btn-success">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Добавить новость
+                        </a>
+                    </p>
+                {% endif %}
+
+                {% if user.id == object.creator.id %}
+                    <p>
+                        <a href="{% url 'community:update' object.pk %}" class="btn btn-success">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Изменить
+                        </a>
+
+                        <a href="{% url 'community:publishers' object.pk %}" class="btn btn-success">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Публикаторы
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="{% url 'community:delete' object.pk %}" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Удалить
+                        </a>
+                    </p>
+                {% endif %}
+
+                {% if object.creator.id != user.pk %}
+                    <div data-community_id="{{ object.id }}">
+                        {% if user.pk in object.get_subscribers_id %}
+                            <button onclick="subscribe_community({{ community.pk }})" class="btn btn-danger mr-1">
+                                Покинуть
+                            </button>
+                        {% else %}
+                            <button onclick="subscribe_community({{ community.pk }})" class="btn btn-success mr-1">
+                                Вступить
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-8 news_block ml-0">
+                <h4 class="text-center">Новости сообщества {{ object.name }}</h4>
+
+                {% for news_item in news %}
+                    {% include 'newsapp/includes/inc_news_item.html' %}
+                {% endfor %}
+
+                {% if not news %}
+                    <p>У сообщества {{ object.name }} еще нет новостей</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

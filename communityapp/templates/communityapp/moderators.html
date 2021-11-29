@@ -1,0 +1,48 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Сообщества{% endblock %}
+{% block content %}
+    <div class="container content">
+        <div class="news_block">
+            <h2 class="text-center">Все публикаторы</h2>
+
+            <div class="communities_list">
+                {% for user_item in users %}
+                    <div class="friend_item d-flex justify-content-between" data-user-id="{{ user_item.id }}">
+                        <div class="friend_item_title w-100">
+                            <img src="/media/{{ user_item.avatar|default:'users_avatars/default.png' }}"
+                                 alt="Аватарка" class="user_avatar_friends">
+
+                            <div class="friend_item_title-username">
+                                <a href="{% url 'profile:detail' user_item.pk %}">
+                                    {{ user_item.get_name }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <form method="POST" class="change-publisher_wrap">
+                            {% csrf_token %}
+                            <input type="hidden" name="user" value="{{ user_item.id }}">
+                            <input type="hidden" name="community" value="{{ object.pk }}">
+
+                            {% if user_item.id in publishers_id %}
+                                <a class="btn btn-danger mr-1">
+                                    Убрать
+                                </a>
+                            {% else %}
+                                <a class="btn btn-success mr-1">
+                                    Добавить
+                                </a>
+                            {% endif %}
+                        </form>
+                    </div>
+
+                {% endfor %}
+
+                {% if not users %}
+                    <p>У вашего сообщества еще нет ни одного подписчика</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
