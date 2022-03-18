@@ -1,14 +1,24 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container content text-center">
-        <div class="auth_form_wrapper">
-            <h2>Вход в Соцсеть</h2>
-            <form method="post" class="bootstrap-form">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" class="btn btn-success" value="Войти">
-            </form>
-        </div>
+<div class="container  text-center">
+    <div class="b-auth-form__wrap col-lg-6 offset-lg-3">
+        <h2 class="b-auth-form__title">Авторизация</h2>
+        <form method="post" class="b-auth-form">
+            {% csrf_token %}
+            {{ form.non_field_errors|striptags }}
+
+            {% for field in form %}
+                {{ field.errors }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" class="b-auth-form__submit" value="Войти">
+        </form>
+        <p class="b-help-text">
+            Нет аккаунта?
+            <a href="{% url 'auth:register'%}" class="b-help-text__link">Зарегистрироваться ›</a>
+        </p>
     </div>
+</div>
 {% endblock %}

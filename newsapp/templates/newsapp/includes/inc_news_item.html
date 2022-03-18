@@ -1,59 +1,74 @@
 {% load static %}
-<div class="news_item wow bounceInLeft" data-wow-offset="10" data-news-id="{{ news_item.pk }}">
-    <div class="news_item_title">
-        <div class="news_item_title-username">
+<div class="b-news-item js-news-item col-lg-8 offset-lg-2" data-news-id="{{ news_item.pk }}">
+    <div class="b-news-info">
+        <div class="b-news-info__avatar">
             {% if news_item.community %}
-                <a href="{% url 'community:detail' news_item.community.pk %}">
-                    <img src="/media/{{ news_item.community.image|default:"users_avatars/default.png" }}"
-                         alt="Аватарка" class="user_avatar_news">
-                </a>
+            <a href="{% url 'community:detail' news_item.community.pk %}">
+                <img src="/media/{{ news_item.community.image|default:'users_avatars/default.png' }}"
+                     alt="Аватарка" class="b-news-info__img">
+            </a>
+            {% else %}
+            <a href="{% url 'profile:detail' news_item.user.pk %}">
+                <img src="/media/{{ news_item.user.avatar|default:'users_avatars/default.png' }}"
+                     alt="Аватарка" class="b-news-info__img">
+            </a>
+            {% endif %}
+        </div>
+        <div class="b-news-info__text">
+            <div class="b-news-info__username">
+                {% if news_item.community %}
                 <a href="{% url 'community:detail' news_item.community.pk %}">
                     {{ news_item.community.name }}
                 </a>
-            {% else %}
-                <a href="{% url 'profile:detail' news_item.user.pk %}">
-                    <img src="/media/{{ news_item.user.avatar|default:"users_avatars/default.png" }}"
-                         alt="Аватарка" class="user_avatar_news">
-                </a>
+                {% else %}
                 <a href="{% url 'profile:detail' news_item.user.pk %}">
                     {{ news_item.user.get_name }}
                 </a>
-                {% if news_item.user.is_staff %}
-                    <img src="{% static 'img/staff_icon.png' %}" class="staff_icon" alt="Статус персонала"
-                         title="Статус персонала">
                 {% endif %}
-            {% endif %}
-        </div>
-        <div class="news_item_title_post-date">
-            {{ news_item.add_datetime }}
+                {% if news_item.user.is_staff %}
+                <img src="{% static 'img/icons/staff_icon.png' %}" class="staff_icon" alt="Статус персонала"
+                     title="Статус персонала">
+                {% endif %}
+            </div>
+            <div class="b-news-info__date">
+                {{ news_item.add_datetime }}
+            </div>
         </div>
     </div>
-    <div class="news_item_text">
-        {{ news_item.text|safe }}
+    <div class="b-news-item__content">
+        {% if news_item.text %}
+        <p class="b-news-item__text">{{ news_item.text|safe }}</p>
+        {% endif %}
         {% if news_item.image %}
-            <div class="news_item_image">
-                <a href="/media/{{ news_item.image }}" data-fancybox>
-                    <img src="/media/{{ news_item.image }}" alt="Изображение новости">
-                </a>
-            </div>
+
+        <div class="b-news-item__img-wrap">
+            <a href="/media/{{ news_item.image }}" data-fancybox>
+                <img src="/media/{{ news_item.image }}" class="b-news-item__img" alt="Изображение новости">
+            </a>
+        </div>
         {% endif %}
     </div>
 
-    {% if cur_user.pk == user.pk or news_item.community.creator.id == user.pk %}
-        <p class="float-right">
-            <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>
-        </p>
-    {% endif %}
+    <!--    {% if cur_user.pk == user.pk or news_item.community.creator.id == user.pk %}-->
+    <!--    <p class="float-right">-->
+    <!--        <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>-->
+    <!--    </p>-->
+    <!--    {% endif %}-->
 
     {% if cur_user.pk == user.pk and news_item.is_moderated == 1 and news_item.is_accepted == 0 %}
-        <p class="float-right mr-3">
-            <strong class="text-danger">НЕ ПРИНЯТО!</strong>
-            <a href="{% url 'admin:news_update' news_item.pk %}" class="text-primary">Изменить</a>
-        </p>
+    <p class="float-right mr-3">
+        <strong class="text-danger">НЕ ПРИНЯТО!</strong>
+        <a href="{% url 'admin:news_update' news_item.pk %}" class="text-primary">Изменить</a>
+    </p>
     {% endif %}
 
     {% include 'newsapp/includes/likes_block.html' %}
-    {% include 'newsapp/includes/comments_block.html' %}
+
+    <div class="b-news-comments">
+        <img src="{% static 'img/icons/comment.png' %}" alt="Иконка комментария">
+        <span class="js-comments-cnt">{{ news_item.all_comments.count|default:'' }}</span>
+    </div>
+
     <div class="comments_wrap">
         {% include 'newsapp/includes/comments_list_block.html' %}
     </div>

@@ -82,9 +82,12 @@ def add_comment(request):
             'user': request.user
         }
 
-        result = render_to_string('newsapp/includes/comments_list_block.html', context)
+        result = {
+            'comments_html': render_to_string('newsapp/includes/comments_list_block.html', context),
+            'comments_cnt': Comments.objects.filter(news_item_id=news_pk).count(),
+        }
 
-        return JsonResponse({'result': result})
+        return JsonResponse(result)
 
 
 def delete_comment(request, pk):

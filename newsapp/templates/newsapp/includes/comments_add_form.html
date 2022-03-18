@@ -1,6 +1,6 @@
-<form method="POST" class="d-flex mt-2">
+<form method="POST" class="b-add-comment-form">
     {% csrf_token %}
     <input type="hidden" name="news_pk" value="{{ news_item.pk }}">
-    <input type="text" class="form-control mr-1" name="content" placeholder="Ваш комментарий">
-    <button type="button" name="send_comment" class="btn btn-primary">Отправить</button>
+    <input type="text" class="b-form__input b-add-comment-form__input" name="content" placeholder="Введите ваш комментарий">
+    <div class="js-add-comment b-send-btn"></div>
 </form>

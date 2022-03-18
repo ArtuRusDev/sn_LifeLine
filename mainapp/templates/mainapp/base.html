@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>{% block title %}Life on Line{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Life on Line{% endblock %}</title>
     <meta name="description" content="Социальная сеть Life on Line - место где вы можете познакомиться и пообщаться с
     интересными людьми, найти единомышленников, объединиться в группы по интересам и поделиться новостями."/>
+
+    <!-- LIBs -->
     <link href="{% static 'css/lib/bootstrap-4/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/lib/bootstrap-4/bootstrap-grid.css' %}" rel="stylesheet">
     <link href="{% static 'css/lib/bootstrap-4/bootstrap-reboot.css' %}" rel="stylesheet">
@@ -14,24 +17,23 @@
     <link href="{% static 'css/lib/jquery.fancybox.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/lib/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
-    {% if user.is_dark_theme %}
-        <link href="{% static 'css/dark_theme.css' %}" rel="stylesheet">
-    {% else %}
-        <link href="{% static 'css/light_theme.css' %}" rel="stylesheet">
-    {% endif %}
+    <!-- CSS -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
 {% include 'mainapp/includes/inc_navbar.html' %}
-<script src="{% static 'js/lib/snowflakes.js' %}"></script>
 
 {% block content %}{% endblock %}
 
 <script src="{% static 'js/lib/jquery-3.2.1.min.js' %}"></script>
 
 {% if user.is_authenticated %}
-    <script src="{% static 'js/new_mess_count_update.js' %}"></script>
+<script src="{% static 'js/new_mess_count_update.js' %}"></script>
 {% endif %}
 
 <script src="{% static 'js/menu.js' %}"></script>
