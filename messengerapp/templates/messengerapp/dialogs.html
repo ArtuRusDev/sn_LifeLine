@@ -2,14 +2,14 @@
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
-    <div class="container content">
+    <div class="container">
         <div class="row">
-            <div class="col-md-9 m-auto col">
-                <h4>Ваши Чаты:</h4>
+            <div class="col-lg-8 offset-lg-2">
                 {% if chats.count == 0 %}
                     У вас еще нет созданных чатов
                 {% endif %}
-                <div class="chats_list">
+
+                <div class="b-chats-list">
                     {% include 'messengerapp/includes/chats_list.html' %}
                 </div>
             </div>

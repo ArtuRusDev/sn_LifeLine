@@ -49,13 +49,28 @@ a {
   margin-right: 15px; }
 
 .b-nav-item__link {
-  padding: 8px 10px; }
+  padding: 8px 10px;
+  position: relative; }
 
 .b-nav-item__link_active {
   background: linear-gradient(207.3deg, #C823A9 9.46%, #6A0CBE 81.38%);
   border-radius: 10px; }
   .b-nav-item__link_active:hover {
     color: #fff; }
+
+.b-nav-item__new-msg-counter {
+  display: inline-block;
+  top: -5px;
+  position: absolute;
+  font-size: 13px;
+  width: 18px;
+  height: 18px;
+  background: #EE0D28;
+  border-radius: 100%;
+  text-align: center;
+  border: 1px solid rgba(20, 2, 36, 0.2);
+  box-shadow: 0px 0px 11px rgba(238, 1, 40, 0.5);
+  line-height: 18px; }
 
 .b-nav-btn {
   transition: .2s;
@@ -175,9 +190,7 @@ a {
 .new_message_alert {
   color: #dc3545; }
 
-/*-----------------------------------*\
-	#News likes block
-\*-----------------------------------*/
+/*---------- News likes block ----------*/
 .b-news-likes {
   display: inline-block;
   font-size: 20px;
@@ -198,9 +211,7 @@ a {
 .b-news-likes span, .b-news-comments span {
   padding-left: 5px; }
 
-/*-----------------------------------*\
-	#News comments block
-\*-----------------------------------*/
+/*---------- News comments block ----------*/
 .b-comments-separator {
   position: relative;
   padding-top: 15px;
@@ -278,34 +289,8 @@ a {
   max-height: 37px;
   min-width: 37px;
   max-width: 37px;
-  background-image: url("../img/icons/send.png"); }
-
-/*-----------------------------------*\
-	#Old CSS
-\*-----------------------------------*/
-.user_avatar {
-  width: 230px;
-  height: 230px;
-  border-radius: 100%;
-  margin-bottom: 1em; }
-
-.trash_icon {
-  height: 20px; }
-
-.fixed-page {
-  overflow: hidden; }
-
-.current_user {
-  text-align: right; }
-
-.make_news_btn {
-  display: none; }
-
-.staff_icon {
-  max-width: 15px; }
-
-form input[type='file'] {
-  padding: 3px; }
+  background-image: url("../img/icons/send.png");
+  cursor: pointer; }
 
 /*-----------------------------------*\
 	#Friends
@@ -412,6 +397,95 @@ form input[type='file'] {
     color: #212529;
     background-color: #fff;
     border-color: #ccc; }
+
+/*---------- Chats list ----------*/
+.b-chats-list {
+  padding-top: 20px; }
+
+.b-chat-item {
+  display: flex;
+  background: rgba(16, 15, 15, 0.55);
+  backdrop-filter: blur(15px);
+  padding: 17px; }
+  .b-chat-item:first-of-type {
+    border-radius: 15px 15px 0 0; }
+  .b-chat-item:last-of-type {
+    border-radius: 0 0 15px 15px; }
+
+.b-chat-item_unread .b-chat-item__last-msg {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px; }
+
+.b-chat-item_new-msg {
+  background: rgba(69, 69, 69, 0.55);
+  backdrop-filter: blur(15px); }
+
+.b-chat-item__img {
+  max-width: 70px;
+  min-width: 70px;
+  max-height: 70px;
+  min-height: 70px; }
+
+.b-chat-item__content {
+  padding-left: 20px;
+  width: 100%;
+  margin-right: 10px; }
+
+.b-chat-item__username {
+  font-size: 20px;
+  padding-bottom: 10px; }
+
+.b-chat-item__last-msg {
+  padding: 5px; }
+
+.b-chat-item__time {
+  font-size: 12px;
+  color: #88879A;
+  padding: 10px 10px 0 0; }
+
+.b-chat-item__last-msg-author {
+  color: #88879A; }
+
+.b-chat-item_new-msg .b-chat-item__info:after {
+  content: "1+";
+  display: block;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  background-color: #fff;
+  border-radius: 100%;
+  margin-top: 10px;
+  color: #000;
+  text-align: center;
+  line-height: 30px; }
+
+/*-----------------------------------*\
+	#Old CSS
+\*-----------------------------------*/
+.user_avatar {
+  width: 230px;
+  height: 230px;
+  border-radius: 100%;
+  margin-bottom: 1em; }
+
+.trash_icon {
+  height: 20px; }
+
+.fixed-page {
+  overflow: hidden; }
+
+.current_user {
+  text-align: right; }
+
+.make_news_btn {
+  display: none; }
+
+.staff_icon {
+  max-width: 15px; }
+
+form input[type='file'] {
+  padding: 3px; }
 
 /*-----------------------------------*\
 	#Admin panel

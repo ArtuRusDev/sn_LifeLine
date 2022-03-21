@@ -24,11 +24,11 @@
                     <a class="b-nav-item__link {% if 'messenger' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
                        href="{% url 'messenger:dialogs' %}">
                         Сообщения
-                        <span class="new_messages_counter text-danger">
-                    {% if unread_chats.count > 0 %}
-                        ({{ unread_chats.count }})
-                    {% endif %}
-                </span>
+                        {% if unread_chats.count > 0 %}
+                            <span class="b-nav-item__new-msg-counter">
+                                {{ unread_chats.count }}
+                            </span>
+                        {% endif %}
                     </a>
                 </div>
                 <div class="b-nav-item">

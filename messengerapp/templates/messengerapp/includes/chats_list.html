@@ -1,38 +1,51 @@
 {% load static %}
 {% for chat in chats %}
-    <div class="friend_item">
-        <div class="friend_item_unfriend">
-            <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger">
-                <img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash">
-            </a>
-            <a href="{% url 'messenger:messages' chat.pk %}" class="btn btn-success mr-1">Чат</a>
-        </div>
-        <div class="friend_item_title">
-            {% if chat.type == 'D' %}
-                {% for member in chat.members.all %}
-                    {% if member.pk != user.pk %}
-                        <img src="/media/{{ member.avatar|default:"users_avatars/default.png" }}"
-                                {# alt="Аватарка" class="user_avatar_news user_avatar_friends">
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <img src="/media/users_avatars/default.png" alt="Аватарка"
-                     class="user_avatar_news user_avatar_friends">
+<a href="{% url 'messenger:messages' chat.pk %}" class="b-chat-item
+{% if not chat.last_message.is_read and chat.last_message.author.pk == user.pk %}
+    b-chat-item_unread
+{% elif chat in unread_chats %}
+    b-chat-item_new-msg
+{% endif %}">
+
+    <!--        <div class="b-chat">-->
+    <!--            <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger">-->
+    <!--                <img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash">-->
+    <!--            </a>-->
+    <!--        </div>-->
+
+    {% if chat.type == 'D' %}
+    {% for member in chat.members.all %}
+    {% if member.pk != user.pk %}
+    <img src="/media/{{ member.avatar|default:'users_avatars/default.png' }}"
+         alt="Аватарка" class="b-chat-item__img">
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <img src="/media/users_avatars/default.png" alt="Аватарка" class="b-chat-item__img">
+    {% endif %}
+
+    <div class="b-chat-item__content">
+        <div class="b-chat-item__username">
+            {% for member in chat.members.all %}
+            {% if member.pk != user.pk %}
+            {{ member.get_name|default:'Пользователь удален' }}
             {% endif %}
-            <div class="friend_item_title-username">
-                {% if chat in unread_chats %}
-                    <span class="new_message_alert">new</span>
-                {% endif %}
+            {% endfor %}
+        </div>
 
-                {% for member in chat.members.all %}
-                    {% if member.pk != user.pk %}
-                        {{ member.get_name|default:'Пользователь удален' }}
-                    {% endif %}
-                {% endfor %}
-            </div>
+        <div class="b-chat-item__last-msg">
+            {% if chat.last_message.author.pk == user.pk %}
+                <span class="b-chat-item__last-msg-author">Вы: </span>
+            {% endif %}
 
-            - {{ chat.last_message|default:"*Нет сообщений*" }} {% if chat.last_message and not chat.last_message.is_read %}<div class="unread_chat_circle">●</div>{% endif %}
+            {{ chat.last_message }}
         </div>
     </div>
 
+    <div class="b-chat-item__info">
+        <div class="b-chat-item__time">
+            {{ chat.last_message.pub_date|date:"h:m" }}
+        </div>
+    </div>
+</a>
 {% endfor %}
