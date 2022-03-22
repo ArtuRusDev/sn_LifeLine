@@ -7,13 +7,11 @@ function update_messages() {
         success: function (data) {
 
             if (data.result) {
-                $('.messages_block').html(data.result);
-
-                let block = document.getElementById("chat_block");
-                block.scrollTop = 9999;
+                $('.b-chat__content__messages').html(data.result);
+                $(".js-chat-block")[0].scrollTop = 9999;
             }
 
-            // console.log('ajax done');
+            console.log('ajax done');
         },
 
         failed: function () {

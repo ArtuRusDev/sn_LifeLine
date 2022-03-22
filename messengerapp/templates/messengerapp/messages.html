@@ -2,42 +2,45 @@
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
-    <div class="container content">
-        <div class="chat_block_wrapper">
-            <div class="dialog_title_wrapper flex-column">
-                <a href="{% url 'messenger:dialogs' %}" class="back_to_dialogs">К диалогам</a>
-                <div class="dialog_name">
+<div class="row">
+    <div class="col-lg-10 offset-lg-1">
+        <div class="b-chat">
+            <div class="b-chat__info">
+                <a href="{% url 'messenger:dialogs' %}" class="btn-back"></a>
+                <div class="b-chat__interlocutor">
                     {% if chat.type == 'D' %}
-                        {% for member in chat.members.all %}
-                            {% if member.pk != user.pk %}
-                                Диалог с
-                                <a href="{% url 'profile:detail' member.pk %}">{{ member.get_name }}</a>
-                            {% endif %}
-                        {% endfor %}
+                    {% for member in chat.members.all %}
+                    {% if member.pk != user.pk %}
+                    <span>Диалог с</span>
+                    <a href="{% url 'profile:detail' member.pk %}">
+                        <img src="/media/{{ member.avatar|default:'users_avatars/default.png' }}"
+                             alt="Автар пользователя {{ member.get_name }}" class="b-user-img_small">
+                        {{ member.get_name }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
                     {% else %}
-                        Беседа {{ chat.title }}
+                    Беседа {{ chat.title }}
                     {% endif %}
                 </div>
             </div>
-            <div class="chat_block" id="chat_block">
-                <div class="messages_block">
+            <div class="b-chat__content js-chat-block">
+                <div class="b-chat__content__messages">
                     {% include 'messengerapp/includes/message_dialog.html'%}
                 </div>
-                <div class="chat_form_wrapper">
-                    <form method="post" class="form-inline">
-                        {% csrf_token %}
-                        <input name="message" class="form-control" placeholder="Ваше сообщение..." autofocus>
-                        <input name="chat_pk" value="{{ chat.pk }}" type="hidden">
-                        <button type="submit" class="btn btn-primary mb-2">Отправить</button>
-                    </form>
-                </div>
             </div>
+            <form method="post" class="b-chat__form">
+                {% csrf_token %}
+                <input name="message" class="b-form__input" placeholder="Ваше сообщение..." autofocus>
+                <input name="chat_pk" value="{{ chat.pk }}" type="hidden">
+                <div class="b-send-btn" onclick="javascript:this.parentNode.submit();"></div>
+            </form>
         </div>
     </div>
+</div>
 
     <script type="text/javascript">
-        var block = document.getElementById("chat_block");
-        block.scrollTop = 9999;
+        $(".js-chat-block")[0].scrollTop = 9999;
     </script>
-    <script src="{% static 'js/messenges_update.js' %}"></script>
+<script src="{% static 'js/messenges_update.js' %}"></script>
 {% endblock %}

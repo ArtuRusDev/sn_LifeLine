@@ -26,11 +26,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+<script src="{% static 'js/lib/jquery-3.2.1.min.js' %}"></script>
+
 {% include 'mainapp/includes/inc_navbar.html' %}
 
-{% block content %}{% endblock %}
-
-<script src="{% static 'js/lib/jquery-3.2.1.min.js' %}"></script>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 
 {% if user.is_authenticated %}
 <script src="{% static 'js/new_mess_count_update.js' %}"></script>
@@ -38,7 +40,7 @@
 
 <script src="{% static 'js/menu.js' %}"></script>
 <script src="{% static 'js/news_actions.js' %}"></script>
-<script src="{% static 'js/community_actions.js' %}"></script>
+<!--<script src="{% static 'js/community_actions.js' %}"></script>-->
 
 <script src="{% static 'js/lib/jquery.fancybox.min.js' %}"></script>
 </body>

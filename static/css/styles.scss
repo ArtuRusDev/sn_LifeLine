@@ -105,7 +105,7 @@ a {
     }
 }
 
-.b-current-user-img {
+.b-user-img_small {
     min-height: 35px;
     max-height: 35px;
     min-width: 35px;
@@ -410,84 +410,123 @@ a {
 	#Messenger
 \*-----------------------------------*/
 
-.chat_block_wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    outline: 1px solid #ccc;
+.b-chat {
+    margin-top: 50px;
+    backdrop-filter: blur(15px);
 }
 
-.chat_block {
-    height: 80vh;
+.b-chat__info {
+    background: rgba(69, 69, 69, 0.55);
+    border-radius: 15px 15px 0 0;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: relative;
+}
+
+.b-chat__interlocutor {
+    display: inline-block;
+
+    span {
+        color: $gray_text_color;
+        margin-right: 10px;
+    }
+}
+
+.b-chat__content {
+    height: 70vh;
     overflow: auto;
-    padding: 10px 5px 40px;
+    background: rgba(16, 15, 15, 0.55);
+
+    &::-webkit-scrollbar-track {
+        background-color: #131313;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: linear-gradient(0deg, #C823A9 9.46%, #6A0CBE 81.38%);
+    }
+}
+
+.b-chat__content__messages {
+    padding: 0 20px 30px;
 }
 
 .chat_block_link {
     display: block;
 }
 
-.chat_form_wrapper {
+.btn-back {
+    background-image: url('../img/icons/arrow_back.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 65px;
+    height: 100%;
+    display: block;
     position: absolute;
-    top: 100%;
-    margin-top: -37px;
-    margin-left: -5px;
-    width: 100%;
-    background-color: #ccc;
+    padding: 15px 20px;
+    opacity: .5;
+    transition: .2s opacity;
 
-    input[name='message'] {
-        position: absolute;
-        width: 65%;
-        margin-right: 105px;
-        left: 0;
-        top: 0;
-    }
-
-    button {
-        position: absolute;
-        width: 35%;
-        right: 0;
-        top: 0;
+    &:hover {
+        opacity: 1;
     }
 }
 
-.message_item {
-    padding: 1px 20px;
-    display: inline-block;
-    border-radius: 10px;
-    margin: 5px 0;
-    max-width: 55%;
-    background-color: #fff;
-    word-wrap: break-word;
-
-    p {
-        font-size: 20px;
-        margin-top: -5px;
-        position: relative;
-    }
-}
-
-.dialog_title_wrapper {
+.b-chat__form {
     position: relative;
-    height: 40px;
-    background-color: #fff;
-    line-height: 40px;
-    border-bottom: 1px solid #ccc;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: rgba(69, 69, 69, 0.55);
+    border-radius: 0 0 15px 15px;
+    padding: 15px 20px;
+
+    .b-send-btn {
+        margin-left: 25px;
+    }
 }
+
+.b-msg-item {
+    padding: 15px;
+    position: relative;
+    background: #5C5478;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 5px;
+    max-width: 72%;
+    word-wrap: break-word;
+    font-size: 20px;
+}
+
+.b-msg-item__time {
+    font-size: 12px;
+    color: $gray_text_color;
+    margin-left: 10px;
+}
+
 
 .back_to_dialogs {
     float: left;
     margin: 0 15px;
 }
 
-.unread {
+.b-msg-item_unread {
     &:after {
-        content: '●';
-        font-size: 30px;
+        content: '';
+        display: block;
+        width: 13px;
+        height: 13px;
         position: absolute;
-        left: -50px;
-        color: #007bff;
+        left: -30px;
+        bottom: 10px;
+        border-radius: 100%;
+        background: linear-gradient(135deg, #C8236B 13.33%, #6A0CBE 80%);
     }
 }
 
@@ -587,7 +626,7 @@ a {
 }
 
 /*-----------------------------------*\
-	#Old CSS
+    #Old CSS
 \*-----------------------------------*/
 
 .user_avatar {
@@ -622,7 +661,7 @@ form input[type='file'] {
 }
 
 /*-----------------------------------*\
-	#Admin panel
+    #Admin panel
 \*-----------------------------------*/
 
 .admin-table {
@@ -683,7 +722,7 @@ img.admin-panel_img-value {
 }
 
 /*-----------------------------------*\
-	#Media queries
+    #Media queries
 \*-----------------------------------*/
 
 @media (max-width: 992px) {
