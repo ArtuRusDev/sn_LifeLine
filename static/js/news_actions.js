@@ -24,9 +24,17 @@ function delete_comment(pk) {
     });
 }
 
-
 $('.js-add-comment').on('click', function (event) {
     let $form = $(event.currentTarget).parent();
+    pushNewsComment($form);
+});
+
+$('.js-add-comment-form').submit(function (event) {
+    event.preventDefault();
+    pushNewsComment($(event.currentTarget));
+});
+
+function pushNewsComment($form) {
     let news_item_id = $form.parent().data('news-id');
     let $news_item = $('.js-news-item[data-news-id="' + news_item_id + '"]');
 
@@ -44,4 +52,4 @@ $('.js-add-comment').on('click', function (event) {
             }
         }
     });
-});
+}

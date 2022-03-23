@@ -5,10 +5,10 @@ function update_new_mes_counter() {
 
         success: function (data) {
             if (data.result) {
-                $('.new_messages_counter').html(data.result);
+                let $counter = $('.js-new-msg-header-counter');
+                $counter.html(data.result);
+                $counter.removeClass('d-none');
             }
-
-            // console.log('ajax done');
         },
 
         failed: function () {

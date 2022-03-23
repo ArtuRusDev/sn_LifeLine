@@ -550,10 +550,6 @@ a {
 
 /*---------- Chats list ----------*/
 
-.b-chats-list {
-    padding-top: 20px;
-}
-
 .b-chat-item {
     display: flex;
     background: $dark_transparent_bg;
@@ -729,6 +725,7 @@ img.admin-panel_img-value {
 .b-profile {
     background: $dark_transparent_bg;
     padding: 30px;
+    border-radius: 10px;
 }
 
 .b-profile__main-info {
@@ -754,18 +751,21 @@ img.admin-panel_img-value {
 }
 
 .b-profile__btn-action_gray {
-    opacity: .5;
-    text-decoration: underline;
-
+    color: $gray_text_color;
 }
 
-.icon-write-msg, .icon-edit {
+.b-profile__btn-action_exit {
+    margin-top: 20px;
+}
+
+.b-profile__action-icon {
     display: inline-block;
     width: 13px;
     height: 13px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    vertical-align: middle;
 }
 
 .icon-write-msg {
@@ -774,6 +774,19 @@ img.admin-panel_img-value {
 
 .icon-edit {
     background-image: url('../img/icons/edit.svg');
+}
+
+.icon-unfriend {
+    background-image: url('../img/icons/unfriend.svg');
+}
+
+.icon-exit {
+    background-image: url('../img/icons/exit.svg');
+}
+
+.icon-add-friend {
+    background-image: url('../img/icons/add-friend.svg');
+    width: 20px;
 }
 
 .b-profile__info-list p:first-of-type {

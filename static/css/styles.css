@@ -427,9 +427,6 @@ a {
     border-color: #ccc; }
 
 /*---------- Chats list ----------*/
-.b-chats-list {
-  padding-top: 20px; }
-
 .b-chat-item {
   display: flex;
   background: rgba(16, 15, 15, 0.55);
@@ -557,7 +554,8 @@ img.admin-panel_img-value {
 \*-----------------------------------*/
 .b-profile {
   background: rgba(16, 15, 15, 0.55);
-  padding: 30px; }
+  padding: 30px;
+  border-radius: 10px; }
 
 .b-profile__main-info {
   display: flex;
@@ -578,22 +576,35 @@ img.admin-panel_img-value {
   text-align: center; }
 
 .b-profile__btn-action_gray {
-  opacity: .5;
-  text-decoration: underline; }
+  color: #88879A; }
 
-.icon-write-msg, .icon-edit {
+.b-profile__btn-action_exit {
+  margin-top: 20px; }
+
+.b-profile__action-icon {
   display: inline-block;
   width: 13px;
   height: 13px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center; }
+  background-position: center;
+  vertical-align: middle; }
 
 .icon-write-msg {
   background-image: url("../img/icons/write-msg.svg"); }
 
 .icon-edit {
   background-image: url("../img/icons/edit.svg"); }
+
+.icon-unfriend {
+  background-image: url("../img/icons/unfriend.svg"); }
+
+.icon-exit {
+  background-image: url("../img/icons/exit.svg"); }
+
+.icon-add-friend {
+  background-image: url("../img/icons/add-friend.svg");
+  width: 20px; }
 
 .b-profile__info-list p:first-of-type {
   margin-top: 30px; }
