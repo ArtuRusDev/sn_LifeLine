@@ -4,14 +4,16 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="b-news-wrap col-lg-7 offset-lg-2">
         {% for news_item in all_news %}
-        {% include 'newsapp/includes/inc_news_item.html'%}
+            {% include 'newsapp/includes/inc_news_item.html'%}
         {% endfor %}
 
         {% if not all_news %}
-        У вас пока нет ни одной новости. <br>
-        Добавьте ее сами или добавьтесь в друзья к пользователям.
+            У вас пока нет ни одной новости. <br>
+            Добавьте ее сами или добавьтесь в друзья к пользователям.
         {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

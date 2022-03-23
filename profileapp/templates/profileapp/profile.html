@@ -1,22 +1,56 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-    <div class="container content">
-        <div class="row">
-            <div class="col-md-4 col-sm user_info">
-                <img src="/media/{{ cur_user.avatar|default:"users_avatars/default.png" }}" alt="Аватарка"
-                     class="user_avatar">
-                <h3>{{ cur_user.get_name }}</h3>
-                <p><b>Email:</b> {{ cur_user.email|default:"Не указано" }}</p>
-                <p><b>Телефон:</b> {{ cur_user.phone_number|default:"Не указано" }}</p>
-                <p><b>О Себе:</b> {{ cur_user.bio|default:"Не указано" }}</p>
-                <p><b>Город:</b> {{ cur_user.city|default:"Не указано" }}</p>
-                <p><b>День рождения:</b> {{ cur_user.birth_date|default:"Не указано" }}</p>
-                <p><b>Пол:</b> {{ cur_user.get_gender|default:"Не указано" }}</p>
-                <p><b>Отношения:</b> {{ cur_user.get_rel|default:"Не указано" }}</p>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="b-profile">
+                <div class="b-profile__main-info">
+                    <img src="/media/{{ cur_user.avatar|default:'users_avatars/default.png' }}" alt="Аватарка"
+                     class="b-profile__avatar">
+                    <div class="b-profile__username">{{ cur_user.get_name }}</div>
+                </div>
+
+                {% if cur_user.pk != user.pk %}
+                    <a href="{% url 'messenger:create_dialog' cur_user.pk %}"
+                       class="b-profile__btn-action">
+                        <div class="icon-write-msg"></div>
+                        Написать сообщение
+                    </a>
+                {% endif %}
+
+                <div class="b-profile__info-list">
+                    {% if cur_user.bio %}
+                        <p><span>О Себе</span>{{ cur_user.bio }}</p>
+                    {% endif %}
+                    {% if cur_user.email %}
+                        <p><span>Email</span> {{ cur_user.email }}</p>
+                    {% endif %}
+                    {% if cur_user.phone_number %}
+                        <p><span>Телефон</span>{{ cur_user.phone_number }}</p>
+                    {% endif %}
+                    {% if cur_user.city %}
+                        <p><span>Город</span> {{ cur_user.city }}</p>
+                    {% endif %}
+                    {% if cur_user.birth_date %}
+                        <p><span>День рождения</span> {{ cur_user.birth_date }}</p>
+                    {% endif %}
+                    {% if cur_user.get_gender %}
+                        <p><span>Пол</span> {{ cur_user.get_gender }}</p>
+                    {% endif %}
+                    {% if cur_user.get_rel %}
+                        <p><span>Отношения</span> {{ cur_user.get_rel }}</p>
+                    {% endif %}
+                </div>
 
                 {% if cur_user.pk == user.pk %}
-                    <a href="{% url 'profile:edit' %}" class="btn btn-success">Изменить</a>
-                    <a class="btn btn-danger" href="{% url 'auth:logout' %}">Выход</a>
+                    <a href="{% url 'profile:edit' %}" class="b-profile__btn-action">
+                        <div class="icon-edit"></div>
+                        Редактировать
+                    </a>
+
+                    <a href="{% url 'auth:logout' %}" class="b-profile__btn-action b-profile__btn-action_gray">
+                        Выйти из аккаунта
+                    </a>
+
                 {% elif is_friend %}
                     <a href="{% url 'friends:remove' cur_user.pk %}" class="btn btn-danger">Удалить из друзей</a>
                 {% else %}
@@ -26,26 +60,19 @@
                         <a href="{% url 'friends:add' cur_user.pk %}" class="btn btn-success">Добавить в друзья</a>
                     {% endif %}
                 {% endif %}
-
-                {% if cur_user.pk != user.pk %}
-                    <a href="{% url 'messenger:create_dialog' cur_user.pk %}"
-                       class="btn btn-success mr-1">Написать</a>
-                {% endif %}
-
-            </div>
-            <div class="col-md-8 news_block ml-0">
-                <h4 class="text-center">Новости пользователя {{ cur_user.first_name }}</h4>
-
-                {% for news_item in news %}
-                     {% include 'newsapp/includes/inc_news_item.html'%}
-                {% endfor %}
-
-                {% if news.count == 0 %}
-                    У вас пока нет ни одной новости. <br>
-                    Добавьте ее сами или добавьтесь в друзья к пользователям.
-                {% endif %}
             </div>
         </div>
 
+        <div class="col-lg-7 news_block">
+
+            {% for news_item in news %}
+                 {% include 'newsapp/includes/inc_news_item.html'%}
+            {% endfor %}
+
+            {% if news.count == 0 %}
+                У вас пока нет ни одной новости. <br>
+                Добавьте ее сами или добавьтесь в друзья к пользователям.
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

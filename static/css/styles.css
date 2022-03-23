@@ -36,7 +36,8 @@ a {
   position: relative;
   padding: 22px 0;
   display: flex;
-  font-size: 18px; }
+  font-size: 18px;
+  margin-bottom: 50px; }
 
 .b-logo__img {
   width: 100%;
@@ -147,7 +148,7 @@ a {
   padding: 30px;
   background: rgba(16, 15, 15, 0.55);
   border-radius: 10px;
-  margin-top: 25px; }
+  margin-bottom: 25px; }
 
 .b-news-info {
   display: flex;
@@ -321,7 +322,6 @@ a {
 	#Messenger
 \*-----------------------------------*/
 .b-chat {
-  margin-top: 50px;
   backdrop-filter: blur(15px); }
 
 .b-chat__info {
@@ -553,6 +553,56 @@ img.admin-panel_img-value {
   box-shadow: 0 0 20px 0 #dc3545; }
 
 /*-----------------------------------*\
+    #Profile
+\*-----------------------------------*/
+.b-profile {
+  background: rgba(16, 15, 15, 0.55);
+  padding: 30px; }
+
+.b-profile__main-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.b-profile__avatar {
+  width: 90px;
+  height: 90px; }
+
+.b-profile__username {
+  font-size: 24px;
+  margin-left: 30px; }
+
+.b-profile__btn-action {
+  display: block;
+  margin-top: 30px;
+  text-align: center; }
+
+.b-profile__btn-action_gray {
+  opacity: .5;
+  text-decoration: underline; }
+
+.icon-write-msg, .icon-edit {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.icon-write-msg {
+  background-image: url("../img/icons/write-msg.svg"); }
+
+.icon-edit {
+  background-image: url("../img/icons/edit.svg"); }
+
+.b-profile__info-list p:first-of-type {
+  margin-top: 30px; }
+
+.b-profile__info-list span {
+  display: block;
+  color: #88879A; }
+
+/*-----------------------------------*\
     #Media queries
 \*-----------------------------------*/
 @media (max-width: 992px) {
@@ -562,7 +612,7 @@ img.admin-panel_img-value {
       font-size: 17px;
       margin-bottom: 10px; }
 
-  .user_info {
+  .b-profile {
     text-align: center; }
 
   .navbar-nav {

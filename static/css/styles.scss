@@ -1,5 +1,6 @@
 @charset "UTF-8";
 $gray_text_color: #88879A;
+$dark_transparent_bg: rgba(16, 15, 15, 0.55);
 
 /*-----------------------------------*\
 	#Specification
@@ -47,6 +48,7 @@ a {
     padding: 22px 0;
     display: flex;
     font-size: 18px;
+    margin-bottom: 50px;
 }
 
 .b-logo__img {
@@ -118,7 +120,7 @@ a {
 \*-----------------------------------*/
 
 .b-auth-form__wrap {
-    background: rgba(16, 15, 15, 0.55);
+    background: $dark_transparent_bg;
     backdrop-filter: blur(15px);
     border-radius: 25px;
     padding: 60px 95px;
@@ -185,9 +187,9 @@ a {
 
 .b-news-item {
     padding: 30px;
-    background: rgba(16, 15, 15, 0.55);
+    background: $dark_transparent_bg;
     border-radius: 10px;
-    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .b-news-info {
@@ -411,7 +413,6 @@ a {
 \*-----------------------------------*/
 
 .b-chat {
-    margin-top: 50px;
     backdrop-filter: blur(15px);
 }
 
@@ -436,7 +437,7 @@ a {
 .b-chat__content {
     height: 70vh;
     overflow: auto;
-    background: rgba(16, 15, 15, 0.55);
+    background: $dark_transparent_bg;
 
     &::-webkit-scrollbar-track {
         background-color: #131313;
@@ -555,7 +556,7 @@ a {
 
 .b-chat-item {
     display: flex;
-    background: rgba(16, 15, 15, 0.55);
+    background: $dark_transparent_bg;
     backdrop-filter: blur(15px);
     padding: 17px;
 
@@ -722,6 +723,69 @@ img.admin-panel_img-value {
 }
 
 /*-----------------------------------*\
+    #Profile
+\*-----------------------------------*/
+
+.b-profile {
+    background: $dark_transparent_bg;
+    padding: 30px;
+}
+
+.b-profile__main-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.b-profile__avatar {
+    width: 90px;
+    height: 90px;
+}
+
+.b-profile__username {
+    font-size: 24px;
+    margin-left: 30px;
+}
+
+.b-profile__btn-action {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.b-profile__btn-action_gray {
+    opacity: .5;
+    text-decoration: underline;
+
+}
+
+.icon-write-msg, .icon-edit {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-write-msg {
+    background-image: url('../img/icons/write-msg.svg');
+}
+
+.icon-edit {
+    background-image: url('../img/icons/edit.svg');
+}
+
+.b-profile__info-list p:first-of-type {
+    margin-top: 30px;
+}
+
+.b-profile__info-list span {
+    display: block;
+    color: $gray_text_color;
+}
+
+/*-----------------------------------*\
     #Media queries
 \*-----------------------------------*/
 
@@ -736,7 +800,7 @@ img.admin-panel_img-value {
             }
         }
     }
-    .user_info {
+    .b-profile {
         text-align: center;
     }
     .navbar-nav {
