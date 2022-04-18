@@ -17,4 +17,4 @@ function update_new_mes_counter() {
     });
 }
 
-setInterval(update_new_mes_counter, 2500);
+// setInterval(update_new_mes_counter, 2500);

@@ -20,4 +20,4 @@ function update_messages() {
     });
 }
 
-setInterval(update_messages, 1000);
+// setInterval(update_messages, 1000);

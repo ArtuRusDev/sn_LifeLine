@@ -17,4 +17,4 @@ function update_chats() {
     });
 }
 
-setInterval(update_chats, 2500);
+// setInterval(update_chats, 2500);
