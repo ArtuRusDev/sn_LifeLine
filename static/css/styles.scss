@@ -280,7 +280,7 @@ a {
 
     a {
         display: block;
-        background-image: url("../img/icons/like_btn.png");
+        background-image: url("../img/icons/like.png");
         background-size: cover;
         width: 40px;
         height: 40px;
@@ -288,12 +288,12 @@ a {
 
         &:hover {
             cursor: pointer;
-            background-image: url("../img/icons/like_btn_full.png");
+            background-image: url("../img/icons/like_filled.png");
         }
     }
 
     a.liked {
-        background-image: url("../img/icons/like_btn_full.png");
+        background-image: url("../img/icons/like_filled.png");
     }
 }
 
@@ -407,7 +407,28 @@ a {
     padding: 15px;
     margin-bottom: 30px;
     display: flex;
+    position: relative;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-image: url('../img/icons/search.svg');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        left: 25px;
+        top: 25px;
+        opacity: .5;
+    }
 }
+
+.b-search-input {
+    padding-left: 40px;
+}
+
 
 .b-dropdown {
     min-width: 220px;
@@ -448,12 +469,12 @@ a {
     top: 0;
     background: #2E213B;
     border-radius: 10px;
-    padding-top: 60px;
+    padding-top: 45px;
     z-index: 1;
 }
 
 .b-dropdown__item {
-    padding: 0 0 15px;
+    padding: 10px 0;
     cursor: pointer;
     transition: .2s;
 
@@ -476,7 +497,7 @@ a {
 	#Friends
 \*-----------------------------------*/
 
-.b-friend-item {
+.b-card-item {
     padding: 15px 30px 15px 15px;
     display: flex;
     flex-direction: row;
@@ -488,18 +509,29 @@ a {
     @extend .bg-dark-blur;
 }
 
-.b-friend-item__info, .b-friend-item__action {
+.b-card-item__info, .b-card-item__action {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.b-friend-item__write-btn {
-    color: $gray_text_color;
-    margin-right: 35px;
+.b-card-item__action-btn {
+    display: inline-block;
+    margin-right: 15px;
+    transition: .2s;
+    color: #ccc;
 }
 
-.b-friend-item__img {
+.b-card-item__action-btn_active {
+    color: $gray_text_color;
+    cursor: pointer;
+    
+    &:hover {
+        color: #ccc;
+    }
+}
+
+.b-card-item__img {
     width: 60px;
     height: 60px;
     min-width: 60px;
@@ -507,11 +539,11 @@ a {
     margin-right: 15px;
 }
 
-.b-friend-item__username {
+.b-card-item__username {
     font-size: 20px;
 }
 
-.b-friend-item__extra-actions-btn {
+.b-card-item__extra-actions-btn {
     background-image: url('../img/icons/three_dots.png');
     display: inline-block;
     width: 50px;
@@ -528,7 +560,7 @@ a {
     }
 }
 
-.b-friend-item__icon {
+.b-card-item__icon {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -540,7 +572,7 @@ a {
     margin-top: -5px;
 }
 
-.b-friend-item__delete-icon {
+.b-card-item__delete-icon {
     background-image: url('../img/icons/del_user_black.svg');
     display: inline-block;
     width: 20px;
@@ -559,10 +591,10 @@ a {
     text-align: center;
     border-radius: 10px;
     right: 30px;
-    bottom: -80%;
+    top: 70px;
     z-index: 1;
 
-    a {
+    .b-extra-actions__btn {
         display: block;
         color: #000;
         padding: 10px 20px;
@@ -966,6 +998,14 @@ img.admin-panel_img-value {
 
 .icon-exit {
     background-image: url('../img/icons/exit.svg');
+}
+
+.icon-checked {
+    background-image: url('../img/icons/check.svg');
+}
+
+.icon-add {
+    background-image: url('../img/icons/add.png');
 }
 
 .icon-add-friend {

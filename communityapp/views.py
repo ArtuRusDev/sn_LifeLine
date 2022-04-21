@@ -1,6 +1,7 @@
 from itertools import chain
 
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
 from authapp.models import Person
@@ -92,25 +93,38 @@ class CreateCommunityNews(CreateView):
 
 def subscribe_community(request, pk):
     if request.is_ajax():
-        context = {}
         duplicate = CommunityParticipant.objects.filter(user=request.user, community_id=pk)
+        subscribed_communities = []
 
         if not duplicate:
             record = CommunityParticipant.objects.create(user=request.user, community_id=pk)
             record.save()
-            context.update({'is_subscriber': True})
+            subscribed_communities.append(int(pk))
         else:
             duplicate[0].delete()
-            context.update({'is_subscriber': False})
 
-        return JsonResponse(context)
+        context = {
+            'community': Community.objects.get(pk=pk),
+            'subscribed_communities_id': subscribed_communities,
+            'user': request.user
+        }
+
+        print(context)
+
+        result = {
+            'result': render_to_string('communityapp/includes/community-card-item.html', context)
+        }
+
+        return JsonResponse(result)
 
 
 def change_publisher(request):
     if request.is_ajax():
         context = {}
-        instance = CommunityParticipant.objects.get(user_id=request.POST.get('user'),
-                                         community_id=request.POST.get('community'))
+        instance = CommunityParticipant.objects.get(
+            user_id=request.POST.get('user'),
+            community_id=request.POST.get('community')
+        )
         if instance.role == 0:
             instance.role = 1
             context.update({'is_publisher': True})

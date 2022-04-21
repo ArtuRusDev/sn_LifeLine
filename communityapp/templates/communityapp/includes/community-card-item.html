@@ -1,0 +1,65 @@
+<div class="b-card-item"
+     {% if community.creator.id == user.pk %}
+     data-type='own'
+     {% endif %}
+     data-community-id="{{ community.pk }}">
+    <a href="{% url 'community:detail' community.pk %}" class="b-card-item__info">
+        <img src="/media/{{ community.image|default:'users_avatars/default.png' }}"
+             alt="Логотип сообщества" class="b-card-item__img">
+        <div class="b-card-item__username">
+            {{ community.name }}
+        </div>
+    </a>
+
+    <div class="b-card-item__actions">
+        {% if community.creator.id != user.pk %}
+        {% if community.pk in subscribed_communities_id %}
+        <div class="b-card-item__action-btn">
+            <div class="b-profile__action-icon icon-checked"></div>
+            Вы уже состоите в сообществе
+        </div>
+        {% else %}
+        <div href="#" class="b-card-item__action-btn b-card-item__action-btn_active js-follow-community-btn"
+             data-community-id="{{ community.pk }}">
+            + Присоединиться
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="b-card-item__action-btn">
+            <div class="b-profile__action-icon icon-checked"></div>
+            Вы администратор сообщества
+        </div>
+        {% endif %}
+
+        <div class="b-card-item__extra-actions-btn"></div>
+
+        <div class="b-extra-actions d-none">
+            {% if community.creator.id != user.pk %}
+            {% if community.pk in subscribed_communities_id %}
+            <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
+                Покинуть сообщество
+            </div>
+            {% else %}
+            <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
+                Вступить в сообщество
+            </div>
+            {% endif %}
+            {% else %}
+            <a href="{% url 'community:add_news' community.pk %}" class="b-extra-actions__btn">
+                Добавить новость
+            </a>
+            <a href="{% url 'community:update' community.pk %}" class="b-extra-actions__btn">
+                Изменить сообщество
+            </a>
+            <a href="{% url 'community:publishers' community.pk %}" class="b-extra-actions__btn">
+                Изменить публикаторов
+            </a>
+            <a href="{% url 'community:delete' community.pk %}" class="b-extra-actions__btn">
+                Удалить сообщество
+            </a>
+            {% endif %}
+
+            <div class="b-extra-actions__cancel-btn">Закрыть</div>
+        </div>
+    </div>
+</div>

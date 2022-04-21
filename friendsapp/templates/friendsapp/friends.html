@@ -6,13 +6,13 @@
     <div class="col-lg-8 offset-lg-2">
 
         <div class="b-search-wrap bg-dark-blur unselectable">
-            <input type="text" class="b-form__input" placeholder="Поиск">
-            <div class="b-dropdown js-friends-dropdown">
+            <input type="text" class="b-form__input b-search-input" placeholder="Поиск">
+            <div class="b-dropdown js-card-dropdown">
                 <div class="b-dropdown__current">
                     <span class="b-dropdown__title">Ваши друзья</span>
                     <span class="b-dropdown-arrow"></span>
                 </div>
-                <div class="b-dropdown__other js-friends-dropdowns">
+                <div class="b-dropdown__other js-card-dropdowns">
                     <div class="b-dropdown__item d-none" data-val="friends">Ваши друзья</div>
                     <div class="b-dropdown__item" data-val="other">Все пользователи</div>
                     <div class="b-dropdown__item" data-val="requests">Заявки в друзья</div>
@@ -21,113 +21,108 @@
         </div>
 
         <!-- Друзья -->
-        <div class="js-usr-cat"  data-id="friends">
-            {% if not friends %}
-            Вы еще не добавили своих друзей
-            {% endif %}
-            {% for friend in friends %}
-            <div class="b-friend-item ">
-                <a href="{% url 'profile:detail' friend.pk %}" class="b-friend-item__info">
-                    <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
-                         alt="Аватарка" class="b-friend-item__img">
-                    <div class="b-friend-item__username">
-                        {{ friend.get_name }}
-                    </div>
-                </a>
+        {% if not friends %}
+        Вы еще не добавили своих друзей
+        {% endif %}
+        {% for friend in friends %}
+        <div class="b-card-item" data-type="friends">
+            <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
+                <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
+                     alt="Аватарка" class="b-card-item__img">
+                <div class="b-card-item__username">
+                    {{ friend.get_name }}
+                </div>
+            </a>
 
-                <div class="b-friend-item__actions">
-                    <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-friend-item__write-btn">
+            <div class="b-card-item__actions">
+                <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-card-item__action-btn">
+                    Написать сообщение
+                </a>
+                <div class="b-card-item__extra-actions-btn"></div>
+
+                <div class="b-extra-actions d-none">
+                    <a href="{% url 'friends:remove' friend.pk %}" class="b-extra-actions__btn">
+                        <span class="b-card-item__delete-icon"></span>
+                        Удалить из друзей
+                    </a>
+                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Запросы в друзья -->
+        {% if not friend_requests %}
+        <div class="b-card-item d-none" data-type="requests">
+            Вы пока не получили запросов в друзья
+        </div>
+        {% endif %}
+
+        {% for friend in friend_requests %}
+        <div class="b-card-item d-none" data-type="requests">
+            <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
+                <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
+                     alt="Аватарка" class="b-card-item__img">
+                <div class="b-card-item__username">
+                    {{ friend.get_name }}
+                </div>
+            </a>
+
+            <div class="b-card-item__actions">
+                <a href="{% url 'friends:confirm' friend.pk %}" class="b-card-item__action-btn">
+                    Принять запрос в друзья
+                </a>
+                <div class="b-card-item__extra-actions-btn"></div>
+
+                <div class="b-extra-actions d-none">
+                    <a href="{% url 'friends:deny' friend.pk %}" class="b-extra-actions__btn">
+                        <span class="b-card-item__delete-icon"></span>
+                        Отклонить запрос
+                    </a>
+                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Запросы в друзья -->
+        {% if not all_users %}
+        Вы уже добавили в друзья всех пользователей сайта
+        {% endif %}
+
+        {% for friend in all_users %}
+        <div class="b-card-item d-none" data-type="other">
+            <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
+                <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
+                     alt="Аватарка" class="b-card-item__img">
+                <div class="b-card-item__username">
+                    {{ friend.get_name }}
+                </div>
+            </a>
+
+            <div class="b-card-item__actions">
+                {% if not friend.pk in send_requests_pk %}
+                <a href="{% url 'friends:add' friend.pk %}" class="b-card-item__action-btn">
+                    Добавить в друзья
+                </a>
+                {% else %}
+                <a href="{% url 'friends:remove' friend.pk %}" class="b-card-item__action-btn">
+                    Отменить запрос
+                </a>
+                {% endif %}
+
+                <div class="b-card-item__extra-actions-btn"></div>
+
+                <div class="b-extra-actions d-none">
+                    <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-extra-actions__btn">
+                        <span class="b-card-item__icon icon-write-msg_blck"></span>
                         Написать сообщение
                     </a>
-                    <div class="b-friend-item__extra-actions-btn"></div>
-
-                    <div class="b-extra-actions d-none">
-                        <a href="{% url 'friends:remove' friend.pk %}" class="b-friend-item__delete">
-                            <span class="b-friend-item__delete-icon"></span>
-                            Удалить из друзей
-                        </a>
-                        <div class="b-extra-actions__cancel-btn">Отменить</div>
-                    </div>
+                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-
-        <!-- Запросы в друзья -->
-        <div class="js-usr-cat d-none" data-id="requests">
-            {% if not friend_requests %}
-            Вы пока не получили запросов в друзья
-            {% endif %}
-            {% for friend in friend_requests %}
-
-
-            <div class="b-friend-item">
-                <a href="{% url 'profile:detail' friend.pk %}" class="b-friend-item__info">
-                    <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
-                         alt="Аватарка" class="b-friend-item__img">
-                    <div class="b-friend-item__username">
-                        {{ friend.get_name }}
-                    </div>
-                </a>
-
-                <div class="b-friend-item__actions">
-                    <a href="{% url 'friends:confirm' friend.pk %}" class="b-friend-item__write-btn">
-                        Принять запрос в друзья
-                    </a>
-                    <div class="b-friend-item__extra-actions-btn"></div>
-
-                    <div class="b-extra-actions d-none">
-                        <a href="{% url 'friends:deny' friend.pk %}" class="b-friend-item__delete">
-                            <span class="b-friend-item__delete-icon"></span>
-                            Отклонить запрос
-                        </a>
-                        <div class="b-extra-actions__cancel-btn">Отменить</div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <!-- Запросы в друзья -->
-        <div class="js-usr-cat d-none" data-id="other">
-            {% if not all_users %}
-            Вы уже добавили в друзья всех пользователей сайта
-            {% endif %}
-
-            {% for friend in all_users %}
-            <div class="b-friend-item">
-                <a href="{% url 'profile:detail' friend.pk %}" class="b-friend-item__info">
-                    <img src="/media/{{ friend.avatar|default:'users_avatars/default.png' }}"
-                         alt="Аватарка" class="b-friend-item__img">
-                    <div class="b-friend-item__username">
-                        {{ friend.get_name }}
-                    </div>
-                </a>
-
-                <div class="b-friend-item__actions">
-                    {% if not friend.pk in send_requests_pk %}
-                    <a href="{% url 'friends:add' friend.pk %}" class="b-friend-item__write-btn">
-                        Добавить в друзья
-                    </a>
-                    {% else %}
-                    <a href="{% url 'friends:remove' friend.pk %}" class="b-friend-item__write-btn">
-                        Отменить запрос
-                    </a>
-                    {% endif %}
-
-                    <div class="b-friend-item__extra-actions-btn"></div>
-
-                    <div class="b-extra-actions d-none">
-                        <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-friend-item__delete">
-                            <span class="b-friend-item__icon icon-write-msg_blck"></span>
-                            Написать сообщение
-                        </a>
-                        <div class="b-extra-actions__cancel-btn">Отменить</div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
