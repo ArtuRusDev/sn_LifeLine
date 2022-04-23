@@ -178,6 +178,24 @@ a {
     }
 }
 
+select.b-form__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 5px);
+    background-position-y: 8px;
+    transition: .3s;
+
+    option {
+        color: #000;
+    }
+
+    &:focus-visible {
+
+    }
+}
+
 .b-form__input:active {
     color: #fff;
 }
@@ -186,17 +204,31 @@ a {
     margin-top: 10px;
 }
 
-.b-auth-form__submit {
+.b-form__submit {
     @extend .b-form__input;
     background: rgba(91, 91, 91, 0.4);
     color: #fff;
-    margin-top: 50px;
+
     transition: .2s;
-    margin-bottom: 15px;
+
 
     &:hover {
         background-color: #fff;
         color: #000;
+    }
+}
+
+.b-form__submit_margins {
+    margin: 50px 0 15px;
+}
+
+.b-form__submit_white {
+    background-color: #fff;
+    color: #000;
+
+    &:hover {
+        background: rgba(91, 91, 91, 0.4);
+        color: #fff;
     }
 }
 
@@ -525,7 +557,7 @@ a {
 .b-card-item__action-btn_active {
     color: $gray_text_color;
     cursor: pointer;
-    
+
     &:hover {
         color: #ccc;
     }
@@ -1020,6 +1052,42 @@ img.admin-panel_img-value {
 .b-profile__info-list span {
     display: block;
     color: $gray_text_color;
+}
+
+/*-----------------------------------*\
+    #Profile edit
+\*-----------------------------------*/
+
+.b-profile-edit {
+    padding: 30px 60px;
+}
+
+.b-profile-edit__title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.b-flex-wrap {
+    display: flex;
+
+    > div, > input, > select {
+        width: 50%;
+    }
+
+    > input:first-child,
+    > select:first-child {
+        margin-right: 5px;
+    }
+
+    > input:last-child ,
+    > select:last-child {
+        margin-left: 5px;
+    }
+}
+
+.b-profile-edit .b-form__input {
+    margin-bottom: 10px;
 }
 
 /*-----------------------------------*\

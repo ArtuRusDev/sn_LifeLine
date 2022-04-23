@@ -1,11 +1,54 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-    <div class="container content">
-        <h2>Профиль Пользователя</h2>
-        <form method="post" class="bootstrap-form" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-success" value="Сохранить изменения">
-        </form>
+<div class="col-lg-6 offset-lg-3">
+    <div class="b-profile-edit bg-dark-blur">
+        <h1 class="b-profile-edit__title">
+            Редактирование профиля
+        </h1>
+
+        <input type="file" name="avatar" class="b-form__input" placeholder="Аватарка" id="id_avatar">
+        <div class="b-flex-wrap">
+            <div></div>
+            <div>
+                <input type="text" class="b-form__input" placeholder="Никнейм">
+                <input type="text" class="b-form__input" placeholder="Имя" value="Артур">
+                <input type="text" class="b-form__input" placeholder="Фамилия" value="Ильин">
+                <input type="text" class="b-form__input" placeholder="Отчество">
+            </div>
+        </div>
+
+        <input type="text" class="b-form__input" placeholder="О себе">
+
+        <div class="b-flex-wrap">
+            <select name="gender" class="b-form__input" placeholder="Пол" id="id_gender">
+                <option value="male" selected>Мужской</option>
+                <option value="female">Женский</option>
+            </select>
+
+            <input type="text" class="b-form__input" placeholder="Город">
+        </div>
+        <div class="b-flex-wrap">
+            <input type="text" class="b-form__input" placeholder="День рождения">
+            <select name="gender" class="b-form__input" placeholder="Статус отношений" id="id_relationship">
+                <option value="male" selected>Не определено</option>
+                <option value="female">В отношениях</option>
+            </select>
+        </div>
+
+        <input type="text" class="b-form__input" placeholder="Телефон">
+        <input type="text" class="b-form__input" placeholder="Почта" value="example@mail.ru">
+
+        <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
+               value="Сохранить изменения">
+        <input type="button" class="b-form__submit" value="Отменить">
     </div>
+</div>
+<div class="container content">
+    <h2>Профиль Пользователя</h2>
+    <form method="post" class="bootstrap-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-success" value="Сохранить изменения">
+    </form>
+</div>
 {% endblock %}
