@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.core.files.images import get_image_dimensions
 from django.views.generic import UpdateView
@@ -8,14 +9,18 @@ from authapp.models import Person
 class UserUpdateInfoForm(forms.ModelForm):
     class Meta:
         model = Person
+
         fields = (
-            'is_dark_theme', 'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar',
+            'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar',
             'bio', 'city', 'birth_date', 'gender', 'relationship')
 
     def __init__(self, *args, **kwargs):
         super(UserUpdateInfoForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'b-form__input'
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
 

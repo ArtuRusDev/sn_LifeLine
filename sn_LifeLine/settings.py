@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'admin_honeypot',
     'debug_toolbar',
     'template_profiler_panel',
+    'crispy_forms',
     'mainapp',
     'authapp',
     'profileapp',

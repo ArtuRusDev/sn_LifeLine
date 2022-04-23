@@ -52,7 +52,8 @@
                 <div class="b-nav-item">
                     <a class="b-nav-item__link {% if 'profile' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
                        href="{% url 'profile:detail' user.pk %}">
-                        {{ user.get_name }}
+                        {{ user.first_name }}
+                        {{ user.last_name }}
                     </a>
                 </div>
                 {% else %}

@@ -142,6 +142,13 @@ a {
   .b-form__input::-moz-placeholder, .b-form__submit::-moz-placeholder {
     color: #88879A; }
 
+textarea.b-form__input, textarea.b-form__submit {
+  min-height: 40px;
+  max-height: 200px;
+  height: 40px;
+  overflow: hidden;
+  margin-bottom: 3px !important; }
+
 select.b-form__input, select.b-form__submit {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -160,6 +167,8 @@ select.b-form__input, select.b-form__submit {
   margin-top: 10px; }
 
 .b-form__submit {
+  display: block;
+  text-align: center;
   background: rgba(91, 91, 91, 0.4);
   color: #fff;
   transition: .2s; }
@@ -828,14 +837,12 @@ img.admin-panel_img-value {
 
 .b-flex-wrap {
   display: flex; }
-  .b-flex-wrap > div, .b-flex-wrap > input, .b-flex-wrap > select {
+  .b-flex-wrap > div {
     width: 50%; }
-  .b-flex-wrap > input:first-child,
-  .b-flex-wrap > select:first-child {
-    margin-right: 5px; }
-  .b-flex-wrap > input:last-child,
-  .b-flex-wrap > select:last-child {
-    margin-left: 5px; }
+  .b-flex-wrap > div:first-child {
+    padding-right: 5px; }
+  .b-flex-wrap > div:last-child {
+    padding-left: 5px; }
 
 .b-profile-edit .b-form__input, .b-profile-edit .b-form__submit {
   margin-bottom: 10px; }

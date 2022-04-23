@@ -1,4 +1,5 @@
 {% extends 'mainapp/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="col-lg-6 offset-lg-3">
     <div class="b-profile-edit bg-dark-blur">
@@ -6,49 +7,39 @@
             Редактирование профиля
         </h1>
 
-        <input type="file" name="avatar" class="b-form__input" placeholder="Аватарка" id="id_avatar">
-        <div class="b-flex-wrap">
-            <div></div>
-            <div>
-                <input type="text" class="b-form__input" placeholder="Никнейм">
-                <input type="text" class="b-form__input" placeholder="Имя" value="Артур">
-                <input type="text" class="b-form__input" placeholder="Фамилия" value="Ильин">
-                <input type="text" class="b-form__input" placeholder="Отчество">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!--        <input type="file" name="avatar" class="b-form__input" placeholder="Аватарка" id="id_avatar">-->
+            <div class="b-flex-wrap">
+                <div></div>
+                <div>
+                    {{ form.username|as_crispy_field }}
+                    {{ form.first_name|as_crispy_field }}
+                    {{ form.last_name|as_crispy_field }}
+                    {{ form.patronymic|as_crispy_field }}
+                </div>
             </div>
-        </div>
 
-        <input type="text" class="b-form__input" placeholder="О себе">
+            {{ form.bio|as_crispy_field }}
 
-        <div class="b-flex-wrap">
-            <select name="gender" class="b-form__input" placeholder="Пол" id="id_gender">
-                <option value="male" selected>Мужской</option>
-                <option value="female">Женский</option>
-            </select>
+            <div class="b-flex-wrap">
+                {{ form.gender|as_crispy_field }}
+                {{ form.city|as_crispy_field }}
+            </div>
+            <div class="b-flex-wrap">
+                {{ form.birth_date|as_crispy_field }}
+                {{ form.relationship|as_crispy_field }}
+            </div>
 
-            <input type="text" class="b-form__input" placeholder="Город">
-        </div>
-        <div class="b-flex-wrap">
-            <input type="text" class="b-form__input" placeholder="День рождения">
-            <select name="gender" class="b-form__input" placeholder="Статус отношений" id="id_relationship">
-                <option value="male" selected>Не определено</option>
-                <option value="female">В отношениях</option>
-            </select>
-        </div>
+            {{ form.phone_number|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+            {{ form.avatar|as_crispy_field }}
 
-        <input type="text" class="b-form__input" placeholder="Телефон">
-        <input type="text" class="b-form__input" placeholder="Почта" value="example@mail.ru">
-
-        <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
-               value="Сохранить изменения">
-        <input type="button" class="b-form__submit" value="Отменить">
+            <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
+                   value="Сохранить изменения">
+            <a href="{% url 'profileapp:detail' user.pk %}" class="b-form__submit">Отменить</a>
+        </form>
     </div>
 </div>
-<div class="container content">
-    <h2>Профиль Пользователя</h2>
-    <form method="post" class="bootstrap-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-success" value="Сохранить изменения">
-    </form>
-</div>
+
 {% endblock %}

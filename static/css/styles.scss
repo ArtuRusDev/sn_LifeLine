@@ -178,6 +178,14 @@ a {
     }
 }
 
+textarea.b-form__input {
+    min-height: 40px;
+    max-height: 200px;
+    height: 40px;
+    overflow: hidden;
+    margin-bottom: 3px !important;
+}
+
 select.b-form__input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -206,6 +214,8 @@ select.b-form__input {
 
 .b-form__submit {
     @extend .b-form__input;
+    display: block;
+    text-align: center;
     background: rgba(91, 91, 91, 0.4);
     color: #fff;
 
@@ -1071,18 +1081,16 @@ img.admin-panel_img-value {
 .b-flex-wrap {
     display: flex;
 
-    > div, > input, > select {
+    > div {
         width: 50%;
     }
 
-    > input:first-child,
-    > select:first-child {
-        margin-right: 5px;
+    > div:first-child {
+        padding-right: 5px;
     }
 
-    > input:last-child ,
-    > select:last-child {
-        margin-left: 5px;
+    > div:last-child {
+        padding-left: 5px;
     }
 }
 
