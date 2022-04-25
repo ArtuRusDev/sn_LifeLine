@@ -9,9 +9,25 @@
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <!--        <input type="file" name="avatar" class="b-form__input" placeholder="Аватарка" id="id_avatar">-->
             <div class="b-flex-wrap">
-                <div></div>
+                <div>
+                    <div class="b-profile-edit-img unselectable  {% if user.avatar %}b-profile-edit-img_filled{% endif %}">
+                        <span>НЕТ ФОТО</span>
+                        <div class="b-profile-edit-img__attach js-profile-attach-img-btn">
+                            <div class="b-profile-edit-img__icon"></div>
+                            <span>Прикрепить</span>
+                        </div>
+                        <div class="b-profile-edit-img__img-wrap">
+                            <img src="/media/{{ user.avatar }}" class="b-profile-edit-img__img" alt="Изображение пользователя">
+                        </div>
+                        <div class="b-profile-edit-img__clear-btn js-profile-clear-img">
+                            &times;
+                        </div>
+                    </div>
+
+
+                    {{ form.avatar|as_crispy_field }}
+                </div>
                 <div>
                     {{ form.username|as_crispy_field }}
                     {{ form.first_name|as_crispy_field }}
@@ -33,7 +49,6 @@
 
             {{ form.phone_number|as_crispy_field }}
             {{ form.email|as_crispy_field }}
-            {{ form.avatar|as_crispy_field }}
 
             <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
                    value="Сохранить изменения">
