@@ -135,11 +135,16 @@ a {
 }
 
 .b-user-img_small {
+    display: inline-block;
     min-height: 35px;
-    max-height: 35px;
+    height: 35px;
     min-width: 35px;
-    max-width: 35px;
+    width: 35px;
     margin-right: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
 }
 
 /*-----------------------------------*\
@@ -271,9 +276,12 @@ select.b-form__input {
 }
 
 .b-news-info__img {
-    max-width: 70px;
-    max-height: 70px;
-    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
 }
 
 .b-news-info__username {
@@ -398,10 +406,12 @@ select.b-form__input {
 
 .b-comment-item__avatar {
     margin-right: 15px;
-    min-width: 60px;
-    min-height: 60px;
-    max-width: 60px;
-    max-height: 60px;
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 100%;
 }
 
 .b-comment-item:hover .btn-delete-comment {
@@ -576,9 +586,11 @@ select.b-form__input {
 .b-card-item__img {
     width: 60px;
     height: 60px;
-    min-width: 60px;
-    min-height: 60px;
     margin-right: 15px;
+    border-radius: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .b-card-item__username {
@@ -680,11 +692,16 @@ select.b-form__input {
 }
 
 .b-chat__interlocutor {
-    display: inline-block;
+    display: inline-flex;
 
     span {
         color: $gray_text_color;
         margin-right: 10px;
+    }
+
+    a {
+        display: inline-flex;
+        align-items: center;
     }
 }
 
@@ -830,10 +847,14 @@ select.b-form__input {
 }
 
 .b-chat-item__img {
-    max-width: 70px;
+    width: 70px;
+    height: 70px;
     min-width: 70px;
-    max-height: 70px;
     min-height: 70px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 100%;
 }
 
 .b-chat-item__content {
@@ -991,6 +1012,10 @@ img.admin-panel_img-value {
 .b-profile__avatar {
     width: 90px;
     height: 90px;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .b-profile__username {
@@ -1181,6 +1206,7 @@ img.admin-panel_img-value {
 #div_id_avatar .controls {
     display: none;
 }
+
 /*-----------------------------------*\
     #Media queries
 \*-----------------------------------*/

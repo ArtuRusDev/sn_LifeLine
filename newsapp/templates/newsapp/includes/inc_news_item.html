@@ -4,13 +4,13 @@
         <div class="b-news-info__avatar">
             {% if news_item.community %}
             <a href="{% url 'community:detail' news_item.community.pk %}">
-                <img src="/media/{{ news_item.community.image|default:'users_avatars/default.png' }}"
-                     alt="Аватарка" class="b-news-info__img">
+                <div style="background-image: url('/media/{{ news_item.community.image|default:'users_avatars/default.png' }}')"
+                     class="b-news-info__img"></div>
             </a>
             {% else %}
             <a href="{% url 'profile:detail' news_item.user.pk %}">
-                <img src="/media/{{ news_item.user.avatar|default:'users_avatars/default.png' }}"
-                     alt="Аватарка" class="b-news-info__img">
+                <div style="background-image: url('/media/{{ news_item.user.avatar|default:'users_avatars/default.png' }}')"
+                     class="b-news-info__img"></div>
             </a>
             {% endif %}
         </div>

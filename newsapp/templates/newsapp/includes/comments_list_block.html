@@ -4,8 +4,8 @@
     {% for comment in news_item.all_comments %}
     <div class="b-comment-item">
         <a href="/profile/user/{{ comment.author.pk }}">
-            <img src="/media/{{ comment.author.avatar|default:'users_avatars/default.png' }}"
-                 class="b-comment-item__avatar" alt="Аватарка">
+            <div style="background-image: url('/media/{{ comment.author.avatar|default:'users_avatars/default.png' }}')"
+                 class="b-comment-item__avatar"></div>
         </a>
         <div class="comment__content">
             <a href="/profile/user/{{ comment.author.pk }}" class="b-comment-item__author">

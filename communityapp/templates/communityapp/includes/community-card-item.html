@@ -4,8 +4,8 @@
      {% endif %}
      data-community-id="{{ community.pk }}">
     <a href="{% url 'community:detail' community.pk %}" class="b-card-item__info">
-        <img src="/media/{{ community.image|default:'users_avatars/default.png' }}"
-             alt="Логотип сообщества" class="b-card-item__img">
+        <div style="background-image: url('/media/{{ community.image|default:'users_avatars/default.png' }}')"
+                     class="b-card-item__img"></div>
         <div class="b-card-item__username">
             {{ community.name }}
         </div>

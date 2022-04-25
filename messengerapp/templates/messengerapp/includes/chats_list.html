@@ -16,12 +16,13 @@
     {% if chat.type == 'D' %}
     {% for member in chat.members.all %}
     {% if member.pk != user.pk %}
-    <img src="/media/{{ member.avatar|default:'users_avatars/default.png' }}"
-         alt="Аватарка" class="b-chat-item__img">
+    <div style="background-image: url('/media/{{ member.avatar|default:'users_avatars/default.png'}}')"
+         class="b-chat-item__img"></div>
     {% endif %}
     {% endfor %}
     {% else %}
-    <img src="/media/users_avatars/default.png" alt="Аватарка" class="b-chat-item__img">
+    <div style="background-image: url('/media/users_avatars/default.png')"
+         class="b-chat-item__img"></div>
     {% endif %}
 
     <div class="b-chat-item__content">
@@ -35,7 +36,7 @@
 
         <div class="b-chat-item__last-msg">
             {% if chat.last_message.author.pk == user.pk %}
-                <span class="b-chat-item__last-msg-author">Вы: </span>
+            <span class="b-chat-item__last-msg-author">Вы: </span>
             {% endif %}
 
             {{ chat.last_message }}
