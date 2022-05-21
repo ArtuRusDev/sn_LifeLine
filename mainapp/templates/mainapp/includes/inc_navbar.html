@@ -24,7 +24,7 @@
                     <a class="b-nav-item__link {% if 'messenger' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
                        href="{% url 'messenger:dialogs' %}">
                         Сообщения
-                        <span class="b-nav-item__new-msg-counter js-new-msg-header-counter {% if unread_chats.count == 0 %}d-none {% endif %}">
+                        <span class="b-nav-item__new-msg-counter js-new-msg-header-counter {% if not user.is_authenticated or unread_chats.count == 0 %}d-none {% endif %}">
                             {{ unread_chats.count }}
                         </span>
                     </a>
