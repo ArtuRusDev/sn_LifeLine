@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'template_profiler_panel',
     'crispy_forms',
+    'channels',
     'mainapp',
     'authapp',
     'profileapp',
@@ -139,6 +140,18 @@ LOGIN_REDIRECT_URL = 'main'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+ASGI_APPLICATION = "sn_LifeLine.routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 # Debug toolbar
 

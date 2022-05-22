@@ -39,8 +39,56 @@
     </div>
 </div>
 
+<script>
+    let chat_id = "{{ chat.id }}";
+    let user_id = "{{ user.id }}";
+
+    let chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + chat_id + '/');
+
+    chatSocket.onmessage = function (e) {
+        let data = JSON.parse(e.data),
+            extra_class = '';
+
+        if (data['user_id'] === user_id) {
+            extra_class = 'current_user';
+        }
+
+        let msg = '' +
+            '<div class="b-msg-item-wrap ' + extra_class +'">\n' +
+            '   <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">\n' +
+            '       <span class="b-msg-item__text">' + data['message'] + '</span>\n' +
+            '       <span class="b-msg-item__time">' + data['time'] + '</span>\n' +
+            '   </div>\n' +
+            '</div>';
+
+        $('.b-chat__content__messages')[0].innerHTML += msg;
+        $(".js-chat-block")[0].scrollTop = 9999;
+    };
+
+
+    chatSocket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('.b-chat__form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let messageInputDom = document.querySelector('.b-form__input');
+        let message = messageInputDom.value;
+        let date = new Date();
+
+        chatSocket.send(JSON.stringify({
+            'user_id': "{{user.id}}",
+            'message': message,
+            'time': date.getHours() + ':' + date.getMinutes()
+        }));
+
+        messageInputDom.value = '';
+    });
+</script>
+
 <script type="text/javascript">
     $(".js-chat-block")[0].scrollTop = 9999;
 </script>
-<script src="{% static 'js/messenges_update.js' %}"></script>
 {% endblock %}
