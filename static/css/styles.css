@@ -571,6 +571,10 @@ select.b-form__input, select.b-form__submit {
 .b-chat__content__messages {
   padding: 0 20px 30px; }
 
+.b-chat__content__no-msg {
+  padding: 20px 0;
+  text-align: center; }
+
 .chat_block_link {
   display: block; }
 
@@ -653,6 +657,8 @@ select.b-form__input, select.b-form__submit {
     border-radius: 15px 15px 0 0; }
   .b-chat-item:last-of-type {
     border-radius: 0 0 15px 15px; }
+  .b-chat-item:first-of-type:last-of-type {
+    border-radius: 15px; }
 
 .b-chat-item_unread .b-chat-item__last-msg {
   background: rgba(255, 255, 255, 0.15);
@@ -736,18 +742,20 @@ form input[type='file'] {
 /*-----------------------------------*\
     #Admin panel
 \*-----------------------------------*/
-.admin-table tr {
-  position: relative; }
-.admin-table td {
-  vertical-align: middle; }
-.admin-table th {
-  vertical-align: middle; }
-.admin-table tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075); }
-.admin-table td.img-td {
-  padding: 0; }
-.admin-table td.admin-panel_text-value {
-  max-width: 200px; }
+.admin-table {
+  background-color: #dedede; }
+  .admin-table tr {
+    position: relative; }
+  .admin-table td {
+    vertical-align: middle; }
+  .admin-table th {
+    vertical-align: middle; }
+  .admin-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075); }
+  .admin-table td.img-td {
+    padding: 0; }
+  .admin-table td.admin-panel_text-value {
+    max-width: 200px; }
 
 img.admin-panel_img-value {
   max-width: 200px;

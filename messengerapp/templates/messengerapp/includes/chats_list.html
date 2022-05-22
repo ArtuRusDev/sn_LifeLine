@@ -7,12 +7,6 @@
     b-chat-item_new-msg
 {% endif %}">
 
-    <!--        <div class="b-chat">-->
-    <!--            <a href="{% url 'messenger:delete_chat' chat.pk %}" class="btn btn-danger">-->
-    <!--                <img class="trash_icon" src="{% static 'img/trash_icon.png' %}" alt="trash">-->
-    <!--            </a>-->
-    <!--        </div>-->
-
     {% if chat.type == 'D' %}
     {% for member in chat.members.all %}
     {% if member.pk != user.pk %}

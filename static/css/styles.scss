@@ -729,6 +729,11 @@ select.b-form__input {
     padding: 0 20px 30px;
 }
 
+.b-chat__content__no-msg {
+    padding: 20px 0;
+    text-align: center;
+}
+
 .chat_block_link {
     display: block;
 }
@@ -834,6 +839,10 @@ select.b-form__input {
     &:last-of-type {
         border-radius: 0 0 15px 15px;
     }
+
+    &:first-of-type:last-of-type {
+        border-radius: 15px;
+    }
 }
 
 .b-chat-item_unread .b-chat-item__last-msg {
@@ -937,6 +946,8 @@ form input[type='file'] {
 \*-----------------------------------*/
 
 .admin-table {
+    background-color: #dedede;
+
     tr {
         position: relative;
     }

@@ -1,19 +1,21 @@
 {% load tz %}
 
 {% if not chat %}
-    Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
+Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.
 {% else %}
-    {% if chat.message_set.all.count == 0 %}
-        Напишите сообщение первым!
-    {% endif %}
+{% if chat.message_set.all.count == 0 %}
+<div class="b-chat__content__no-msg">
+    Напишите сообщение первым!
+</div>
+{% endif %}
 
-    {% for message in chat.message_set.all %}
-        {% url 'users:profile' message.author.username as the_user_url %}
-        <div class="b-msg-item-wrap {% if message.author.pk == user.pk %}current_user{% endif %}">
-            <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">
-                <span class="b-msg-item__text">{{ message.message|safe }}</span>
-                <span class="b-msg-item__time">{{ message.pub_date|time:"H:i" }}</span>
-            </div>
-        </div>
-    {% endfor %}
+{% for message in chat.message_set.all %}
+{% url 'users:profile' message.author.username as the_user_url %}
+<div class="b-msg-item-wrap {% if message.author.pk == user.pk %}current_user{% endif %}">
+    <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">
+        <span class="b-msg-item__text">{{ message.message|safe }}</span>
+        <span class="b-msg-item__time">{{ message.pub_date|time:"H:i" }}</span>
+    </div>
+</div>
+{% endfor %}
 {% endif %}

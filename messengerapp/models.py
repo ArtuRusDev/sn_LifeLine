@@ -34,6 +34,12 @@ class Chat(models.Model):
         verbose_name_plural = 'Чаты'
         ordering = ('-last_message',)
 
+    @property
+    def get_members(self):
+        qs = [user.id for user in self.members.all()]
+        print(qs)
+        return qs
+
     def __str__(self):
         return f'{self.type} - {self.members.all()}'
 

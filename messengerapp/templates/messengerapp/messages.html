@@ -40,23 +40,46 @@
 </div>
 
 <script>
-    let chat_id = "{{ chat.id }}";
-    let user_id = "{{ user.id }}";
+    let chat = document.getElementsByClassName("js-chat-block")[0];
+    chat.scrollTop = chat.scrollHeight;
+
+    const chat_id = "{{ chat.id }}";
+    const chat_members = "{{ chat.get_members }}";
+
 
     let chatSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/chat/' + chat_id + '/');
 
     chatSocket.onmessage = function (e) {
         let data = JSON.parse(e.data),
-            extra_class = '';
+            event = data['event'];
 
-        if (data['user_id'] === user_id) {
-            extra_class = 'current_user';
+        console.log(data);
+
+        if (event === 'new_msg') {
+            process_message(data);
+        } else if (event === 'read' && data['user_id'] !== user_id) {
+            $('.b-msg-item.b-msg-item_unread').removeClass('b-msg-item_unread');
+        }
+    };
+
+    function process_message(data) {
+        let is_own_class = '';
+        let is_read_class = '';
+
+        if (data['author_id'] === user_id) {
+            is_own_class = 'current_user';
+            is_read_class = "b-msg-item_unread";
+        } else {
+            chatSocket.send(JSON.stringify({
+                'action': 'read',
+                'chat_id': chat_id
+            }));
         }
 
         let msg = '' +
-            '<div class="b-msg-item-wrap ' + extra_class +'">\n' +
-            '   <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">\n' +
+            '<div class="b-msg-item-wrap ' + is_own_class + '">\n' +
+            '   <div class="b-msg-item ' + is_read_class + '">\n' +
             '       <span class="b-msg-item__text">' + data['message'] + '</span>\n' +
             '       <span class="b-msg-item__time">' + data['time'] + '</span>\n' +
             '   </div>\n' +
@@ -64,8 +87,7 @@
 
         $('.b-chat__content__messages')[0].innerHTML += msg;
         $(".js-chat-block")[0].scrollTop = 9999;
-    };
-
+    }
 
     chatSocket.onclose = function (e) {
         console.error('Chat socket closed unexpectedly');
@@ -79,16 +101,16 @@
         let date = new Date();
 
         chatSocket.send(JSON.stringify({
-            'user_id': "{{user.id}}",
+            'action': 'message',
             'message': message,
-            'time': date.getHours() + ':' + date.getMinutes()
+            'time': date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes(),
+            'author_id': user_id,
+            'members': chat_members
         }));
+
+        $('.b-chat__content__no-msg').addClass('d-none');
 
         messageInputDom.value = '';
     });
-</script>
-
-<script type="text/javascript">
-    $(".js-chat-block")[0].scrollTop = 9999;
 </script>
 {% endblock %}

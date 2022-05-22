@@ -22,8 +22,11 @@
 
         <!-- Друзья -->
         {% if not friends %}
-        Вы еще не добавили своих друзей
+        <div class="b-card-item" data-type="friends">
+            Вы еще не добавили своих друзей
+        </div>
         {% endif %}
+
         {% for friend in friends %}
         <div class="b-card-item" data-type="friends">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
@@ -95,7 +98,7 @@
         {% for friend in all_users %}
         <div class="b-card-item d-none" data-type="other">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
-                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
+                <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
                 <div class="b-card-item__username">
                     {{ friend.get_name }}

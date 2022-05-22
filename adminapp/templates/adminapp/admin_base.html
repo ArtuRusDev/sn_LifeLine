@@ -14,11 +14,7 @@
     <link href="{% static 'css/lib/jquery.fancybox.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/lib/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
-    {% if user.is_dark_theme %}
-        <link href="{% static 'css/dark_theme.css' %}" rel="stylesheet">
-    {% else %}
-        <link href="{% static 'css/light_theme.css' %}" rel="stylesheet">
-    {% endif %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 </head>
