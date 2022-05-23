@@ -21,7 +21,7 @@ class Community(models.Model):
     @property
     def get_publishers_id(self):
         all_publishers = CommunityParticipant.objects.filter(community_id=self.id, role=1)
-        return [instance.user_id for instance in all_publishers]
+        return [instance.user_id for instance in all_publishers] + [self.creator.id]
 
     @property
     def get_subscribers_id(self):

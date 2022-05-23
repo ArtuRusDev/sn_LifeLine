@@ -1,14 +1,16 @@
 from itertools import chain
 
 from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound, Http404
+from django.http import JsonResponse, Http404
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView
+from django.template.loader import render_to_string
 
-from communityapp.models import CommunityNewsItem, CommunityParticipant
+from communityapp.models import CommunityNewsItem, CommunityParticipant, Community
+
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes, Comments
-from django.template.loader import render_to_string
 
 
 class NewsView(ListView):
@@ -23,14 +25,18 @@ class NewsView(ListView):
         friend_requests_users_pk = user.get_send_friend_requests_pk
 
         all_subscribed_communities = CommunityParticipant.objects.filter(user_id=self.request.user)
-        all_ids = [instance.community_id for instance in all_subscribed_communities]
+        all_own_communities = Community.objects.filter(creator_id=self.request.user)
+
+        all_com_ids = [instance.community_id for instance in all_subscribed_communities]
+        all_com_ids += [community.id for community in all_own_communities]
+
+        all_community_news = CommunityNewsItem.objects.filter(community_id__in=all_com_ids).select_related()
+        all_community_news_id = [community.id for community in all_community_news]
 
         all_news = NewsItem.objects.filter((
                 Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
                 ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)) &
-                Q(is_community=False)))
-
-        all_community_news = CommunityNewsItem.objects.filter(community_id__in=all_ids).select_related()
+                Q(is_community=False))).exclude(pk__in=all_community_news_id).select_related()
 
         data['all_news'] = sorted(chain(all_news, all_community_news),
                                   key=lambda instance: instance.add_datetime, reverse=True)
@@ -88,6 +94,34 @@ def add_comment(request):
         }
 
         return JsonResponse(result)
+
+
+def add_news(request):
+    print(request.method)
+    if request.method == 'POST':
+        text = request.POST.get('text')
+
+        if text:
+            NewsItem.objects.create(user=request.user, text=text)
+
+    return redirect('/')
+
+    # if content:
+    #     Comments.objects.create(news_item=NewsItem.objects.get(id=news_pk), author=request.user, text=content)
+    # else:
+    #     return JsonResponse({'result': 'empty_input'})
+    #
+    # context = {
+    #     'news_item': NewsItem.objects.get(pk=news_pk),
+    #     'user': request.user
+    # }
+    #
+    # result = {
+    #     'comments_html': render_to_string('newsapp/includes/comments_list_block.html', context),
+    #     'comments_cnt': Comments.objects.filter(news_item_id=news_pk).count(),
+    # }
+    #
+    # return JsonResponse(result)
 
 
 def delete_comment(request, pk):

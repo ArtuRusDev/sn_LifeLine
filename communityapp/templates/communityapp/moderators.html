@@ -2,47 +2,50 @@
 {% load static %}
 {% block title %}Life on Line | Сообщества{% endblock %}
 {% block content %}
-    <div class="container content">
-        <div class="news_block">
-            <h2 class="text-center">Все публикаторы</h2>
+<div class="col-lg-8 offset-lg-2">
+    <h2 class="text-center">Все публикаторы</h2>
 
-            <div class="communities_list">
-                {% for user_item in users %}
-                    <div class="friend_item d-flex justify-content-between" data-user-id="{{ user_item.id }}">
-                        <div class="friend_item_title w-100">
-                            <img src="/media/{{ user_item.avatar|default:'users_avatars/default.png' }}"
-                                 alt="Аватарка" class="user_avatar_friends">
+    <div class="communities_list">
+        {% for user_item in users %}
 
-                            <div class="friend_item_title-username">
-                                <a href="{% url 'profile:detail' user_item.pk %}">
-                                    {{ user_item.get_name }}
-                                </a>
-                            </div>
-                        </div>
+        <div class="b-card-item" data-type="friends">
+            <a href="/profile/user/{{user_item.id}}" class="b-card-item__info">
+                <div style="background-image: url('/media/{{ user_item.avatar|default:'users_avatars/default.png' }}')"
+                     class="b-card-item__img"></div>
 
-                        <form method="POST" class="change-publisher_wrap">
-                            {% csrf_token %}
-                            <input type="hidden" name="user" value="{{ user_item.id }}">
-                            <input type="hidden" name="community" value="{{ object.pk }}">
+                <div href="{% url 'profile:detail' user_item.pk %}" class="b-card-item__username">
+                    {{ user_item.get_name }}
+                </div>
+            </a>
 
-                            {% if user_item.id in publishers_id %}
-                                <a class="btn btn-danger mr-1">
-                                    Убрать
-                                </a>
-                            {% else %}
-                                <a class="btn btn-success mr-1">
-                                    Добавить
-                                </a>
-                            {% endif %}
-                        </form>
-                    </div>
+            <div class="b-card-item__actions">
 
-                {% endfor %}
 
-                {% if not users %}
-                    <p>У вашего сообщества еще нет ни одного подписчика</p>
-                {% endif %}
+                <a href="" class="b-card-item__action-btn">
+                    {% if user_item.id in publishers_id %}
+                    Лишить привилегий
+                    {% else %}
+                    Сделать публикатором
+                    {% endif %}
+                </a>
+
+
+                <div class="b-card-item__extra-actions-btn"></div>
+
+                <div class="b-extra-actions d-none">
+                    <!--                    <a href="/friends/remove/1" class="b-extra-actions__btn">-->
+                    <!--                        <span class="b-card-item__delete-icon"></span>-->
+                    <!--                        Удалить из друзей-->
+                    <!--                    </a>-->
+                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                </div>
             </div>
         </div>
+        {% endfor %}
+
+        {% if not users %}
+        <p>У вашего сообщества еще нет ни одного подписчика</p>
+        {% endif %}
     </div>
+</div>
 {% endblock %}

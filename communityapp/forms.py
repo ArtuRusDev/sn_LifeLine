@@ -13,7 +13,7 @@ class CreateCommunityForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateCommunityForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs["class"] = "form-control"
+            field.widget.attrs['class'] = 'b-form__input'
             field.widget.attrs["placeholder"] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ""
 
@@ -59,3 +59,8 @@ class CreateCommunityNewsForm(CreateNewsForm):
     class Meta:
         model = CommunityNewsItem
         fields = ('text', 'image')
+
+    def __init__(self, *args, **kwargs):
+        super(CreateCommunityNewsForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'b-form__input'

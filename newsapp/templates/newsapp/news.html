@@ -5,14 +5,21 @@
 <div class="container">
     <div class="row">
         <div class="b-news-wrap col-lg-7 offset-lg-2">
-        {% for news_item in all_news %}
-            {% include 'newsapp/includes/inc_news_item.html'%}
-        {% endfor %}
+            <form action="{% url 'news:create' %}" method="POST" class="b-create-news-form bg-dark-blur unselectable js-add-news-form">
+                {% csrf_token %}
+                <input required name="text" class="b-form__input" placeholder="Что нового?">
+                <input type="submit" class="b-form__submit b-form__submit_white b-create-news-form__submit"
+                       value="Опубликовать">
+            </form>
 
-        {% if not all_news %}
+            {% for news_item in all_news %}
+            {% include 'newsapp/includes/inc_news_item.html'%}
+            {% endfor %}
+
+            {% if not all_news %}
             У вас пока нет ни одной новости. <br>
             Добавьте ее сами или добавьтесь в друзья к пользователям.
-        {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

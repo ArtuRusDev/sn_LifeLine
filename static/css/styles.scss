@@ -65,6 +65,20 @@ a {
     }
 }
 
+.b-paddings {
+    padding: 15px;
+
+    .b-form__input {
+        margin-bottom: 10px;
+    }
+}
+
+.b-paddings__title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
 /*-----------------------------------*\
 	#Header
 \*-----------------------------------*/
@@ -264,6 +278,28 @@ select.b-form__input {
     background: $dark_transparent_bg;
     border-radius: 10px;
     margin-bottom: 25px;
+    position: relative;
+
+    &:hover .btn-delete-news {
+        opacity: .5;
+    }
+}
+
+.btn-delete-news {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background: url('../img/icons/remove.png') no-repeat center;
+    background-size: cover;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0;
+    transition: .2s;
+
+    &:hover {
+        opacity: 1 !important;
+    }
 }
 
 .b-news-info {
@@ -545,6 +581,19 @@ select.b-form__input {
     }
 }
 
+.b-create-news-form {
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    position: relative;
+}
+
+.b-create-news-form__submit {
+    display: inline-block;
+    width: auto;
+    margin-left: 15px;
+}
+
 /*-----------------------------------*\
 	#Friends
 \*-----------------------------------*/
@@ -781,10 +830,15 @@ select.b-form__input {
     font-size: 20px;
 }
 
+.b-msg-item__text {
+    float: left;
+}
+
 .b-msg-item__time {
     font-size: 12px;
     color: $gray_text_color;
     margin-left: 10px;
+    float: right;
 }
 
 
@@ -1005,6 +1059,10 @@ img.admin-panel_img-value {
 }
 
 /*-----------------------------------*\
+    #Communitites
+\*-----------------------------------*/
+
+/*-----------------------------------*\
     #Profile
 \*-----------------------------------*/
 
@@ -1211,6 +1269,16 @@ img.admin-panel_img-value {
     &:hover {
         background-color: rgba(0, 0, 0, 1);
         color: #ccc;
+    }
+}
+
+.b-profile-edit .errorlist {
+    padding: 0;
+    list-style-type: none;
+
+    .errorlist {
+        list-style-type: initial;
+        padding-left: 15px;
     }
 }
 

@@ -14,7 +14,7 @@ class CreateCommunityView(CreateView):
     model = Community
     template_name = 'communityapp/add.html'
     form_class = CreateCommunityForm
-    success_url = reverse_lazy('news:main')
+    success_url = reverse_lazy('community:main')
 
     def form_valid(self, form):
         form.instance.creator = self.request.user

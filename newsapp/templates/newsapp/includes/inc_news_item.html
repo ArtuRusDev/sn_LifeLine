@@ -1,5 +1,16 @@
 {% load static %}
 <div class="b-news-item js-news-item" data-news-id="{{ news_item.pk }}">
+    {% if not news_item.community %}
+        {% if news_item.user.pk == user.pk %}
+            <a href="{% url 'news:delete' news_item.pk %}" class="btn-delete-news"></a>
+        {% endif %}
+    {% else %}
+        {% if user.pk in news_item.community.get_publishers_id %}
+
+            <a href="{% url 'news:delete' news_item.pk %}" class="btn-delete-news"></a>
+        {% endif %}
+    {% endif %}
+
     <div class="b-news-info">
         <div class="b-news-info__avatar">
             {% if news_item.community %}

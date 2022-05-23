@@ -18,7 +18,8 @@
                             <span>Прикрепить</span>
                         </div>
                         <div class="b-profile-edit-img__img-wrap">
-                            <img src="/media/{{ user.avatar }}" class="b-profile-edit-img__img" alt="Изображение пользователя">
+                            <img src="/media/{{ user.avatar }}" class="b-profile-edit-img__img"
+                                 alt="Изображение пользователя">
                         </div>
                         <div class="b-profile-edit-img__clear-btn js-profile-clear-img">
                             &times;
@@ -49,6 +50,8 @@
 
             {{ form.phone_number|as_crispy_field }}
             {{ form.email|as_crispy_field }}
+
+            {{form.errors}}
 
             <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
                    value="Сохранить изменения">

@@ -42,7 +42,7 @@ class UserUpdateInfoForm(forms.ModelForm):
         try:
             w, h = get_image_dimensions(avatar)
 
-            max_width = max_height = 1080
+            max_width = max_height = 1920
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     f'Пожалуйста, испльзуйте изображения {max_width} x {max_height} пикселов или меньше.')

@@ -2,17 +2,22 @@
 {% load static %}
 {% block title %}Life on Line | Удаление Новости{% endblock %}
 {% block content %}
-    <div class="container content">
-        <div class="news_block">
-            <h3 class="text-center">Вы уверены, что хотите удалить эту новость?</h3>
+<div class="container">
+    <div class="row">
+        <div class="b-paddings col-lg-7 offset-lg-2">
+            <h1 class="b-paddings__title">Вы уверены, что хотите удалить эту новость?</h1>
+
             {% include 'newsapp/includes/inc_news_item.html' with news_item=object%}
+
             <form action="{% url 'news:delete' object.pk %}" method="post">
                 {% csrf_token %}
-                <input class="btn btn-danger" type="submit" value="Удалить">
-                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success">
+                <input value="Удалить новость" type="submit"
+                       class="b-form__submit b-form__submit_white b-form__submit_margins text-danger">
+                <a href="{{ request.META.HTTP_REFERER }}" class="b-form__submit">
                     Отмена
                 </a>
             </form>
         </div>
     </div>
+</div>
 {% endblock %}

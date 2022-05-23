@@ -5,7 +5,7 @@ app_name = 'newsapp'
 
 urlpatterns = [
     path('', newsapp.NewsView.as_view(), name='main'),
-    path('create/', newsapp.CreateNews.as_view(), name='create'),
+    path('create/', newsapp.add_news, name='create'),
     path('delete/<pk>/', newsapp.DeleteNewsView.as_view(), name='delete'),
     path('like/<pk>/', newsapp.put_like, name='put_like'),
     path('add_comment/', newsapp.add_comment, name="add_comment"),
