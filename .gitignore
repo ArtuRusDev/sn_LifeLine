@@ -1,8 +1,14 @@
 *.idea
 *.pyc
 *__pycache__
-venv
 *.sqlite3
-media
-.sass-cache
 *.json
+*.sass-cache
+
+/venv
+
+/media/*
+!/media/users_avatars/
+
+/media/users_avatars/*
+!/media/users_avatars/default.png

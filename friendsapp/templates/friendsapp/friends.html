@@ -91,10 +91,6 @@
         {% endfor %}
 
         <!-- Запросы в друзья -->
-        {% if not all_users %}
-        Вы уже добавили в друзья всех пользователей сайта
-        {% endif %}
-
         {% for friend in all_users %}
         <div class="b-card-item d-none" data-type="other">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">

@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
@@ -9,18 +10,19 @@
                 <a href="{% url 'messenger:dialogs' %}" class="btn-back"></a>
                 <div class="b-chat__interlocutor">
                     {% if chat.type == 'D' %}
-                    {% for member in chat.members.all %}
-                    {% if member.pk != user.pk %}
-                    <span>Диалог с</span>
-                    <a href="{% url 'profile:detail' member.pk %}">
-                        <div style="background-image: url('/media/{{ member.avatar|default:'users_avatars/default.png'}}')"
-                             class="b-user-img_small"></div>
-                        {{ member.get_name }}
-                    </a>
-                    {% endif %}
-                    {% endfor %}
+                        {% for member in chat.members.all %}
+                            {% if member.pk != user.pk %}
+                                <span>Диалог с</span>
+                                <a href="{% url 'profile:detail' member.pk %}">
+                                    <div style="background-image: url(
+                                    '/media/{{ member.avatar|default:'users_avatars/default.png'}}'
+                                    )" class="b-user-img_small"></div>
+                                    {{ member.get_name }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                     {% else %}
-                    Беседа {{ chat.title }}
+                        Беседа {{ chat.title }}
                     {% endif %}
                 </div>
             </div>
