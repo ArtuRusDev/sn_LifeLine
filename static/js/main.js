@@ -1,11 +1,46 @@
 $(document).ready(function () {
     const $body = $('body');
 
+    /*-----------------------------------*\
+        #Mobile burger menu
+    \*-----------------------------------*/
+
     $('.menu-burger__header').click(function () {
         $('.menu-burger__header').toggleClass('open-menu');
         $('.navbar-nav').toggleClass('open-menu');
         $('body').toggleClass('fixed-page');
     });
+
+    /*-----------------------------------*\
+        #Add news form
+    \*-----------------------------------*/
+
+    $('.js-attach-news-img').on('click', function (e) {
+        let $needle_input = $(e.target).parent().find('input[name="image"]');
+        $needle_input.click();
+    });
+
+    $('input#id_new_news_img').on('change', function (e) {
+        let $profile_img_wrap = $('.b-news-preview-img');
+        let file = $(e.currentTarget)[0].files[0];
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $profile_img_wrap.find('img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+        $profile_img_wrap.addClass('b-news-preview-img_filled');
+    });
+
+    $('.js-news-remove-preview').on('click', function (e) {
+        console.log('click');
+        let $news_preview_img = $('.b-news-preview-img');
+        $news_preview_img.parent().find('input[name="image"]').val(null);
+        $news_preview_img.removeClass('b-news-preview-img_filled');
+    });
+
+    /*-----------------------------------*\
+        #Extra friends, communities action
+    \*-----------------------------------*/
 
     $body.on('click', '.b-card-item__extra-actions-btn', function (e) {
         let $actions_block = $(e.currentTarget).parent().find('.b-extra-actions');
@@ -39,21 +74,9 @@ $(document).ready(function () {
         }
     });
 
-    $body.on('click', '.js-follow-community-btn', function (e) {
-        let $btn = $(e.currentTarget);
-        let pk = $btn.attr('data-community-id');
-        let $card_wrap = $('.b-card-item[data-community-id="' + pk + '"]').parent();
-
-        $.ajax({
-            url: "/community/subscribe/" + pk + "/",
-
-            success: function (data) {
-                if (data.result) {
-                    $card_wrap.html(data.result);
-                }
-            }
-        });
-    });
+    /*-----------------------------------*\
+        #Profile image edit
+    \*-----------------------------------*/
 
     $('.js-profile-attach-img-btn').on('click', function (e) {
         e.preventDefault();
@@ -79,6 +102,26 @@ $(document).ready(function () {
         $profile_img_wrap.parent().find('input#avatar-clear_id').prop('checked', true);
         $profile_img_wrap.find('.b-profile-edit-img__img').attr('src', '');
         $profile_img_wrap.removeClass('b-profile-edit-img_filled');
+    });
+
+    /*-----------------------------------*\
+        #Ajax actions
+    \*-----------------------------------*/
+
+    $body.on('click', '.js-follow-community-btn', function (e) {
+        let $btn = $(e.currentTarget);
+        let pk = $btn.attr('data-community-id');
+        let $card_wrap = $('.b-card-item[data-community-id="' + pk + '"]').parent();
+
+        $.ajax({
+            url: "/community/subscribe/" + pk + "/",
+
+            success: function (data) {
+                if (data.result) {
+                    $card_wrap.html(data.result);
+                }
+            }
+        });
     });
 
 

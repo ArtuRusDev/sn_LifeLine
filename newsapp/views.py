@@ -1,5 +1,6 @@
 from itertools import chain
 
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 from django.http import JsonResponse, Http404
 from django.shortcuts import redirect
@@ -97,31 +98,16 @@ def add_comment(request):
 
 
 def add_news(request):
-    print(request.method)
     if request.method == 'POST':
         text = request.POST.get('text')
 
-        if text:
+        if request.FILES:
+            file = request.FILES['image']
+            NewsItem.objects.create(user=request.user, text=text, image=file)
+        else:
             NewsItem.objects.create(user=request.user, text=text)
 
     return redirect('/')
-
-    # if content:
-    #     Comments.objects.create(news_item=NewsItem.objects.get(id=news_pk), author=request.user, text=content)
-    # else:
-    #     return JsonResponse({'result': 'empty_input'})
-    #
-    # context = {
-    #     'news_item': NewsItem.objects.get(pk=news_pk),
-    #     'user': request.user
-    # }
-    #
-    # result = {
-    #     'comments_html': render_to_string('newsapp/includes/comments_list_block.html', context),
-    #     'comments_cnt': Comments.objects.filter(news_item_id=news_pk).count(),
-    # }
-    #
-    # return JsonResponse(result)
 
 
 def delete_comment(request, pk):
