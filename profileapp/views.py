@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, UpdateView, DetailView
 from authapp.models import Person
+from communityapp.models import Community
 from newsapp.models import NewsItem
 from profileapp.forms import UserUpdateInfoForm
 
@@ -28,7 +29,7 @@ class UserProfile(DetailView):
         data = super(UserProfile, self).get_context_data(**kwargs)
 
         user = get_object_or_404(Person, pk=self.kwargs['pk'])
-        news = NewsItem.objects.filter(user__pk=user.pk).order_by('-add_datetime')
+        news = NewsItem.objects.filter(user__pk=user.pk).filter(is_community=False).order_by('-add_datetime')
 
         is_friend = user in self.request.user.get_friends
         data['cur_user'] = user

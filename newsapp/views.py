@@ -37,7 +37,8 @@ class NewsView(ListView):
         all_news = NewsItem.objects.filter((
                 Q(user__pk__in=friends_pk) | Q(user__pk__in=friend_requests_users_pk) | Q(user__pk=user.pk) &
                 ((~Q(is_accepted=0) & Q(is_moderated=1)) | Q(is_moderated=0)) &
-                Q(is_community=False))).exclude(pk__in=all_community_news_id).select_related()
+                Q(is_community=False))).exclude(pk__in=all_community_news_id).filter(
+            is_community=False).select_related()
 
         data['all_news'] = sorted(chain(all_news, all_community_news),
                                   key=lambda instance: instance.add_datetime, reverse=True)

@@ -657,6 +657,10 @@ select.b-form__input {
     margin-bottom: 15px;
     @extend .unselectable;
     @extend .bg-dark-blur;
+
+    &:hover:after {
+        background: rgba(69, 69, 69, 0.55);
+    }
 }
 
 .b-card-item__info, .b-card-item__action {
@@ -953,6 +957,7 @@ select.b-form__input {
     border-radius: 3px;
 }
 
+.b-chat-item:hover,
 .b-chat-item_new-msg {
     background: rgba(69, 69, 69, 0.55);
     backdrop-filter: blur(15px);

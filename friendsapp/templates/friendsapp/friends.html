@@ -9,12 +9,12 @@
             <input type="text" class="b-form__input b-search-input" placeholder="Поиск">
             <div class="b-dropdown js-card-dropdown">
                 <div class="b-dropdown__current">
-                    <span class="b-dropdown__title">Ваши друзья</span>
+                    <span class="b-dropdown__title">Все пользователи</span>
                     <span class="b-dropdown-arrow"></span>
                 </div>
                 <div class="b-dropdown__other js-card-dropdowns">
-                    <div class="b-dropdown__item d-none" data-val="friends">Ваши друзья</div>
-                    <div class="b-dropdown__item" data-val="other">Все пользователи</div>
+                    <div class="b-dropdown__item d-none" data-val="all">Все пользователи</div>
+                    <div class="b-dropdown__item" data-val="friends">Ваши друзья</div>
                     <div class="b-dropdown__item" data-val="requests">Заявки в друзья</div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         {% endif %}
 
         {% for friend in friends %}
-        <div class="b-card-item" data-type="friends">
+        <div class="b-card-item" data-user data-type="friends">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
@@ -56,14 +56,14 @@
         {% endfor %}
 
         <!-- Запросы в друзья -->
-        {% if not friend_requests %}
-        <div class="b-card-item d-none" data-type="requests">
-            Вы пока не получили запросов в друзья
-        </div>
-        {% endif %}
+<!--        {% if not friend_requests %}-->
+<!--        <div class="b-card-item" data-type="requests">-->
+<!--            Вы пока не получили запросов в друзья-->
+<!--        </div>-->
+<!--        {% endif %}-->
 
         {% for friend in friend_requests %}
-        <div class="b-card-item d-none" data-type="requests">
+        <div class="b-card-item" data-user data-type="requests">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
@@ -90,9 +90,9 @@
         </div>
         {% endfor %}
 
-        <!-- Запросы в друзья -->
+        <!-- Остальные пользователи  -->
         {% for friend in all_users %}
-        <div class="b-card-item d-none" data-type="other">
+        <div class="b-card-item" data-user>
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>

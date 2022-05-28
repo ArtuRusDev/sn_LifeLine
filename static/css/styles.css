@@ -519,6 +519,8 @@ select.b-form__input, select.b-form__submit {
   justify-content: space-between;
   position: relative;
   margin-bottom: 15px; }
+  .b-card-item:hover:after {
+    background: rgba(69, 69, 69, 0.55); }
 
 .b-card-item__info, .b-card-item__action {
   display: flex;
@@ -749,6 +751,7 @@ select.b-form__input, select.b-form__submit {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 3px; }
 
+.b-chat-item:hover,
 .b-chat-item_new-msg {
   background: rgba(69, 69, 69, 0.55);
   backdrop-filter: blur(15px); }

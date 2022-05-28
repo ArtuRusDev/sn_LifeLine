@@ -67,7 +67,7 @@ $(document).ready(function () {
         $target.addClass('d-none');
 
         if ($target.attr('data-val') === 'all') {
-            $('.b-card-item.d-none').removeClass('d-none');
+            $('.b-card-item[data-user]').removeClass('d-none');
         } else {
             $('.b-card-item:not(.d-none)').addClass('d-none');
             $('.b-card-item[data-type="' + $target.attr('data-val') + '"]').removeClass('d-none');
@@ -123,18 +123,14 @@ $(document).ready(function () {
             }
         });
     });
-
-
-    function subscribe_community(pk) {
-        $.ajax({
-            url: "/community/subscribe/" + pk + "/",
-
-            success: function (data) {
-                // if (data.result) {
-                //     $btn.html(data.result);
-                // }
-                console.log('success');
-            }
-        });
-    }
 });
+
+function subscribe_community(pk) {
+    $.ajax({
+        url: "/community/subscribe/" + pk + "/",
+
+        success: function (data) {
+            window.location.reload();
+        }
+    });
+}
