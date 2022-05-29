@@ -2,12 +2,12 @@ from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from authapp.models import Person
-from messengerapp.forms import MessageForm
+from messengerapp.forms import MessageForm, CreateChatForm
 from messengerapp.models import Chat
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 
 
 class DialogsView(TemplateView):
@@ -48,6 +48,18 @@ class MessagesView(View):
             message.author = request.user
             message.save()
         return redirect(reverse('messenger:messages', kwargs={'chat_id': chat_id}))
+
+
+class CreateChatView(CreateView):
+    model = Chat
+    template_name = 'messengerapp/add_chat.html'
+    form_class = CreateChatForm
+    success_url = reverse_lazy('messenger:dialogs')
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 def create_dialog(request, friend_id):

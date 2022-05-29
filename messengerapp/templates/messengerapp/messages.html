@@ -3,6 +3,17 @@
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
+<!-- Modal -->
+  <div class="modal fade modal-callback" id="edit_chat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          some text
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="row">
     <div class="col-lg-10 offset-lg-1">
         <div class="b-chat">
@@ -22,7 +33,13 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        Беседа {{ chat.title }}
+                        <div class="b-chat-title" data-toggle="modal" data-target="#edit_chat">
+                            <span>Беседа</span>
+                            <div style="background-image:
+                                url('/media/users_avatars/default.png')"
+                                 class="b-user-img_small"></div>
+                            {{ chat.title }}
+                        </div>
                     {% endif %}
                 </div>
             </div>

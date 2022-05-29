@@ -5,6 +5,7 @@ app_name = 'profileapp'
 
 urlpatterns = [
     path('', profile_base_view, name='info'),
-    path('user/<pk>', UserProfile.as_view(), name='detail'),
+    path('user/<int:pk>', UserProfile.as_view(), name='detail'),
+    # path('user/<username>', UserProfile.as_view(), name='detail_uname'),
     path('edit/', UserUpdateInfo.as_view(), name='edit'),
 ]

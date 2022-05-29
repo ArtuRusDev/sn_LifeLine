@@ -175,6 +175,13 @@ select.b-form__input, select.b-form__submit {
   select.b-form__input option, select.b-form__submit option {
     color: #000; }
 
+select.b-form__input[multiple], select[multiple].b-form__submit {
+  background-image: none;
+  height: 200px;
+  overflow: auto; }
+  select.b-form__input[multiple] option, select[multiple].b-form__submit option {
+    color: #fff; }
+
 .b-form__input:active, .b-form__submit:active {
   color: #fff; }
 
@@ -200,6 +207,23 @@ select.b-form__input, select.b-form__submit {
   .b-form__submit_white:hover {
     background: rgba(91, 91, 91, 0.4);
     color: #fff; }
+
+.b-btn-white {
+  display: inline-block;
+  border-radius: 10px;
+  white-space: nowrap;
+  color: #000;
+  font-size: 18px;
+  padding: 10px 15px;
+  border: none;
+  background: #fff;
+  transition: .2s; }
+  .b-btn-white:hover {
+    color: #000;
+    background-color: #dcdcdc; }
+
+.b-btn-white_ml {
+  margin-left: 15px; }
 
 .b-help-text, .b-help-text__link {
   font-size: 14px; }
@@ -733,6 +757,12 @@ select.b-form__input, select.b-form__submit {
     color: #212529;
     background-color: #fff;
     border-color: #ccc; }
+
+/*---------- Chat (many people) ----------*/
+.b-chat-title {
+  display: flex;
+  align-items: center;
+  cursor: pointer; }
 
 /*---------- Chats list ----------*/
 .b-chat-item {

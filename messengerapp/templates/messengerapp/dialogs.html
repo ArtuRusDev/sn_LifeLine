@@ -2,16 +2,22 @@
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            {% if chats.count == 0 %}
-                У вас еще нет созданных чатов
-            {% endif %}
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="b-search-wrap bg-dark-blur unselectable">
+            <input type="text" class="b-form__input b-search-input" placeholder="Поиск">
 
-            <div class="b-chats-list">
-                {% include 'messengerapp/includes/chats_list.html' %}
-            </div>
+            <a href="{% url 'messenger:create_chat' %}" class="b-btn-white b-btn-white_ml">+ Создать беседу</a>
+        </div>
+
+        {% if chats.count == 0 %}
+        У вас еще нет созданных чатов
+        {% endif %}
+
+        <div class="b-chats-list">
+            {% include 'messengerapp/includes/chats_list.html' %}
         </div>
     </div>
-    <script src="{% static 'js/chat_updates.js' %}"></script>
+</div>
+<script src="{% static 'js/chat_updates.js' %}"></script>
 {% endblock %}

@@ -217,9 +217,15 @@ select.b-form__input {
     option {
         color: #000;
     }
+}
 
-    &:focus-visible {
+select.b-form__input[multiple] {
+    background-image: none;
+    height: 200px;
+    overflow: auto;
 
+    option {
+        color: #fff;
     }
 }
 
@@ -233,13 +239,12 @@ select.b-form__input {
 
 .b-form__submit {
     @extend .b-form__input;
+
     display: block;
     text-align: center;
     background: rgba(91, 91, 91, 0.4);
     color: #fff;
-
     transition: .2s;
-
 
     &:hover {
         background-color: #fff;
@@ -259,6 +264,27 @@ select.b-form__input {
         background: rgba(91, 91, 91, 0.4);
         color: #fff;
     }
+}
+
+.b-btn-white {
+    display: inline-block;
+    border-radius: 10px;
+    white-space: nowrap;
+    color: #000;
+    font-size: 18px;
+    padding: 10px 15px;
+    border: none;
+    background: #fff;
+    transition: .2s;
+
+    &:hover {
+        color: #000;
+        background-color: #dcdcdc;
+    }
+}
+
+.b-btn-white_ml {
+    margin-left: 15px;
 }
 
 .b-help-text, .b-help-text__link {
@@ -929,6 +955,14 @@ select.b-form__input {
         background-color: #fff;
         border-color: #ccc;
     }
+}
+
+/*---------- Chat (many people) ----------*/
+
+.b-chat-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 /*---------- Chats list ----------*/

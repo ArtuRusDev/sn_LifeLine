@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, UpdateView, DetailView
 from authapp.models import Person
-from communityapp.models import Community
 from newsapp.models import NewsItem
 from profileapp.forms import UserUpdateInfoForm
 

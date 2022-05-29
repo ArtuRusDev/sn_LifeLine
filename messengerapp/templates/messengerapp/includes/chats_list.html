@@ -21,11 +21,15 @@
 
     <div class="b-chat-item__content">
         <div class="b-chat-item__username">
-            {% for member in chat.members.all %}
-            {% if member.pk != user.pk %}
-            {{ member.get_name|default:'Пользователь удален' }}
+            {% if chat.type == 'D' %}
+                {% for member in chat.members.all %}
+                    {% if member.pk != user.pk %}
+                        {{ member.get_name|default:'Пользователь удален' }}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {{ chat.title }}
             {% endif %}
-            {% endfor %}
         </div>
 
         <div class="b-chat-item__last-msg">
