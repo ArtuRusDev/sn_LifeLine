@@ -75,6 +75,8 @@
     </div>
 
     <div class="col-lg-7">
+        {% include 'newsapp/includes/create_news_form.html'%}
+        
         {% for news_item in news %}
         {% include 'newsapp/includes/inc_news_item.html'%}
         {% endfor %}

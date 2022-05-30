@@ -1,0 +1,18 @@
+{% load static %}
+<form action="{% url 'news:create' %}" method="POST" enctype="multipart/form-data"
+      class="b-create-news-form bg-dark-blur unselectable js-add-news-form">
+    {% csrf_token %}
+    <div class="b-news-preview-img">
+        <img src="" alt="" class="b-news-preview-img__img">
+        <div class="js-news-remove-preview"></div>
+    </div>
+
+    <div class="b-create-news-form__content">
+        <div class="b-news-attach-img-btn js-attach-news-img"></div>
+        <input type="file" name="image" class="b-form__input d-none" id="id_new_news_img" placeholder="Изображние">
+        <textarea required name="text" class="b-form__input" placeholder="Что нового?"></textarea>
+
+        <input type="submit" class="b-form__submit b-form__submit_white b-create-news-form__submit"
+               value="Опубликовать">
+    </div>
+</form>

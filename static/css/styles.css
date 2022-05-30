@@ -65,11 +65,18 @@ a {
 	#Header
 \*-----------------------------------*/
 .b-navbar {
+  position: fixed;
   background-color: rgba(27, 24, 24, 0.45);
-  position: relative;
+  width: 100%;
   padding: 22px 0;
   display: flex;
   font-size: 18px;
+  z-index: 1;
+  backdrop-filter: blur(3px); }
+
+.clear_navbar {
+  display: block;
+  height: 95px;
   margin-bottom: 50px; }
 
 .b-logo__img {
