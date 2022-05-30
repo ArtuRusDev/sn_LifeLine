@@ -25,7 +25,7 @@ class Chat(models.Model):
     type = models.CharField(max_length=1, choices=CHAT_TYPE_CHOICES, default=DIALOG, verbose_name='Тип')
     members = models.ManyToManyField(Person, verbose_name="Участник", blank=False)
     title = models.CharField(max_length=50, blank=False, verbose_name='Название')
-    image = models.FileField("Изображние", upload_to='chat_logos', null=True, blank=True, default=None)
+    image = models.FileField("Изображение", upload_to='chat_logos', null=True, blank=True, default=None)
     last_message = models.ForeignKey('Message', related_name='last_message', null=True, blank=True,
                                      on_delete=models.SET_NULL)
     objects = ChatManager()
@@ -49,6 +49,7 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, verbose_name="Чат", on_delete=models.CASCADE)
     author = models.ForeignKey(Person, verbose_name="Пользователь", on_delete=models.DO_NOTHING)
     message = models.TextField("Сообщение")
+    image = models.FileField("Изображение", upload_to='messages', null=True, blank=True, default=None)
     pub_date = models.DateTimeField('Дата сообщения', default=timezone.now)
     is_read = models.BooleanField('Прочитано', default=False)
 

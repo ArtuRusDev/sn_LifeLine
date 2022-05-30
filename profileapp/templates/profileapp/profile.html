@@ -75,7 +75,9 @@
     </div>
 
     <div class="col-lg-7">
-        {% include 'newsapp/includes/create_news_form.html'%}
+        {% if cur_user.pk == user.pk %}
+            {% include 'newsapp/includes/create_news_form.html'%}
+        {% endif %}
         
         {% for news_item in news %}
         {% include 'newsapp/includes/inc_news_item.html'%}

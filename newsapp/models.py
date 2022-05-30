@@ -7,7 +7,7 @@ class NewsItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.DO_NOTHING)
     text = models.TextField('Текст Новости', max_length=1024)
     add_datetime = models.DateTimeField('Дата Добавления', auto_now=True)
-    image = models.FileField("Изображние", upload_to='news_images', null=True, blank=True, default=None)
+    image = models.FileField("Изображение", upload_to='news_images', null=True, blank=True, default=None)
     is_community = models.BooleanField('Новость сообщества', default=False)
     is_moderated = models.BooleanField('Проверено модераторами', default=False)
     is_accepted = models.BooleanField('Публикация принята', default=False)

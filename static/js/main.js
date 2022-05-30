@@ -12,30 +12,29 @@ $(document).ready(function () {
     });
 
     /*-----------------------------------*\
-        #Add news form
+        #Form image preview attach
     \*-----------------------------------*/
 
-    $('.js-attach-news-img').on('click', function (e) {
+    $('.js-attach-img').on('click', function (e) {
         let $needle_input = $(e.target).parent().find('input[name="image"]');
         $needle_input.click();
     });
 
-    $('input#id_new_news_img').on('change', function (e) {
-        let $profile_img_wrap = $('.b-news-preview-img');
+    $('input#id_attach_img_input').on('change', function (e) {
+        let $preview_img_wrap = $('.b-preview-img');
         let file = $(e.currentTarget)[0].files[0];
         let reader = new FileReader();
         reader.onload = function (e) {
-            $profile_img_wrap.find('img').attr('src', e.target.result);
+            $preview_img_wrap.find('img').attr('src', e.target.result);
         }
         reader.readAsDataURL(file);
-        $profile_img_wrap.addClass('b-news-preview-img_filled');
+        $preview_img_wrap.addClass('b-preview-img_filled');
     });
 
-    $('.js-news-remove-preview').on('click', function (e) {
-        console.log('click');
-        let $news_preview_img = $('.b-news-preview-img');
-        $news_preview_img.parent().find('input[name="image"]').val(null);
-        $news_preview_img.removeClass('b-news-preview-img_filled');
+    $('.js-remove-preview').on('click', function (e) {
+        let $preview_img = $('.b-preview-img');
+        $preview_img.parent().find('input[name="image"]').val(null);
+        $preview_img.removeClass('b-preview-img_filled');
     });
 
     /*-----------------------------------*\
@@ -44,7 +43,6 @@ $(document).ready(function () {
 
     $body.on('click', '.b-card-item__extra-actions-btn', function (e) {
         let $actions_block = $(e.currentTarget).parent().find('.b-extra-actions');
-        console.log($actions_block);
         $('.b-extra-actions:not(.d-none)').not($actions_block).addClass('d-none');
 
         $actions_block.toggleClass('d-none');

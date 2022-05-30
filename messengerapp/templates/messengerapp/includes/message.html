@@ -14,7 +14,7 @@
 
             {% if message.author.pk != user.pk %}
                 <div style="background-image: url('/media/{{ message.author.avatar|default:'users_avatars/default.png'}}')"
-                    class="b-msg-item__img"></div>
+                    class="b-msg-item__avatar"></div>
             {% endif %}
 
             <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">
@@ -28,6 +28,12 @@
                     <span class="b-msg-item__text">{{ message.message|safe }}</span>
                     <span class="b-msg-item__time">{{ message.pub_date|time:"H:i" }}</span>
                 </div>
+
+                {% if message.image %}
+                    <a href="/media/{{ message.image }}" data-fancybox class="b-msg-item__img-link">
+                        <img src="/media/{{ message.image }}" class="b-msg-item__img" loading="lazy">
+                    </a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

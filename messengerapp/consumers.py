@@ -1,6 +1,8 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
+import base64
+from django.core.files.base import ContentFile
 
 from messengerapp.models import Message
 
@@ -44,8 +46,19 @@ class ChatConsumer(WebsocketConsumer):
             message = text_data_json['message']
             time = text_data_json['time']
             members = text_data_json['members']
+            image_data = text_data_json['image']
 
-            Message.objects.create(chat_id=self.chat_id, author_id=author_id, message=message)
+            if image_data:
+                img_format, img_str = image_data.split(';base64,')
+                ext = img_format.split('/')[-1]
+                img_file = ContentFile(
+                    base64.b64decode(img_str),
+                    name=f'chat_{self.chat_id}_user_{author_id}_at_{time}.' + ext
+                )
+
+                Message.objects.create(chat_id=self.chat_id, author_id=author_id, message=message, image=img_file)
+            else:
+                Message.objects.create(chat_id=self.chat_id, author_id=author_id, message=message)
 
             # send message
             async_to_sync(self.channel_layer.group_send)(
@@ -57,7 +70,8 @@ class ChatConsumer(WebsocketConsumer):
                     'author_img': author_img,
                     'message': message,
                     'members': members,
-                    'time': time
+                    'time': time,
+                    'image': image_data
                 }
             )
         elif action == 'read':
@@ -79,7 +93,8 @@ class ChatConsumer(WebsocketConsumer):
             'author_id': event['author_id'],
             'author_name': event['author_name'],
             'author_img': event['author_img'],
-            'time': event['time']
+            'time': event['time'],
+            'image': event['image']
         }))
 
         for receiver_id in eval(event['members']):
