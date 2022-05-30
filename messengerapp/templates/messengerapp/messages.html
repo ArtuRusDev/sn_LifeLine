@@ -3,17 +3,6 @@
 {% load static %}
 {% block title %}Life on Line | Сообщения{% endblock %}
 {% block content %}
-<!-- Modal -->
-  <div class="modal fade modal-callback" id="edit_chat" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          some text
-        </div>
-      </div>
-    </div>
-  </div>
-
 <div class="row">
     <div class="col-lg-10 offset-lg-1">
         <div class="b-chat">
@@ -26,26 +15,36 @@
                                 <span>Диалог с</span>
                                 <a href="{% url 'profile:detail' member.pk %}">
                                     <div style="background-image: url(
-                                    '/media/{{ member.avatar|default:'users_avatars/default.png'}}'
-                                    )" class="b-user-img_small"></div>
+                                                '/media/{{ member.avatar|default:'users_avatars/default.png'}}'
+                                                )" class="b-user-img_small"></div>
                                     {{ member.get_name }}
                                 </a>
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        <div class="b-chat-title" data-toggle="modal" data-target="#edit_chat">
-                            <span>Беседа</span>
-                            <div style="background-image:
-                                url('/media/users_avatars/default.png')"
-                                 class="b-user-img_small"></div>
-                            {{ chat.title }}
-                        </div>
+
+                        <a href="{% url 'messenger:edit_chat' chat.id %}" class="b-chat-title">
+                            <div class="b-chat-title__content">
+                                <span class="">Беседа</span>
+                                <div style="background-image:
+                                    url('/media/{{ chat.image|default:'chat_logos/default.png' }}')" class="b-user-img_small"></div>
+                                {{ chat.title }}
+                            </div>
+
+                            <div class="b-chat-title__edit">Редактировать</div>
+                        </a>
                     {% endif %}
                 </div>
+
+                {% if chat.type == 'C' %}
+                    <div class="b-chat__members-cnt">
+                        {{ chat.members.all|length }} участника
+                    </div>
+                {% endif %}
             </div>
             <div class="b-chat__content js-chat-block">
                 <div class="b-chat__content__messages">
-                    {% include 'messengerapp/includes/message_dialog.html'%}
+                    {% include 'messengerapp/includes/message.html'%}
                 </div>
             </div>
             <form method="post" class="b-chat__form">
@@ -64,6 +63,8 @@
 
     const chat_id = "{{ chat.id }}";
     const chat_members = "{{ chat.get_members }}";
+    const user_name = "{{ user.get_name }}";
+    const user_img = "/media/{{ user.avatar|default:'users_avatars/default.png'}}";
 
 
     let chatSocket = new WebSocket(
@@ -98,7 +99,9 @@
 
         let msg = '' +
             '<div class="b-msg-item-wrap ' + is_own_class + '">\n' +
-            '   <div class="b-msg-item ' + is_read_class + '">\n' +
+            '<div style="background-image: url(' + data['author_img'] + ')" class="b-msg-item__img"></div>' +
+            '<div class="b-msg-item ' + is_read_class + '">\n' +
+            '       <div class="b-msg-item__username">' + data['author_name'] + '</div>' +
             '       <span class="b-msg-item__text">' + data['message'] + '</span>\n' +
             '       <span class="b-msg-item__time">' + data['time'] + '</span>\n' +
             '   </div>\n' +
@@ -124,6 +127,8 @@
             'message': message,
             'time': date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes(),
             'author_id': user_id,
+            'author_name': user_name,
+            'author_img': user_img,
             'members': chat_members
         }));
 

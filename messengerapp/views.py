@@ -7,7 +7,7 @@ from authapp.models import Person
 from messengerapp.forms import MessageForm, CreateChatForm
 from messengerapp.models import Chat
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 
 
 class DialogsView(TemplateView):
@@ -53,6 +53,18 @@ class MessagesView(View):
 class CreateChatView(CreateView):
     model = Chat
     template_name = 'messengerapp/add_chat.html'
+    form_class = CreateChatForm
+    success_url = reverse_lazy('messenger:dialogs')
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        self.object = form.save()
+        return super().form_valid(form)
+
+
+class EditChatView(UpdateView):
+    model = Chat
+    template_name = 'messengerapp/edit_chat.html'
     form_class = CreateChatForm
     success_url = reverse_lazy('messenger:dialogs')
 

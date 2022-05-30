@@ -39,6 +39,8 @@ class ChatConsumer(WebsocketConsumer):
 
         if action == 'message':
             author_id = text_data_json['author_id']
+            author_name = text_data_json['author_name']
+            author_img = text_data_json['author_img']
             message = text_data_json['message']
             time = text_data_json['time']
             members = text_data_json['members']
@@ -51,6 +53,8 @@ class ChatConsumer(WebsocketConsumer):
                 {
                     'type': 'send_message',
                     'author_id': author_id,
+                    'author_name': author_name,
+                    'author_img': author_img,
                     'message': message,
                     'members': members,
                     'time': time
@@ -73,6 +77,8 @@ class ChatConsumer(WebsocketConsumer):
             'event': "new_msg",
             'message': event['message'],
             'author_id': event['author_id'],
+            'author_name': event['author_name'],
+            'author_img': event['author_img'],
             'time': event['time']
         }))
 

@@ -21,12 +21,6 @@
         </div>
 
         <!-- Друзья -->
-        {% if not friends %}
-        <div class="b-card-item" data-type="friends">
-            Вы еще не добавили своих друзей
-        </div>
-        {% endif %}
-
         {% for friend in friends %}
         <div class="b-card-item" data-user data-type="friends">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
@@ -54,13 +48,6 @@
             </div>
         </div>
         {% endfor %}
-
-        <!-- Запросы в друзья -->
-<!--        {% if not friend_requests %}-->
-<!--        <div class="b-card-item" data-type="requests">-->
-<!--            Вы пока не получили запросов в друзья-->
-<!--        </div>-->
-<!--        {% endif %}-->
 
         {% for friend in friend_requests %}
         <div class="b-card-item" data-user data-type="requests">

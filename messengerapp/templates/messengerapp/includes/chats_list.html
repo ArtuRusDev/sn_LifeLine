@@ -8,15 +8,15 @@
 {% endif %}">
 
     {% if chat.type == 'D' %}
-    {% for member in chat.members.all %}
-    {% if member.pk != user.pk %}
-    <div style="background-image: url('/media/{{ member.avatar|default:'users_avatars/default.png'}}')"
-         class="b-chat-item__img"></div>
-    {% endif %}
-    {% endfor %}
+        {% for member in chat.members.all %}
+            {% if member.pk != user.pk %}
+            <div style="background-image: url('/media/{{ member.avatar|default:'users_avatars/default.png'}}')"
+                 class="b-chat-item__img"></div>
+            {% endif %}
+        {% endfor %}
     {% else %}
-    <div style="background-image: url('/media/users_avatars/default.png')"
-         class="b-chat-item__img"></div>
+        <div style="background-image: url('/media/{{ chat.image|default:'chat_logos/default.png' }}')"
+             class="b-chat-item__img"></div>
     {% endif %}
 
     <div class="b-chat-item__content">
@@ -37,7 +37,11 @@
             <span class="b-chat-item__last-msg-author">Вы: </span>
             {% endif %}
 
-            {{ chat.last_message }}
+            {% if chat.last_message %}
+                {{ chat.last_message }}
+            {% else %}
+                <i>Сообщений нет</i>
+            {% endif %}
         </div>
     </div>
 

@@ -8,7 +8,15 @@
 /venv
 
 /media/*
-!/media/users_avatars/
 
+!/media/users_avatars/
 /media/users_avatars/*
 !/media/users_avatars/default.png
+
+!/media/chat_logos/
+/media/chat_logos/*
+!/media/chat_logos/default.png
+
+!/media/communities_images/
+/media/communities_images/*
+!/media/communities_images/default.png

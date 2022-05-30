@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-lg-7 offset-lg-2">
     <div class="b-paddings bg-dark-blur">
-        <h2 class="b-paddings__title">Создание беседы</h2>
+        <h2 class="b-paddings__title">Редактирование беседы</h2>
 
         <form method="post" class="bootstrap-form" enctype="multipart/form-data">
             {% csrf_token %}
@@ -25,9 +25,9 @@
 
             {{form.errors}}
 
-            <input value="Создать беседу" type="submit"
+            <input value="Сохранить изменения" type="submit"
                    class="b-form__submit b-form__submit_white b-form__submit_margins">
-            <a href="{% url 'messenger:dialogs' %}" class="b-form__submit">Отменить</a>
+            <a href="{% url 'messenger:messages' chat.id %}" class="b-form__submit">Отменить</a>
         </form>
     </div>
 </div>

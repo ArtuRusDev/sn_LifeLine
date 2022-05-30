@@ -699,6 +699,24 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
   .btn-back:hover {
     opacity: 1; }
 
+.b-chat__members-cnt {
+  position: absolute;
+  display: inline;
+  right: 25px;
+  color: rgba(255, 255, 255, 0.5); }
+
+.b-msg-item-wrap {
+  display: flex;
+  margin-top: 5px; }
+  .b-msg-item-wrap.current_user {
+    justify-content: end; }
+  .b-msg-item-wrap:not(.current_user) .b-msg-item {
+    padding: 10px 15px 15px; }
+
+.b-msg-item-wrap.current_user .b-msg-item__img,
+.b-msg-item-wrap.current_user .b-msg-item__username {
+  display: none; }
+
 .b-chat__form {
   position: relative;
   display: flex;
@@ -716,10 +734,27 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
   background: #5C5478;
   border-radius: 10px;
   display: inline-block;
-  margin-top: 5px;
   max-width: 72%;
   word-wrap: break-word;
   font-size: 20px; }
+
+.b-msg-item__img {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  border-radius: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.b-msg-item__username {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6); }
+
+.b-msg-item__username__content {
+  display: flex;
+  align-items: end; }
 
 .b-msg-item__text {
   float: left; }
@@ -759,10 +794,23 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
     border-color: #ccc; }
 
 /*---------- Chat (many people) ----------*/
+.b-chat-title__edit {
+  display: none; }
+
+.b-chat-title__content {
+  display: flex;
+  align-items: center; }
+
 .b-chat-title {
   display: flex;
   align-items: center;
   cursor: pointer; }
+  .b-chat-title:hover {
+    color: #fff; }
+    .b-chat-title:hover .b-chat-title__content {
+      display: none; }
+    .b-chat-title:hover .b-chat-title__edit {
+      display: block; }
 
 /*---------- Chats list ----------*/
 .b-chat-item {
@@ -844,9 +892,6 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
 
 .fixed-page {
   overflow: hidden; }
-
-.current_user {
-  text-align: right; }
 
 .make_news_btn {
   display: none; }
