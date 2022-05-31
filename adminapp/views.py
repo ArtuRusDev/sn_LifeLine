@@ -1,11 +1,13 @@
-from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView
 
 from adminapp.forms import UserUpdateForm, UpdateNewsForm
 from authapp.models import Person
+from communityapp.models import Community
+from friendsapp.models import FriendRequests
+from messengerapp.models import Chat, Message
 from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem
 
@@ -85,6 +87,26 @@ class DeleteNewsView(DeleteView):
     model = NewsItem
     template_name = 'newsapp/confirm_delete.html'
     success_url = reverse_lazy('admin:news_read')
+
+
+class StatisticView(TemplateView):
+    template_name = 'adminapp/statistic.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = {
+            'users': Person.objects.all(),
+            'communities': Community.objects.all(),
+            'news': NewsItem.objects.all(),
+            'dialogs': Chat.objects.filter(type="D"),
+            'chats': Chat.objects.filter(type="C"),
+            'messages': Message.objects.all(),
+            'community_news': NewsItem.objects.filter(is_community=True),
+            'friend_request': FriendRequests.objects.all(),
+            'accepted_request': FriendRequests.objects.filter(status=1),
+        }
+
+
+        return data
 
 
 def accept_news(request, pk):

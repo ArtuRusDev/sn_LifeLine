@@ -1,0 +1,64 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+{% block title %}Life on Line | Новости{% endblock %}
+{% block content %}
+<div class="container content">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5 mb-5">Статистика по Информационной системе</h2>
+
+            <table class="table admin-table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Название выборки</th>
+                    <th scope="col">Количество</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <th scope="row">Зарегистрировано пользователей</th>
+                    <td>{{ users.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Создано сообществ</th>
+                    <td>{{ communities.count}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Опубиковано новостей</th>
+                    <td>{{ news.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Новостей сообществ</th>
+                    <td>{{ community_news.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Создано сообществ</th>
+                    <td>{{ communities.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Создано диалогов</th>
+                    <td>{{ dialogs.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Создано бесед</th>
+                    <td>{{ chats.count }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Отправлено сообщений</th>
+                    <td>{{ messages.count}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Отправлено запросов в друзья</th>
+                    <td>{{ friend_request.count}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Принято запросов в друзья</th>
+                    <td>{{ accepted_request.count}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

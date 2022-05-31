@@ -16,4 +16,6 @@ urlpatterns = [
     path('news/moderate/cancel/<pk>/', adminapp.cancel_news, name='news_moderate_cancel'),
     path('news/update/<pk>/', adminapp.NewsUpdate.as_view(), name='news_update'),
     path('news/delete/<pk>/', adminapp.DeleteNewsView.as_view(), name='news_delete'),
+
+    path('statistic/', adminapp.StatisticView.as_view(), name='statistic'),
 ]

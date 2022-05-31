@@ -5,9 +5,9 @@
     <div class="container content">
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center">Список новостей</h2>
+                <h2 class="text-center mt-5 mb-5">Список новостей</h2>
 
-                <table class="table admin-table">
+                <table class="table admin-table text-center">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">id</th>
@@ -29,8 +29,12 @@
                             <td class="admin-panel_text-value">{{ news_item.text|safe }}</td>
                             <td>{{ news_item.add_datetime }}</td>
                             <td class="img-td">
-                                <img src="/media/{{ news_item.image }}" alt="Изображение новости"
-                                     class="admin-panel_img-value">
+                                {% if news_item.image %}
+                                    <img src="/media/{{ news_item.image }}" alt="Изображение новости"
+                                         class="admin-panel_img-value">
+                                {% else %}
+                                    Нет
+                                {% endif %}
                             </td>
                             <td>{{ news_item.is_moderated }}</td>
                             <td>{{ news_item.is_accepted }}</td>

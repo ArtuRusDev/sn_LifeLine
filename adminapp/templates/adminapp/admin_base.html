@@ -26,13 +26,15 @@
         <div class="col-md-5">
             <h1 class="h3">Административная панель</h1>
         </div>
-        <div class="col-md-4 offset-md-3 d-flex admin_navbar_table-list justify-content-around">
+        <div class="col-md-5 offset-md-2 d-flex admin_navbar_table-list justify-content-around">
             <a href="{% url 'admin:user_read' %}"
                class="btn {% if 'users' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Пользователи</a>
             <a href="{% url 'admin:news_read' %}"
-               class="btn {% if 'news/read' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Новости</a>
+               class="btn {% if '/news/read/' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Новости</a>
             <a href="{% url 'admin:news_moderate' %}"
-               class="btn {% if 'moderate' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Модерация</a>
+               class="btn {% if 'news/moderate/' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Модерация</a>
+            <a href="{% url 'admin:statistic' %}"
+               class="btn {% if 'statistic' in request.resolver_match.route %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Статистика</a>
         </div>
     </div>
 </div>

@@ -11,6 +11,12 @@
         {% endif %}
     {% endif %}
 
+    {% if cur_user.pk == user.pk and news_item.is_moderated == 1 and news_item.is_accepted == 0 %}
+        <p class="float-right mr-3">
+            <strong class="text-danger">НЕ ПРИНЯТО</strong>
+        </p>
+    {% endif %}
+
     <div class="b-news-info">
         <div class="b-news-info__avatar">
             {% if news_item.community %}
@@ -59,19 +65,6 @@
         </div>
         {% endif %}
     </div>
-
-    <!--    {% if cur_user.pk == user.pk or news_item.community.creator.id == user.pk %}-->
-    <!--    <p class="float-right">-->
-    <!--        <a href="{% url 'news:delete' news_item.pk %}" class="text-danger">Удалить</a>-->
-    <!--    </p>-->
-    <!--    {% endif %}-->
-
-    {% if cur_user.pk == user.pk and news_item.is_moderated == 1 and news_item.is_accepted == 0 %}
-    <p class="float-right mr-3">
-        <strong class="text-danger">НЕ ПРИНЯТО!</strong>
-        <a href="{% url 'admin:news_update' news_item.pk %}" class="text-primary">Изменить</a>
-    </p>
-    {% endif %}
 
     {% include 'newsapp/includes/likes_block.html' %}
 
