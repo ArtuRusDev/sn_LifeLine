@@ -1,15 +1,23 @@
 $(document).ready(function () {
     const $body = $('body');
 
-    /*-----------------------------------*\
-        #Mobile burger menu
-    \*-----------------------------------*/
+    /*-----------------------------------------*\
+       # Burger btn listener
+    \*-----------------------------------------*/
 
-    $('.menu-burger__header').click(function () {
-        $('.menu-burger__header').toggleClass('open-menu');
-        $('.navbar-nav').toggleClass('open-menu');
-        $('body').toggleClass('fixed-page');
+    $('#burger-btn').on('click', function (e) {
+        $(this).toggleClass('open');
+        $('.b-left-menu').toggleClass('b-left-menu_opened');
+        $('.js-left-menu-backdrop').toggleClass('b-left-menu-backdrop_active');
+        $body.toggleClass('overflow-hidden');
     });
+
+    $('.js-left-menu-backdrop').on('click', function (e) {
+        $('#burger-btn').removeClass('open');
+        $('.b-left-menu').removeClass('b-left-menu_opened');
+        $(e.currentTarget).removeClass('b-left-menu-backdrop_active');
+        $body.toggleClass('overflow-hidden');
+    })
 
     /*-----------------------------------*\
         #Form image preview attach

@@ -40,7 +40,7 @@ class Person(AbstractUser):
     bio = models.TextField(max_length=500, blank=True, null=True, verbose_name="О себе")
     city = models.CharField(max_length=30, blank=True, null=True, verbose_name="Город")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="male", verbose_name="Пол")
+    gender = models.CharField(max_length=10, blank=True, null=True, default=None, choices=GENDER_CHOICES, verbose_name="Пол")
     relationship = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name="Статус отношений")
     is_dark_theme = models.BooleanField(default=False, verbose_name="Использовать темную тему")
 
@@ -96,4 +96,6 @@ class Person(AbstractUser):
 
     @property
     def get_rel(self):
+        if self.relationship == 0:
+            return False
         return REL_DICT.get(self.relationship)

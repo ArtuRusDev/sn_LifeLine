@@ -1,0 +1,51 @@
+{% load static %}
+<div class="b-left-menu-backdrop js-left-menu-backdrop"></div>
+<div class="b-left-menu">
+    <div class="b-navbar__list">
+        {% if user.is_authenticated %}
+            <div class="d-flex mb-3 lign-items-baseline">
+                <a href="{% url 'profile:detail' user.pk %}">
+                    <img src="/media/{{ user.avatar|default:'users_avatars/default.png' }}"
+                         alt="Автар пользователя {{ user.get_name }}" class="b-user-img_small">
+                </a>
+                <div class="b-nav-item">
+                    <a class="b-nav-item__link {% if 'profile' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+                       href="{% url 'profile:detail' user.pk %}">
+                        {{ user.first_name }}
+                        {{ user.last_name }}
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="b-nav-item">
+            <a class="b-nav-item__link
+           {% if 'news' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+               href="{% url 'news:main' %}">
+                Новости
+            </a>
+        </div>
+        <div class="b-nav-item">
+            <a class="b-nav-item__link {% if 'messenger' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+               href="{% url 'messenger:dialogs' %}">
+                Сообщения
+                <span class="b-nav-item__new-msg-counter js-new-msg-header-counter {% if not user.is_authenticated or unread_chats.count == 0 %}d-none {% endif %}"
+                      data-value="{{ unread_chats.count }}"
+                      data-chats="{% for u_chat in unread_chats %}{{ u_chat.id}},{% endfor %}">
+                    {{ unread_chats.count }}
+                </span>
+            </a>
+        </div>
+        <div class="b-nav-item">
+            <a class="b-nav-item__link {% if 'friends' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+               href="{% url 'friends:main' %}">Друзья</a>
+        </div>
+        <div class="b-nav-item">
+            <a class="b-nav-item__link
+           {% if 'community' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+               href="{% url 'community:main' %}">
+                Сообщества
+            </a>
+        </div>
+    </div>
+</div>

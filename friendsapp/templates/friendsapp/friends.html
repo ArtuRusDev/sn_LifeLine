@@ -26,24 +26,26 @@
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
-
-                <div class="b-card-item__username">
-                    {{ friend.get_name }}
-                </div>
             </a>
 
-            <div class="b-card-item__actions">
-                <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-card-item__action-btn">
-                    Написать сообщение
+            <div class="b-card-item__content">
+                <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__username">
+                    {{ friend.get_name }}
                 </a>
-                <div class="b-card-item__extra-actions-btn"></div>
 
-                <div class="b-extra-actions d-none">
-                    <a href="{% url 'friends:remove' friend.pk %}" class="b-extra-actions__btn">
-                        <span class="b-card-item__delete-icon"></span>
-                        Удалить из друзей
+                <div class="b-card-item__actions">
+                    <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-card-item__action-btn">
+                        Написать сообщение
                     </a>
-                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    <div class="b-card-item__extra-actions-btn"></div>
+
+                    <div class="b-extra-actions d-none">
+                        <a href="{% url 'friends:remove' friend.pk %}" class="b-extra-actions__btn">
+                            <span class="b-card-item__delete-icon"></span>
+                            Удалить из друзей
+                        </a>
+                        <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,24 +56,26 @@
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
-
-                <div class="b-card-item__username">
-                    {{ friend.get_name }}
-                </div>
             </a>
 
-            <div class="b-card-item__actions">
-                <a href="{% url 'friends:confirm' friend.pk %}" class="b-card-item__action-btn">
-                    Принять запрос в друзья
+            <div class="b-card-item__content">
+                <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__username">
+                    {{ friend.get_name }}
                 </a>
-                <div class="b-card-item__extra-actions-btn"></div>
 
-                <div class="b-extra-actions d-none">
-                    <a href="{% url 'friends:deny' friend.pk %}" class="b-extra-actions__btn">
-                        <span class="b-card-item__delete-icon"></span>
-                        Отклонить запрос
+                <div class="b-card-item__actions">
+                    <a href="{% url 'friends:confirm' friend.pk %}" class="b-card-item__action-btn">
+                        Принять запрос в друзья
                     </a>
-                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    <div class="b-card-item__extra-actions-btn"></div>
+
+                    <div class="b-extra-actions d-none">
+                        <a href="{% url 'friends:deny' friend.pk %}" class="b-extra-actions__btn">
+                            <span class="b-card-item__delete-icon"></span>
+                            Отклонить запрос
+                        </a>
+                        <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,30 +87,33 @@
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
-                <div class="b-card-item__username">
-                    {{ friend.get_name }}
-                </div>
             </a>
 
-            <div class="b-card-item__actions">
-                {% if not friend.pk in send_requests_pk %}
-                <a href="{% url 'friends:add' friend.pk %}" class="b-card-item__action-btn">
-                    Добавить в друзья
+            <div class="b-card-item__content">
+                <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__username">
+                    {{ friend.get_name }}
                 </a>
-                {% else %}
-                <a href="{% url 'friends:remove' friend.pk %}" class="b-card-item__action-btn">
-                    Отменить запрос
-                </a>
-                {% endif %}
 
-                <div class="b-card-item__extra-actions-btn"></div>
+                <div class="b-card-item__actions">
+                    {% if not friend.pk in send_requests_pk %}
+                        <a href="{% url 'friends:add' friend.pk %}" class="b-card-item__action-btn">
+                            Добавить в друзья
+                        </a>
+                    {% else %}
+                        <a href="{% url 'friends:remove' friend.pk %}" class="b-card-item__action-btn">
+                            Отменить запрос
+                        </a>
+                    {% endif %}
 
-                <div class="b-extra-actions d-none">
-                    <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-extra-actions__btn">
-                        <span class="b-card-item__icon icon-write-msg_blck"></span>
-                        Написать сообщение
-                    </a>
-                    <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    <div class="b-card-item__extra-actions-btn"></div>
+
+                    <div class="b-extra-actions d-none">
+                        <a href="{% url 'messenger:create_dialog' friend.pk %}" class="b-extra-actions__btn">
+                            <span class="b-card-item__icon icon-write-msg_blck"></span>
+                            Написать сообщение
+                        </a>
+                        <div class="b-extra-actions__cancel-btn">Закрыть</div>
+                    </div>
                 </div>
             </div>
         </div>

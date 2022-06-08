@@ -2,22 +2,20 @@
 {% load static %}
 {% block title %}Life on Line | Новости{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="b-news-wrap col-lg-7 offset-lg-2">
-            {% include 'newsapp/includes/create_news_form.html'%}
+<div class="row">
+    <div class="b-news-wrap col-lg-7 offset-lg-2">
+        {% include 'newsapp/includes/create_news_form.html'%}
 
-            {% for news_item in all_news %}
-                {% include 'newsapp/includes/inc_news_item.html'%}
-            {% endfor %}
+        {% for news_item in all_news %}
+            {% include 'newsapp/includes/inc_news_item.html'%}
+        {% endfor %}
 
-            {% if not all_news %}
-                <p>
-                    У вас пока нет ни одной новости. <br>
-                    Добавьте ее сами или добавьтесь в друзья к пользователям.
-                </p>
-            {% endif %}
-        </div>
+        {% if not all_news %}
+            <p>
+                У вас пока нет ни одной новости. <br>
+                Добавьте ее сами или добавьтесь в друзья к пользователям.
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
