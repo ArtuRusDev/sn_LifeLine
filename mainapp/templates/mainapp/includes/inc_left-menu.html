@@ -3,7 +3,7 @@
 <div class="b-left-menu">
     <div class="b-navbar__list">
         {% if user.is_authenticated %}
-            <div class="d-flex mb-3 lign-items-baseline">
+            <div class="b-left-menu__user-info">
                 <a href="{% url 'profile:detail' user.pk %}">
                     <img src="/media/{{ user.avatar|default:'users_avatars/default.png' }}"
                          alt="Автар пользователя {{ user.get_name }}" class="b-user-img_small">

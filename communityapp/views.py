@@ -3,6 +3,7 @@ from itertools import chain
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 
 from authapp.models import Person
 from communityapp.forms import CreateCommunityForm, CreateCommunityNewsForm
@@ -29,14 +30,18 @@ class CommunitiesListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(CommunitiesListView, self).get_context_data()
 
-        all_subscribed_communities = CommunityParticipant.objects.filter(user_id=self.request.user)
-        all_ids = [instance.community_id for instance in all_subscribed_communities]
+        subscribed_communities = CommunityParticipant.objects.filter(user_id=self.request.user)
+        moderated_communities = subscribed_communities.filter(role=1)
+
+        all_ids = [instance.community_id for instance in subscribed_communities]
+        moderated_ids = [instance.community_id for instance in moderated_communities]
 
         subscribed_communities = Community.objects.filter(pk__in=all_ids)
         unsubscribed_communities = Community.objects.exclude(pk__in=all_ids)
 
         data['communities'] = chain(subscribed_communities, unsubscribed_communities)
         data['subscribed_communities_id'] = all_ids
+        data['moderate_communities_id'] = moderated_ids
         return data
 
 
@@ -118,20 +123,22 @@ def subscribe_community(request, pk):
         return JsonResponse(result)
 
 
+@csrf_exempt
 def change_publisher(request):
     if request.is_ajax():
         context = {}
-        instance = CommunityParticipant.objects.get(
-            user_id=request.POST.get('user'),
-            community_id=request.POST.get('community')
-        )
+        instance = CommunityParticipant.objects.filter(
+            user_id=request.POST.get('user_id'),
+            community_id=request.POST.get('community_id')
+        )[0]            
+
         if instance.role == 0:
             instance.role = 1
-            context.update({'is_publisher': True})
+            context.update({'status': 'ok', 'is_publisher': True})
         else:
             instance.role = 0
-            context.update({'is_publisher': False})
+            context.update({'status': 'ok', 'is_publisher': False})
         instance.save()
-        print(context)
 
         return JsonResponse(context)
+    return JsonResponse({'status': 'error'})

@@ -56,6 +56,12 @@ $(document).ready(function () {
         $actions_block.toggleClass('d-none');
     });
 
+    $body.on('click', function (e) {
+        if (e.target !== $('.b-card-item__extra-actions-btn')[0]) {
+            $('.b-extra-actions').addClass('d-none');
+        }
+    });
+
     $body.on('click', '.b-extra-actions__cancel-btn', function (e) {
         $(e.currentTarget).parent().toggleClass('d-none');
     });
@@ -126,6 +132,25 @@ $(document).ready(function () {
                 if (data.result) {
                     $card_wrap.html(data.result);
                 }
+            }
+        });
+    });
+
+    $body.on('click', '.js-change-publicator', function (e) {
+        let $btn = $(e.currentTarget);
+        let user_pk = $btn.attr('data-user-id');
+        let community_pk = $btn.attr('data-community-id');
+
+        $.ajax({
+            url: "/community/change_publisher/",
+            type: "POST",
+            data: {
+                'user_id': user_pk,
+                'community_id': community_pk
+            },
+
+            success: function (data) {
+                window.location.reload();
             }
         });
     });

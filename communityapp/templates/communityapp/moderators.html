@@ -3,9 +3,9 @@
 {% block title %}Life on Line | Сообщества{% endblock %}
 {% block content %}
 <div class="col-lg-8 offset-lg-2">
-    <h2 class="text-center">Все публикаторы</h2>
+    <h3 class="text-center mb-4">Публикаторы сообщества "{{ community.name }}"</h3>
 
-    <div class="communities_list">
+    <div class="b-card-item-wrap">
         {% for user_item in users %}
 
         <div class="b-card-item" data-type="friends">
@@ -21,11 +21,12 @@
             <div class="b-card-item__actions">
 
 
-                <a href="" class="b-card-item__action-btn">
+                <a class="b-card-item__action-btn js-change-publicator b-card-item__action-btn_active" 
+                   data-user-id="{{ user_item.id }}" data-community-id="{{ community.id }}">
                     {% if user_item.id in publishers_id %}
-                    Лишить привилегий
+                        Лишить привилегий
                     {% else %}
-                    Сделать публикатором
+                        Сделать публикатором
                     {% endif %}
                 </a>
 
@@ -33,10 +34,6 @@
                 <div class="b-card-item__extra-actions-btn"></div>
 
                 <div class="b-extra-actions d-none">
-                    <!--                    <a href="/friends/remove/1" class="b-extra-actions__btn">-->
-                    <!--                        <span class="b-card-item__delete-icon"></span>-->
-                    <!--                        Удалить из друзей-->
-                    <!--                    </a>-->
                     <div class="b-extra-actions__cancel-btn">Закрыть</div>
                 </div>
             </div>

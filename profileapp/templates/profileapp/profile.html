@@ -80,13 +80,13 @@
         {% endif %}
         
         {% for news_item in news %}
-        {% include 'newsapp/includes/inc_news_item.html'%}
+            {% include 'newsapp/includes/inc_news_item.html'%}
         {% endfor %}
 
         {% if news.count == 0 %}
-        <p class="text-center h5">
-            Новостей нет
-        </p>
+            <p class="text-center h5">
+                Новостей нет
+            </p>
         {% endif %}
     </div>
 </div>

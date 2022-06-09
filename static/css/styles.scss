@@ -97,7 +97,7 @@ a {
 .clear_navbar {
     display: block;
     height: 95px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 
 .b-logo__img {
@@ -173,7 +173,8 @@ a {
 \*-----------------------------------*/
 
 .b-left-menu {
-    display: none;
+    display: flex;
+    overflow: hidden;
     position: fixed;
     height: calc(100vh - 85px);
     width: 320px;
@@ -187,9 +188,11 @@ a {
     backdrop-filter: blur(4px);
 }
 
-.b-left-menu_opened {
-    left: 0;
+.b-left-menu__user-info {
     display: flex;
+    align-items: baseline;
+    margin-bottom: 30px;
+    justify-content: center;
 }
 
 .b-left-menu-backdrop {
@@ -202,10 +205,6 @@ a {
     top: 0;
 }
 
-.b-left-menu-backdrop_active {
-    display: block;
-}
-
 /*-----------------------------------*\
 	#Sign IN/ON forms
 \*-----------------------------------*/
@@ -215,7 +214,8 @@ a {
     backdrop-filter: blur(15px);
     border-radius: 25px;
     padding: 60px 95px;
-    margin-top: 15vh;
+    max-width: 500px;
+    margin: 15vh auto 0;
 }
 
 .b-auth-form__title {
@@ -835,6 +835,7 @@ select.b-form__input[multiple] {
 
 .b-extra-actions {
     position: absolute;
+    overflow: hidden;
     background: #fff;
     color: #000;
     text-align: center;
@@ -848,6 +849,7 @@ select.b-form__input[multiple] {
         color: #000;
         padding: 10px 20px;
         position: relative;
+        cursor: pointer;
 
         &:after {
             content: '';
@@ -858,6 +860,10 @@ select.b-form__input[multiple] {
             background-color: #E7E7E7;
             left: 0;
             top: 100%;
+        }
+
+        &:hover {
+            background-color: #ccc;
         }
     }
 
@@ -904,7 +910,7 @@ select.b-form__input[multiple] {
 }
 
 .b-chat__content {
-    height: 70vh;
+    height: 75vh;
     overflow: auto;
     background: $dark_transparent_bg;
 
@@ -1527,6 +1533,7 @@ img.admin-panel_img-value {
 \*-----------------------------------*/
 
 .burger-btn {
+  display: none;
   width: 40px;
   height: 30px;
   position: relative;
@@ -1628,15 +1635,27 @@ img.admin-panel_img-value {
 
     .b-navbar__list {
         flex-direction: column;
+        width: 100%;
     }
 
-    .b-left-menu {
-        .b-nav-item {
-            margin: 0 0 15px;
-            font-size: 18px;
-        }
+    .burger-btn {
+        display: block;
     }
 
+    .b-left-menu .b-nav-item {
+        margin: 0 0 30px;
+        font-size: 18px;
+    }
+
+    .b-left-menu_opened {
+        left: 0;
+        display: flex;
+    }
+
+    .b-left-menu-backdrop_active {
+        display: block;
+    }
+    
     /********** Auth **********/
     .b-auth-form__wrap {
         padding: 30px 15px;

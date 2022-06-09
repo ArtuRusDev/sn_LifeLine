@@ -18,7 +18,7 @@
                 {% if community.pk in subscribed_communities_id %}
                 <div class="b-card-item__action-btn">
                     <div class="b-profile__action-icon icon-checked"></div>
-                    Вы уже состоите в сообществе
+                    Вы состоите в сообществе
                 </div>
                 {% else %}
                     <div href="#" class="b-card-item__action-btn b-card-item__action-btn_active js-follow-community-btn"
@@ -29,24 +29,14 @@
             {% else %}
                 <div class="b-card-item__action-btn">
                     <div class="b-profile__action-icon icon-checked"></div>
-                    Вы администратор сообщества
+                    Вы администратор
                 </div>
             {% endif %}
 
             <div class="b-card-item__extra-actions-btn"></div>
 
             <div class="b-extra-actions d-none">
-                {% if community.creator.id != user.pk %}
-                    {% if community.pk in subscribed_communities_id %}
-                    <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
-                        Покинуть сообщество
-                    </div>
-                    {% else %}
-                    <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
-                        Вступить в сообщество
-                    </div>
-                    {% endif %}
-                {% else %}
+                {%  if community.creator.id == user.pk %}
                     <a href="{% url 'community:add_news' community.pk %}" class="b-extra-actions__btn">
                         Добавить новость
                     </a>
@@ -59,6 +49,24 @@
                     <a href="{% url 'community:delete' community.pk %}" class="b-extra-actions__btn">
                         Удалить сообщество
                     </a>
+
+                {% elif community.pk in moderate_communities_id %}
+                     <a href="{% url 'community:add_news' community.pk %}" class="b-extra-actions__btn">
+                        Добавить новость
+                    </a>
+                    <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
+                        Покинуть сообщество
+                    </div>
+                {% else %}
+                    {% if community.pk in subscribed_communities_id %}
+                        <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
+                            Покинуть сообщество
+                        </div>
+                    {% else %}
+                        <div class="b-extra-actions__btn js-follow-community-btn" data-community-id="{{ community.pk }}">
+                            Вступить в сообщество
+                        </div>
+                    {% endif %}
                 {% endif %}
 
                 <div class="b-extra-actions__cancel-btn">Закрыть</div>
