@@ -1,93 +1,96 @@
 {% extends 'mainapp/base.html' %}
+{% block title %}{{ cur_user.get_name }} | Life on Line{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-lg-4">
-        <div class="b-profile">
-            <div class="b-profile__main-info">
-                <div style="background-image: url('/media/{{ cur_user.avatar|default:'users_avatars/default.png' }}')"
-                     class="b-profile__avatar"></div>
-                <div class="b-profile__username">{{ cur_user.get_name }}</div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="b-profile">
+                <div class="b-profile__main-info">
+                    <div style="background-image: url('/media/{{ cur_user.avatar|default:'users_avatars/default.png' }}')"
+                         class="b-profile__avatar"></div>
+                    <div class="b-profile__username">{{ cur_user.get_name }}</div>
+                </div>
+
+                {% if cur_user.pk != user.pk %}
+                    <a href="{% url 'messenger:create_dialog' cur_user.pk %}"
+                       class="b-profile__btn-action">
+                        <div class="b-profile__action-icon icon-write-msg"></div>
+                        Написать сообщение
+                    </a>
+                {% endif %}
+
+                <div class="b-profile__info-list">
+                    {% if cur_user.bio %}
+                        <p><span>О Себе</span>{{ cur_user.bio }}</p>
+                    {% endif %}
+                    {% if cur_user.email %}
+                        <p><span>Email</span> {{ cur_user.email }}</p>
+                    {% endif %}
+                    {% if cur_user.phone_number %}
+                        <p><span>Телефон</span>{{ cur_user.phone_number }}</p>
+                    {% endif %}
+                    {% if cur_user.city %}
+                        <p><span>Город</span> {{ cur_user.city }}</p>
+                    {% endif %}
+                    {% if cur_user.birth_date %}
+                        <p><span>День рождения</span> {{ cur_user.birth_date }}</p>
+                    {% endif %}
+                    {% if cur_user.get_gender %}
+                        <p><span>Пол</span> {{ cur_user.get_gender }}</p>
+                    {% endif %}
+                    {% if cur_user.get_rel %}
+                        <p><span>Отношения</span> {{ cur_user.get_rel }}</p>
+                    {% endif %}
+                </div>
+
+                {% if cur_user.pk == user.pk %}
+                    <a href="{% url 'profile:edit' %}" class="b-profile__btn-action">
+                        <div class="b-profile__action-icon icon-edit"></div>
+                        Редактировать
+                    </a>
+
+                    <a href="{% url 'auth:logout' %}"
+                       class="b-profile__btn-action b-profile__btn-action_exit b-profile__btn-action_gray">
+                        <div class="b-profile__action-icon icon-exit"></div>
+                        Выйти из аккаунта
+                    </a>
+
+                {% elif is_friend %}
+                    <a href="{% url 'friends:remove' cur_user.pk %}"
+                       class="b-profile__btn-action b-profile__btn-action_gray">
+                        <div class="b-profile__action-icon icon-unfriend"></div>
+                        Удалить из друзей
+                    </a>
+                {% else %}
+                    {% if cur_user.pk in user.get_send_friend_requests_pk %}
+                        <a href="{% url 'friends:remove' cur_user.pk %}"
+                           class="b-profile__btn-action b-profile__btn-action_gray">
+                            <div class="b-profile__action-icon icon-unfriend"></div>
+                            Отменить запрос в друзья
+                        </a>
+                    {% else %}
+                        <a href="{% url 'friends:add' cur_user.pk %}" class="b-profile__btn-action ">
+                            <div class="b-profile__action-icon icon-add-friend"></div>
+                            Добавить в друзья
+                        </a>
+                    {% endif %}
+                {% endif %}
             </div>
+        </div>
 
-            {% if cur_user.pk != user.pk %}
-            <a href="{% url 'messenger:create_dialog' cur_user.pk %}"
-               class="b-profile__btn-action">
-                <div class="b-profile__action-icon icon-write-msg"></div>
-                Написать сообщение
-            </a>
-            {% endif %}
-
-            <div class="b-profile__info-list">
-                {% if cur_user.bio %}
-                <p><span>О Себе</span>{{ cur_user.bio }}</p>
-                {% endif %}
-                {% if cur_user.email %}
-                <p><span>Email</span> {{ cur_user.email }}</p>
-                {% endif %}
-                {% if cur_user.phone_number %}
-                <p><span>Телефон</span>{{ cur_user.phone_number }}</p>
-                {% endif %}
-                {% if cur_user.city %}
-                <p><span>Город</span> {{ cur_user.city }}</p>
-                {% endif %}
-                {% if cur_user.birth_date %}
-                <p><span>День рождения</span> {{ cur_user.birth_date }}</p>
-                {% endif %}
-                {% if cur_user.get_gender %}
-                <p><span>Пол</span> {{ cur_user.get_gender }}</p>
-                {% endif %}
-                {% if cur_user.get_rel %}
-                <p><span>Отношения</span> {{ cur_user.get_rel }}</p>
-                {% endif %}
-            </div>
-
+        <div class="col-lg-7">
             {% if cur_user.pk == user.pk %}
-            <a href="{% url 'profile:edit' %}" class="b-profile__btn-action">
-                <div class="b-profile__action-icon icon-edit"></div>
-                Редактировать
-            </a>
-
-            <a href="{% url 'auth:logout' %}"
-               class="b-profile__btn-action b-profile__btn-action_exit b-profile__btn-action_gray">
-                <div class="b-profile__action-icon icon-exit"></div>
-                Выйти из аккаунта
-            </a>
-
-            {% elif is_friend %}
-            <a href="{% url 'friends:remove' cur_user.pk %}" class="b-profile__btn-action b-profile__btn-action_gray">
-                <div class="b-profile__action-icon icon-unfriend"></div>
-                Удалить из друзей
-            </a>
-            {% else %}
-            {% if cur_user.pk in user.get_send_friend_requests_pk %}
-            <a href="{% url 'friends:remove' cur_user.pk %}" class="b-profile__btn-action b-profile__btn-action_gray">
-                <div class="b-profile__action-icon icon-unfriend"></div>
-                Отменить запрос в друзья
-            </a>
-            {% else %}
-            <a href="{% url 'friends:add' cur_user.pk %}" class="b-profile__btn-action ">
-                <div class="b-profile__action-icon icon-add-friend"></div>
-                Добавить в друзья
-            </a>
+                {% include 'newsapp/includes/create_news_form.html' %}
             {% endif %}
+
+            {% for news_item in news %}
+                {% include 'newsapp/includes/inc_news_item.html' %}
+            {% endfor %}
+
+            {% if news.count == 0 %}
+                <div class="b-info text-center">
+                    Новостей нет
+                </div>
             {% endif %}
         </div>
     </div>
-
-    <div class="col-lg-7">
-        {% if cur_user.pk == user.pk %}
-            {% include 'newsapp/includes/create_news_form.html'%}
-        {% endif %}
-        
-        {% for news_item in news %}
-            {% include 'newsapp/includes/inc_news_item.html'%}
-        {% endfor %}
-
-        {% if news.count == 0 %}
-            <p class="text-center h5">
-                Новостей нет
-            </p>
-        {% endif %}
-    </div>
-</div>
 {% endblock %}

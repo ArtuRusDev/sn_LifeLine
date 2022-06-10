@@ -1,21 +1,23 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-{% block title %}Life on Line | Новости{% endblock %}
+{% block title %}Новости | Life on Line{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="b-news-wrap col-lg-7 offset-lg-2">
-        {% include 'newsapp/includes/create_news_form.html'%}
+    <div class="row">
+        <div class="b-news-wrap col-lg-7 offset-lg-2">
+            {% include 'newsapp/includes/create_news_form.html' %}
 
-        {% for news_item in all_news %}
-            {% include 'newsapp/includes/inc_news_item.html'%}
-        {% endfor %}
+            {% for news_item in all_news %}
+                {% include 'newsapp/includes/inc_news_item.html' %}
+            {% endfor %}
 
-        {% if not all_news %}
-            <p>
-                У вас пока нет ни одной новости. <br>
-                Добавьте ее сами или добавьтесь в друзья к пользователям.
-            </p>
-        {% endif %}
+            {% if not all_news %}
+                <div class="b-info text-center">
+                    Ваша новостная лента пуста.<br>
+                    Чтобы здесь появились новости, <a href="{% url 'friends:main' %}">добавьте</a>
+                    пользователей сети в друзья или <a href="{% url 'community:main' %}">станьте участником</a>
+                    одного из сообществ.
+                </div>
+            {% endif %}
+        </div>
     </div>
-</div>
 {% endblock %}

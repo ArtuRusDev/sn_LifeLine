@@ -49,6 +49,7 @@ a {
 
 .bg-dark-blur {
     position: relative;
+    padding: 15px;
 
     &:after {
         content: '';
@@ -62,6 +63,16 @@ a {
         z-index: -1;
         left: 0;
         top: 0;
+    }
+}
+
+.b-info {
+    @extend .bg-dark-blur;
+    padding: 15px;
+    font-size: 18px;
+
+    a {
+        color: var(--blue);
     }
 }
 
