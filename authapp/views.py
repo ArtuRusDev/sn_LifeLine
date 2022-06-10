@@ -7,6 +7,7 @@ from django.views.generic import TemplateView, UpdateView
 
 from authapp.forms import RegisterForm, LoginForm
 from authapp.models import Person
+from mainapp.email import send_mail_async
 
 
 class UserRegisterView(TemplateView):
@@ -17,9 +18,14 @@ class UserRegisterView(TemplateView):
             form = RegisterForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                new_user = authenticate(username=form.cleaned_data['username'], 
-                    password=form.cleaned_data['password1'])
+                new_user = authenticate(username=form.cleaned_data['username'],
+                                        password=form.cleaned_data['password1'])
                 login(request, new_user)
+                send_mail_async(
+                    'Регистрация в социальной сети Life on Line',
+                    f'{form.cleaned_data["first_name"]}, '
+                    f'Добро пожаловать в социальную сеть Life on Line! Вы получили это письмо, так как прошли регистрацию на сайте life-online.ru.',
+                    [str(form.cleaned_data["email"])])
                 return HttpResponseRedirect(reverse('news:main'))
         else:
             form = RegisterForm()

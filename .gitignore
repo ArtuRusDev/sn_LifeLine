@@ -4,6 +4,7 @@
 *.sqlite3
 *.json
 *.sass-cache
+.env
 
 /venv
 
