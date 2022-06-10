@@ -22,7 +22,7 @@
 
         <!-- Друзья -->
         {% for friend in friends %}
-        <div class="b-card-item" data-user data-type="friends">
+        <div class="b-card-item" data-type="friends">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
@@ -52,7 +52,7 @@
         {% endfor %}
 
         {% for friend in friend_requests %}
-        <div class="b-card-item" data-user data-type="requests">
+        <div class="b-card-item" data-type="requests">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>
@@ -83,7 +83,7 @@
 
         <!-- Остальные пользователи  -->
         {% for friend in all_users %}
-        <div class="b-card-item" data-user>
+        <div class="b-card-item">
             <a href="{% url 'profile:detail' friend.pk %}" class="b-card-item__info">
                 <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
                      class="b-card-item__img"></div>

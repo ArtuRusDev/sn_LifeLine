@@ -582,7 +582,7 @@ select.b-form__input[multiple] {
 
 .b-search-wrap {
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     display: flex;
     position: relative;
 
@@ -597,7 +597,7 @@ select.b-form__input[multiple] {
         background-size: contain;
         background-repeat: no-repeat;
         left: 25px;
-        top: 22px;
+        top: 23px;
         opacity: .5;
     }
 }
@@ -1785,10 +1785,6 @@ img.admin-panel_img-value {
     .b-card-item__img {
         height: 50px;
         width: 50px;
-    }
-
-    .b-search-wrap {
-        margin-bottom: 15px;
     }
 
     .b-card-item__content {

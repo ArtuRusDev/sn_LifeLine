@@ -1,4 +1,4 @@
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, login, authenticate
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
@@ -17,7 +17,10 @@ class UserRegisterView(TemplateView):
             form = RegisterForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse('auth:login'))
+                new_user = authenticate(username=form.cleaned_data['username'], 
+                    password=form.cleaned_data['password1'])
+                login(request, new_user)
+                return HttpResponseRedirect(reverse('news:main'))
         else:
             form = RegisterForm()
 

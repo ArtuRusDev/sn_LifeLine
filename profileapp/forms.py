@@ -28,7 +28,9 @@ class UserUpdateInfoForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'а'
 
             if field_name == 'phone_number':
-                field.widget.attrs['placeholder'] = '+7 (123) 456-78-90'
+                field.widget.attrs['placeholder'] = '+7 (000) 000-00-00'
+                field.widget.attrs['pattern'] = '.{18,}'
+                field.widget.attrs['class'] += ' tel'
 
             if field_name == 'email':
                 field.widget.attrs['placeholder'] = 'example@gmail.com'
