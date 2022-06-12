@@ -55,20 +55,22 @@
                     </a>
 
                 {% elif is_friend %}
-                    <a href="{% url 'friends:remove' cur_user.pk %}"
-                       class="b-profile__btn-action b-profile__btn-action_gray">
+                    <a href="{% url 'friends:update' cur_user.pk %}"
+                       class="b-profile__btn-action b-profile__btn-action_gray  js-update-friend" data-action="remove">
                         <div class="b-profile__action-icon icon-unfriend"></div>
                         Удалить из друзей
                     </a>
                 {% else %}
                     {% if cur_user.pk in user.get_send_friend_requests_pk %}
-                        <a href="{% url 'friends:remove' cur_user.pk %}"
-                           class="b-profile__btn-action b-profile__btn-action_gray">
+                        <a href="{% url 'friends:update' cur_user.pk %}"
+                           class="b-profile__btn-action b-profile__btn-action_gray  js-update-friend"
+                           data-action="cancel">
                             <div class="b-profile__action-icon icon-unfriend"></div>
                             Отменить запрос в друзья
                         </a>
                     {% else %}
-                        <a href="{% url 'friends:add' cur_user.pk %}" class="b-profile__btn-action ">
+                        <a href="{% url 'friends:update' cur_user.pk %}"
+                           class="b-profile__btn-action  js-update-friend" data-action="add">
                             <div class="b-profile__action-icon icon-add-friend"></div>
                             Добавить в друзья
                         </a>

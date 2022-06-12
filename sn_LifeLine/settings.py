@@ -119,9 +119,6 @@ EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-print(os.environ['EMAIL_HOST_PASSWORD'])
-print(type(os.environ['EMAIL_HOST_PASSWORD']))
-
 # Internationalization
 
 LANGUAGE_CODE = 'ru-ru'

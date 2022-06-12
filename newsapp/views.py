@@ -1,16 +1,14 @@
 from itertools import chain
 
-from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView, DeleteView
 from django.template.loader import render_to_string
 
 from communityapp.models import CommunityNewsItem, CommunityParticipant, Community
-
-from newsapp.forms import CreateNewsForm
 from newsapp.models import NewsItem, Likes, Comments
 
 
@@ -47,18 +45,6 @@ class NewsView(ListView):
         return data
 
 
-class CreateNews(CreateView):
-    model = NewsItem
-    form_class = CreateNewsForm
-    template_name = 'newsapp/create_news.html'
-    success_url = reverse_lazy('news:main')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        self.object = form.save()
-        return super().form_valid(form)
-
-
 class DeleteNewsView(DeleteView):
     model = NewsItem
     template_name = 'newsapp/confirm_delete.html'
@@ -71,31 +57,33 @@ class DeleteNewsView(DeleteView):
         user_pk = self.request.user.pk
 
         if user_pk != news_owner_pk:
-            raise Http404("You can't delete someone else's record")
+            raise Http404("Вы не можете удалить запись другого пользователя!")
         return data
 
 
 def add_comment(request):
-    if request.method == 'POST':
-        news_pk = request.POST.get('news_pk')
-        content = request.POST.get('content')
+    if not request.is_ajax():
+        return HttpResponseBadRequest('Invalid request')
 
-        if content:
-            Comments.objects.create(news_item=NewsItem.objects.get(id=news_pk), author=request.user, text=content)
-        else:
-            return JsonResponse({'result': 'empty_input'})
+    if request.method != 'POST':
+        return JsonResponse({'status': 'Invalid request'}, status=400)
 
-        context = {
-            'news_item': NewsItem.objects.get(pk=news_pk),
-            'user': request.user
-        }
+    news_pk = request.POST.get('news_pk')
+    content = request.POST.get('content')
 
-        result = {
-            'comments_html': render_to_string('newsapp/includes/comments_list_block.html', context),
-            'comments_cnt': Comments.objects.filter(news_item_id=news_pk).count(),
-        }
+    Comments.objects.create(news_item=NewsItem.objects.get(id=news_pk), author=request.user, text=content)
 
-        return JsonResponse(result)
+    context = {
+        'news_item': NewsItem.objects.get(pk=news_pk),
+        'user': request.user
+    }
+
+    result = {
+        'comments_html': render_to_string('newsapp/includes/comments_list_block.html', context),
+        'comments_cnt': Comments.objects.filter(news_item_id=news_pk).count(),
+    }
+
+    return JsonResponse(result)
 
 
 def add_news(request):
@@ -111,7 +99,14 @@ def add_news(request):
     return redirect('/')
 
 
+@csrf_exempt
 def delete_comment(request, pk):
+    if not request.is_ajax():
+        return HttpResponseBadRequest('Invalid request')
+
+    if request.method != 'POST':
+        return JsonResponse({'status': 'Invalid request'}, status=400)
+
     comment_item = Comments.objects.get(pk=pk)
     comment_news = comment_item.news_item
     comment_item.delete()
@@ -120,29 +115,36 @@ def delete_comment(request, pk):
     result = {
         'comments_cnt': total_comments_cnt,
         'comments_html': render_to_string('newsapp/includes/comments_list_block.html',
-                                          {'news_item': NewsItem.objects.get(pk=comment_news.id),
-                                           'user': request.user}),
+                                          {
+                                              'news_item': NewsItem.objects.get(pk=comment_news.id),
+                                              'user': request.user
+                                          }),
         'news_id': comment_news.id
     }
 
     return JsonResponse(result)
 
 
+@csrf_exempt
 def put_like(request, pk):
-    if request.is_ajax():
-        duplicate = Likes.objects.filter(user=request.user, news_item_id=pk)
+    if not request.is_ajax():
+        return HttpResponseBadRequest('Invalid request')
 
-        if not duplicate:
-            record = Likes.objects.create(user=request.user, news_item_id=pk)
-            record.save()
-        else:
-            Likes.objects.filter(user=request.user, news_item_id=pk).delete()
+    if request.method != 'POST':
+        return JsonResponse({'status': 'Invalid request'}, status=400)
 
-        context = {
-            'user': request.user,
-            'news_item': NewsItem.objects.get(pk=pk)
-        }
+    duplicate = Likes.objects.filter(user=request.user, news_item_id=pk)
 
-        result = render_to_string('newsapp/includes/likes_block.html', context)
+    if not duplicate:
+        record = Likes.objects.create(user=request.user, news_item_id=pk)
+        record.save()
+    else:
+        Likes.objects.filter(user=request.user, news_item_id=pk).delete()
 
-        return JsonResponse({'result': result})
+    context = {
+        'user': request.user,
+        'news_item': NewsItem.objects.get(pk=pk)
+    }
+
+    result = render_to_string('newsapp/includes/likes_block.html', context)
+    return JsonResponse({'result': result})

@@ -1,11 +1,40 @@
+$('.js-add-comment-form').submit(function (event) {
+    event.preventDefault();
+    add_comment($(event.currentTarget));
+});
+
 function put_like(pk) {
     $.ajax({
         url: "/news/like/" + pk + "/",
+        method: "POST",
+        dataType: "json",
 
         success: function (data) {
-            if (data.result) {
-                $('[data-news_pk=' + pk + ']').html(data.result);
-            }
+            $('[data-news_pk=' + pk + ']').html(data.result);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function add_comment($form) {
+    let news_item_id = $form.parent().data('news-id');
+    let $news_item = $('.js-news-item[data-news-id="' + news_item_id + '"]');
+
+    $.ajax({
+        url: "/news/add_comment/",
+        method: "POST",
+        data: $form.serialize(),
+        dataType: "json",
+
+        success: function (data) {
+            $form.find('input[name="content"]').val('');
+            $form.parent().find('.js-comments-list').html(data['comments_html']);
+            $news_item.find('.js-comments-cnt').html(data['comments_cnt']);
+        },
+        error: function (error) {
+            console.log(error);
         }
     });
 }
@@ -13,43 +42,16 @@ function put_like(pk) {
 function delete_comment(pk) {
     $.ajax({
         url: "/news/delete_comment/" + pk + "/",
+        method: "POST",
+        dataType: 'json',
 
         success: function (data) {
-            if (data) {
-                let $news_item = $('.js-news-item[data-news-id="' + data['news_id'] + '"]');
-                $news_item.find('.js-comments-cnt').html(data['comments_cnt']);
-                $news_item.find('.js-comments-list').html(data['comments_html']);
-            }
-        }
-    });
-}
-
-$('.js-add-comment').on('click', function (event) {
-    let $form = $(event.currentTarget).parent();
-    pushNewsComment($form);
-});
-
-$('.js-add-comment-form').submit(function (event) {
-    event.preventDefault();
-    pushNewsComment($(event.currentTarget));
-});
-
-function pushNewsComment($form) {
-    let news_item_id = $form.parent().data('news-id');
-    let $news_item = $('.js-news-item[data-news-id="' + news_item_id + '"]');
-
-    $.ajax({
-        url: "/news/add_comment/",
-        type: "POST",
-        data: $form.serialize(),
-        dataType: "html",
-
-        success: function (data) {
-            if (data) {
-                $form.find('input[name="content"]').val('');
-                $form.parent().find('.js-comments-list').html(JSON.parse(data)['comments_html']);
-                $news_item.find('.js-comments-cnt').html(JSON.parse(data)['comments_cnt']);
-            }
+            let $news_item = $('.js-news-item[data-news-id="' + data['news_id'] + '"]');
+            $news_item.find('.js-comments-cnt').html(data['comments_cnt']);
+            $news_item.find('.js-comments-list').html(data['comments_html']);
+        },
+        error: function (error) {
+            console.log(error);
         }
     });
 }

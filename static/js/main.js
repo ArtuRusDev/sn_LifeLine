@@ -17,7 +17,39 @@ $(document).ready(function () {
         $('.b-left-menu').removeClass('b-left-menu_opened');
         $(e.currentTarget).removeClass('b-left-menu-backdrop_active');
         $body.toggleClass('overflow-hidden');
-    })
+    });
+
+    /*-----------------------------------*\
+        #Friends actions
+    \*-----------------------------------*/
+
+    $body.on('click', '.js-update-friend', function (e) {
+        e.preventDefault();
+        let link = e.currentTarget.getAttribute('href'),
+            action = e.currentTarget.getAttribute('data-action'),
+            card = e.currentTarget.closest('.b-card-item');
+
+        $.ajax({
+            url: link,
+            method: "POST",
+            dataType: "json",
+            data: {
+                'action': action
+            },
+
+            success: function (data) {
+                console.log(data['status']);
+                if (card) {
+                    $(card).replaceWith(data['content']);
+                } else {
+                    window.location.reload();
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
 
     /*-----------------------------------*\
         #Form image preview attach
@@ -80,7 +112,7 @@ $(document).ready(function () {
 
         if ($target.attr('data-val') === 'all') {
             $('.b-card-item').removeClass('d-none');
-            $('.b-card-item').attr('data-show','show');
+            $('.b-card-item').attr('data-show', 'show');
         } else {
             $('.b-card-item:not(.d-none)').addClass('d-none');
             $('.b-card-item[data-type="' + $target.attr('data-val') + '"]').removeClass('d-none');
