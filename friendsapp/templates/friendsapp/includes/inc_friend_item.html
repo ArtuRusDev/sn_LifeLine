@@ -6,8 +6,8 @@
 {% endif %}
 >
     <a href="{% url 'profile:detail' usr.pk %}" class="b-card-item__info">
-        <div style="background-image: url('/media/{{ friend.avatar|default:'users_avatars/default.png' }}')"
-             class="b-card-item__img"></div>
+        <div style="background-image: url('/media/{{ usr.avatar|default:'users_avatars/default.png' }}')"
+             class="b-card-item__img {% if usr.is_online %} b-online {% endif %}"></div>
     </a>
 
     <div class="b-card-item__content">

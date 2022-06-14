@@ -20,31 +20,32 @@
     <div class="b-news-info">
         <div class="b-news-info__avatar">
             {% if news_item.community %}
-            <a href="{% url 'community:detail' news_item.community.pk %}">
-                <div style="background-image: url('/media/{{ news_item.community.image|default:'users_avatars/default.png' }}')"
-                     class="b-news-info__img"></div>
-            </a>
+                <a href="{% url 'community:detail' news_item.community.pk %}">
+                    <div style="background-image: url('/media/{{ news_item.community.image|default:'users_avatars/default.png' }}')"
+                         class="b-news-info__img"></div>
+                </a>
             {% else %}
-            <a href="{% url 'profile:detail' news_item.user.pk %}">
-                <div style="background-image: url('/media/{{ news_item.user.avatar|default:'users_avatars/default.png' }}')"
-                     class="b-news-info__img"></div>
-            </a>
+                <a href="{% url 'profile:detail' news_item.user.pk %}">
+                    <div style="background-image: url('/media/{{ news_item.user.avatar|default:'users_avatars/default.png' }}')"
+                         class="b-news-info__img {% if news_item.user.is_online %} b-online {% endif %}"
+                    ></div>
+                </a>
             {% endif %}
         </div>
         <div class="b-news-info__text">
             <div class="b-news-info__username">
                 {% if news_item.community %}
-                <a href="{% url 'community:detail' news_item.community.pk %}">
-                    {{ news_item.community.name }}
-                </a>
+                    <a href="{% url 'community:detail' news_item.community.pk %}">
+                        {{ news_item.community.name }}
+                    </a>
                 {% else %}
-                <a href="{% url 'profile:detail' news_item.user.pk %}">
-                    {{ news_item.user.get_name }}
-                </a>
+                    <a href="{% url 'profile:detail' news_item.user.pk %}">
+                        {{ news_item.user.get_name }}
+                    </a>
                 {% endif %}
                 {% if news_item.user.is_staff %}
-                <img src="{% static 'img/icons/staff.png' %}" class="staff_icon" alt="Статус персонала"
-                     title="Статус персонала">
+                    <img src="{% static 'img/icons/staff.png' %}" class="staff_icon" alt="Статус персонала"
+                         title="Статус персонала">
                 {% endif %}
             </div>
             <div class="b-news-info__date">
@@ -54,15 +55,15 @@
     </div>
     <div class="b-news-item__content">
         {% if news_item.text %}
-        <p class="b-news-item__text">{{ news_item.text|safe }}</p>
+            <p class="b-news-item__text">{{ news_item.text|safe }}</p>
         {% endif %}
         {% if news_item.image %}
 
-        <div class="b-news-item__img-wrap">
-            <a href="/media/{{ news_item.image }}" data-fancybox>
-                <img src="/media/{{ news_item.image }}" class="b-news-item__img" alt="Изображение новости">
-            </a>
-        </div>
+            <div class="b-news-item__img-wrap">
+                <a href="/media/{{ news_item.image }}" data-fancybox>
+                    <img src="/media/{{ news_item.image }}" class="b-news-item__img" alt="Изображение новости">
+                </a>
+            </div>
         {% endif %}
     </div>
 

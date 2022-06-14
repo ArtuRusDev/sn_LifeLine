@@ -11,7 +11,7 @@
             {% for member in chat.members.all %}
                 {% if member.pk != user.pk %}
                     <div style="background-image: url('/media/{{ member.avatar|default:'users_avatars/default.png' }}')"
-                         class="b-chat-item__img"></div>
+                         class="b-chat-item__img {% if member.is_online %} b-online {% endif %}"></div>
                 {% endif %}
             {% endfor %}
         {% else %}

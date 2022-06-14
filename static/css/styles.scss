@@ -90,6 +90,21 @@ a {
     text-align: center;
 }
 
+.b-online:after {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    min-height: 15px;
+    min-width: 15px;
+    background-color: #28A745;
+    border: 1px solid #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 100%;
+}
+
 /*-----------------------------------*\
 	#Header
 \*-----------------------------------*/
@@ -168,6 +183,7 @@ a {
 
 .b-user-img_small {
     display: inline-block;
+    position: relative;
     min-height: 35px;
     height: 35px;
     min-width: 35px;
@@ -177,6 +193,10 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 100%;
+
+    &.b-online:after {
+        transform: scale(.8);
+    }
 }
 
 /*-----------------------------------*\
@@ -394,6 +414,7 @@ select.b-form__input[multiple] {
 }
 
 .b-news-info__img {
+    position: relative;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -799,6 +820,7 @@ select.b-form__input[multiple] {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 
 .b-card-item__username {
@@ -1183,6 +1205,7 @@ select.b-form__input[multiple] {
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 100%;
+    position: relative;
 }
 
 .b-chat-item__content {
@@ -1344,6 +1367,7 @@ img.admin-panel_img-value {
 }
 
 .b-profile__avatar {
+    position: relative;
     width: 90px;
     min-width: 90px;
     min-height: 90px;

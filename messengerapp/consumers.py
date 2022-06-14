@@ -1,3 +1,4 @@
+import redis
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
@@ -5,6 +6,9 @@ import base64
 from django.core.files.base import ContentFile
 
 from messengerapp.models import Message
+from sn_LifeLine import settings
+
+redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -136,11 +140,15 @@ class UserConsumer(WebsocketConsumer):
 
         self.accept()
 
+        redis_instance.set(self.user_id, 'online')
+
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
             self.group_name,
             self.channel_name
         )
+
+        redis_instance.set(self.user_id, 'offline')
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)

@@ -1,7 +1,11 @@
+import redis
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from friendsapp.models import FriendRequests
+from sn_LifeLine import settings
+
+redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
 
 GENDER_CHOICES = [
     ['male', "Мужской"],
@@ -40,7 +44,8 @@ class Person(AbstractUser):
     bio = models.TextField(max_length=500, blank=True, null=True, verbose_name="О себе")
     city = models.CharField(max_length=30, blank=True, null=True, verbose_name="Город")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
-    gender = models.CharField(max_length=10, blank=True, null=True, default=None, choices=GENDER_CHOICES, verbose_name="Пол")
+    gender = models.CharField(max_length=10, blank=True, null=True, default=None, choices=GENDER_CHOICES,
+                              verbose_name="Пол")
     relationship = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name="Статус отношений")
     is_dark_theme = models.BooleanField(default=False, verbose_name="Использовать темную тему")
 
@@ -99,3 +104,14 @@ class Person(AbstractUser):
         if self.relationship == 0:
             return False
         return REL_DICT.get(self.relationship)
+
+    @property
+    def is_online(self):
+        """ Вернет Person QuerySet друзей пользователя """
+        val = redis_instance.get(self.pk)
+        if not val:
+            return False
+
+        if val.decode('ascii') == 'online':
+            return True
+        return False

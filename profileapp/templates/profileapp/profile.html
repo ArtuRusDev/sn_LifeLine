@@ -6,7 +6,7 @@
             <div class="b-profile">
                 <div class="b-profile__main-info">
                     <div style="background-image: url('/media/{{ cur_user.avatar|default:'users_avatars/default.png' }}')"
-                         class="b-profile__avatar"></div>
+                         class="b-profile__avatar {% if cur_user.is_online %} b-online {% endif %}"></div>
                     <div class="b-profile__username">{{ cur_user.get_name }}</div>
                 </div>
 
