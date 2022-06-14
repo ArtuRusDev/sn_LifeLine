@@ -25,9 +25,18 @@ $(document).ready(function () {
 
     $body.on('click', '.js-update-friend', function (e) {
         e.preventDefault();
+
         let link = e.currentTarget.getAttribute('href'),
             action = e.currentTarget.getAttribute('data-action'),
             card = e.currentTarget.closest('.b-card-item');
+
+        if (action === 'add') {
+            profileSocket.send(JSON.stringify({
+                'action': 'friend_request',
+                'author_id': user_id,
+                'target_id': link.replace(/^\D+/g, ''),
+            }));
+        }
 
         $.ajax({
             url: link,
@@ -38,7 +47,6 @@ $(document).ready(function () {
             },
 
             success: function (data) {
-                console.log(data['status']);
                 if (card) {
                     $(card).replaceWith(data['content']);
                 } else {

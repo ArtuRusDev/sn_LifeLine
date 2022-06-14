@@ -1,35 +1,46 @@
-$(document).ready(function () {
-    const profileSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/profile/' + user_id + '/'
-    );
+const profileSocket = new WebSocket(
+    'ws://' + window.location.host + '/ws/profile/' + user_id + '/'
+);
 
+$(document).ready(function () {
     profileSocket.onmessage = function (e) {
         let data = JSON.parse(e.data);
+        console.log(data);
 
         if (data['event'] === 'notice') {
             if (typeof chatSocket !== 'undefined' && chat_id === data['chat_id']) {
                 return;
             }
 
-            if (data['obj'] === 'message') {
+            if (data['obj'] === 'message' || data['obj'] === 'friend_request') {
                 if ($('.b-chats-list')[0]) {
                     update_chats();
                 }
 
-                let $notice = $('.js-new-msg-header-counter'),
-                    cnt = $notice.attr('data-value'),
-                    unread_chats = $notice.attr('data-chats').split(',');
+                let $notice,
+                    new_id;
 
-                if (unread_chats.indexOf(data['chat_id']) !== -1) {
+                if (data['obj'] === 'message') {
+                    $notice = $('.js-new-msg-header-counter');
+                    new_id = data['chat_id'];
+                } else {
+                    $notice = $('.js-new-requests-header-counter');
+                    new_id = data['user_id'];
+                }
+
+                let cnt = $notice.attr('data-value'),
+                    ids = $notice.attr('data-ids').split(',');
+
+                if (ids.indexOf(new_id) !== -1) {
                     return;
                 }
 
-                unread_chats.push(data['chat_id']);
+                ids.push(new_id);
                 cnt++;
 
                 $notice[0].innerHTML = cnt;
                 $notice.attr('data-value', cnt);
-                $notice.attr('data-chats', unread_chats.join(','));
+                $notice.attr('data-ids', ids.join(','));
                 $notice.removeClass('d-none');
             }
         }

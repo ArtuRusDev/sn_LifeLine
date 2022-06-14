@@ -142,9 +142,30 @@ class UserConsumer(WebsocketConsumer):
             self.channel_name
         )
 
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        action = text_data_json['action']
+
+        if action == 'friend_request':
+            async_to_sync(self.channel_layer.group_send)(
+                f'user_{text_data_json["target_id"]}',
+                {
+                    'type': 'request.send',
+                    'obj': action,
+                    'user_id': text_data_json['author_id']
+                }
+            )
+
     def notice_send(self, event):
         self.send(text_data=json.dumps({
             'event': "notice",
             'obj': event['obj'],
             'chat_id': str(event['chat_id'])
+        }))
+
+    def request_send(self, event):
+        self.send(text_data=json.dumps({
+            'event': "notice",
+            'obj': event['obj'],
+            'user_id': event['user_id']
         }))

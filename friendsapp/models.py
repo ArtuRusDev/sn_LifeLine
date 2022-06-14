@@ -3,6 +3,11 @@ from django.utils import timezone
 from sn_LifeLine import settings
 
 
+class FriendRequestsManager(models.Manager):
+    def requests(self, user=None):
+        return FriendRequests.objects.all().filter(status=0, target=user)
+
+
 class FriendRequests(models.Model):
     STATUS_CHOICES = (
         (0, "Запрошено"),
@@ -24,6 +29,8 @@ class FriendRequests(models.Model):
     status = models.IntegerField(verbose_name="Статус", choices=STATUS_CHOICES, default=0)
     created_at = models.DateTimeField(verbose_name='Дата запроса')
     confirmed_at = models.DateTimeField(verbose_name='Дата ответа')
+
+    objects = FriendRequestsManager()
 
     def save(self, *args, **kwargs):
         """ Обновление Даты создания и редактировния """

@@ -15,7 +15,12 @@
                     <div class="b-dropdown__other js-card-dropdowns">
                         <div class="b-dropdown__item d-none" data-val="all">Все пользователи</div>
                         <div class="b-dropdown__item" data-val="friends">Ваши друзья</div>
-                        <div class="b-dropdown__item" data-val="requests">Заявки в друзья</div>
+                        <div class="b-dropdown__item" data-val="requests">
+                            Заявки в друзья
+                            <span class="b-nav-item__counter
+                                {% if not user.is_authenticated or requests.count == 0 %}d-none {% endif %}"
+                            ></span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -67,17 +67,15 @@ class Message(models.Model):
         today = datetime.date.today()
         msg_date = self.pub_date
 
-        print(msg_date)
-
         # same day
         if str(today) == msg_date.strftime('%Y-%m-%d'):
             return msg_date.strftime('%H:%M')
         # same year
         elif str(today.year) == str(msg_date.strftime('%Y')):
-            return msg_date.strftime('%d %B')
+            return msg_date.strftime('%d %b')
         # last year or early
         else:
-            return msg_date.strftime('%d %B %Y')
+            return msg_date.strftime('%d %b %Y')
 
 
 @receiver(post_save, sender=Message)
