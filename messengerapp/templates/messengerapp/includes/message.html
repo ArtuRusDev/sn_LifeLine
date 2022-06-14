@@ -8,13 +8,19 @@
         </div>
     {% endif %}
 
-    {% for message in chat.message_set.all %}
+    {% for message in messages_list %}
+        {% for pk, date in dates.items %}
+            {% if pk == message.pk %}
+                <div class="b-messages-separator"><span>{{ date }}</span></div>
+            {% endif %}
+        {% endfor %}
+
         {% url 'users:profile' message.author.username as the_user_url %}
         <div class="b-msg-item-wrap {% if message.author.pk == user.pk %}current_user{% endif %}">
 
             {% if message.author.pk != user.pk %}
-                <div style="background-image: url('/media/{{ message.author.avatar|default:'users_avatars/default.png'}}')"
-                    class="b-msg-item__avatar"></div>
+                <div style="background-image: url('/media/{{ message.author.avatar|default:'users_avatars/default.png' }}')"
+                     class="b-msg-item__avatar"></div>
             {% endif %}
 
             <div class="b-msg-item {% if not message.is_read %} b-msg-item_unread {% endif %}">
@@ -36,6 +42,7 @@
                 {% endif %}
             </div>
         </div>
+
     {% endfor %}
 {% endif %}
 

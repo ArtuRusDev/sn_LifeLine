@@ -1,13 +1,13 @@
-from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
-from authapp.models import Person
-from messengerapp.forms import MessageForm, CreateChatForm
-from messengerapp.models import Chat
 from django.views import View
 from django.views.generic import TemplateView, CreateView, UpdateView
+
+from authapp.models import Person
+from messengerapp.forms import MessageForm, CreateChatForm
+from messengerapp.models import Chat, Message
 
 
 class DialogsView(TemplateView):
@@ -16,6 +16,13 @@ class DialogsView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super(DialogsView, self).get_context_data()
         data['chats'] = Chat.objects.filter(members__in=[self.request.user.id])
+        data['unread_msg_cnt'] = {}
+
+        for chat in data['chats']:
+            unread_cnt = len(Message.objects.filter(chat__pk=chat.pk, is_read=False))
+            if unread_cnt > 99:
+                unread_cnt = '99+'
+            data['unread_msg_cnt'].update({chat.pk: unread_cnt})
 
         return data
 
@@ -31,12 +38,24 @@ class MessagesView(View):
         except Chat.DoesNotExist:
             chat = None
 
+        messages_list = chat.message_set.all()
+
+        dates = {}
+        prev_msg_date = ''
+
+        for msg in messages_list:
+            if not prev_msg_date or msg.pub_date.strftime('%d.%m.%Y') != prev_msg_date:
+                dates.update({msg.pk: msg.pub_date.strftime('%d %B %Y')})
+            prev_msg_date = msg.pub_date.strftime('%d.%m.%Y')
+
         return render(
             request,
             'messengerapp/messages.html',
             {
                 'chat': chat,
                 'form': MessageForm(),
+                'messages_list': messages_list,
+                'dates': dates
             }
         )
 

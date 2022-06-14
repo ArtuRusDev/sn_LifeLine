@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -38,7 +40,6 @@ class Chat(models.Model):
     @property
     def get_members(self):
         qs = [user.id for user in self.members.all()]
-        print(qs)
         return qs
 
     def __str__(self):
@@ -60,6 +61,23 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+    @property
+    def get_date(self):
+        today = datetime.date.today()
+        msg_date = self.pub_date
+
+        print(msg_date)
+
+        # same day
+        if str(today) == msg_date.strftime('%Y-%m-%d'):
+            return msg_date.strftime('%H:%M')
+        # same year
+        elif str(today.year) == str(msg_date.strftime('%Y')):
+            return msg_date.strftime('%d %B')
+        # last year or early
+        else:
+            return msg_date.strftime('%d %B %Y')
 
 
 @receiver(post_save, sender=Message)
