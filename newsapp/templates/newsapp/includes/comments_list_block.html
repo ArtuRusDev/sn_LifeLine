@@ -5,7 +5,7 @@
     <div class="b-comment-item">
         <a href="/profile/user/{{ comment.author.pk }}">
             <div style="background-image: url('/media/{{ comment.author.avatar|default:'users_avatars/default.png' }}')"
-                 class="b-comment-item__avatar"></div>
+                 class="b-comment-item__avatar {% if comment.author.is_online %} b-online {% endif %}"></div>
         </a>
         <div class="comment__content">
             <a href="/profile/user/{{ comment.author.pk }}" class="b-comment-item__author">

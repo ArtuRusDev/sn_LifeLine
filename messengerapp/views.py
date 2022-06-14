@@ -1,3 +1,7 @@
+import operator
+from functools import reduce
+
+from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -32,12 +36,13 @@ class MessagesView(View):
     def get(self, request, chat_id):
         try:
             chat = Chat.objects.get(id=chat_id)
-            if request.user in chat.members.all():
-                chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
-            else:
-                chat = None
+            if request.user not in chat.members.all():
+                return redirect('messenger:dialogs')
+
+            chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
+
         except Chat.DoesNotExist:
-            chat = None
+            return redirect('messenger:dialogs')
 
         messages_list = chat.message_set.all()
 
@@ -95,8 +100,8 @@ class EditChatView(UpdateView):
 
 
 def create_dialog(request, friend_id):
-    duplicate = Chat.objects.filter(members__id__contains=friend_id, type='D') & \
-                Chat.objects.filter(members__id__icontains=request.user.pk, type='D')
+    duplicate = Chat.objects.filter(members__id__in=[friend_id], type='D').filter(members__in=[request.user], type='D')
+
     if duplicate.exists():
         return redirect(reverse('messenger:messages', kwargs={'chat_id': duplicate[0].pk}))
 

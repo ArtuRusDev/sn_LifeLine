@@ -564,6 +564,7 @@ select.b-form__input[multiple] {
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 100%;
+    position: relative;
 }
 
 .b-comment-item:hover .btn-delete-comment {

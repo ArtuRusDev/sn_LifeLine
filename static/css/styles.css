@@ -449,7 +449,8 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 100%; }
+  border-radius: 100%;
+  position: relative; }
 
 .b-comment-item:hover .btn-delete-comment {
   opacity: .5; }
