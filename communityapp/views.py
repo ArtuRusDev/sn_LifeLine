@@ -1,6 +1,7 @@
 from itertools import chain
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -50,6 +51,11 @@ class CommunityUpdateView(UpdateView):
     form_class = CreateCommunityForm
     template_name = 'communityapp/update.html'
     success_url = reverse_lazy('community:main')
+
+    def get(self, request, *args, **kwargs):
+        if (self.request.user.id != Community.objects.get(pk=self.kwargs['pk']).creator.pk):
+            return HttpResponseBadRequest('Invalid user')
+        return super(CommunityUpdateView, self).get(request, *args, **kwargs)
 
 
 class CommunityDeleteView(DeleteView):
@@ -130,7 +136,7 @@ def change_publisher(request):
         instance = CommunityParticipant.objects.filter(
             user_id=request.POST.get('user_id'),
             community_id=request.POST.get('community_id')
-        )[0]            
+        )[0]
 
         if instance.role == 0:
             instance.role = 1

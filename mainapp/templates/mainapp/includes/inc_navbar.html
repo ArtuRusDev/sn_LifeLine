@@ -28,7 +28,7 @@
                         Сообщения
                         <span class="b-nav-item__new-msg-counter js-new-msg-header-counter {% if not user.is_authenticated or unread_chats.count == 0 %}d-none {% endif %}"
                               data-value="{{ unread_chats.count }}"
-                              data-chats="{% for u_chat in unread_chats %}{{ u_chat.id}},{% endfor %}">
+                              data-chats="{% for u_chat in unread_chats %}{{ u_chat.id }},{% endfor %}">
                             {{ unread_chats.count }}
                         </span>
                     </a>
@@ -49,23 +49,23 @@
         <div class="col-lg-3">
             <form class="form-inline justify-content-end">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile:detail' user.pk %}">
-                    <img src="/media/{{ user.avatar|default:'users_avatars/default.png' }}"
-                         alt="Аватар пользователя {{ user.get_name }}" class="b-user-img_small">
-                </a>
-                <div class="b-nav-item">
-                    <a class="b-nav-item__link {% if 'profile' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
-                       href="{% url 'profile:detail' user.pk %}">
-                        {{ user.first_name }}
-                        {{ user.last_name }}
+                    <a href="{% url 'profile:detail' user.pk %}">
+                        <div style="background-image: url('/media/{{ user.avatar|default:"users_avatars/default.png" }}')"
+                             class="b-user-img_small"></div>
                     </a>
-                </div>
+                    <div class="b-nav-item">
+                        <a class="b-nav-item__link {% if 'profile' in request.resolver_match.namespaces %}b-nav-item__link_active{% endif %}"
+                           href="{% url 'profile:detail' user.pk %}">
+                            {{ user.first_name }}
+                            {{ user.last_name }}
+                        </a>
+                    </div>
                 {% else %}
-                {% if request.resolver_match.url_name == 'login' %}
-                <a class="b-nav-btn" href="{% url 'auth:register' %}">Зарегистрироваться</a>
-                {% else %}
-                <a class="b-nav-btn" href="{% url 'auth:login' %}">Авторизоваться</a>
-                {% endif %}
+                    {% if request.resolver_match.url_name == 'login' %}
+                        <a class="b-nav-btn" href="{% url 'auth:register' %}">Зарегистрироваться</a>
+                    {% else %}
+                        <a class="b-nav-btn" href="{% url 'auth:login' %}">Авторизоваться</a>
+                    {% endif %}
                 {% endif %}
             </form>
         </div>

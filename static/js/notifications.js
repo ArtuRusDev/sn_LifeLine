@@ -42,15 +42,16 @@ $(document).ready(function () {
     function update_chats() {
         $.ajax({
             url: "/dialogs/get/update_dialogs/",
+            dataType: 'json',
+            method: 'POST',
 
             success: function (data) {
                 if (data.result) {
                     $('.b-chats-list').html(data.result);
                 }
             },
-
-            failed: function () {
-                console.log('ajax FAILED!');
+            error: function (data) {
+                console.log(data);
             }
         });
     }

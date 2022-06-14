@@ -1,8 +1,9 @@
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, CreateView, UpdateView
 
 from authapp.models import Person
@@ -111,54 +112,27 @@ def delete_dialog(request, chat_id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def get_messages(request, chat_id):
-    if request.is_ajax():
-        try:
-            chat = Chat.objects.get(id=chat_id)
-
-            if not chat.last_message:
-                return JsonResponse({'result': False})
-
-            # Проверка, что сообщение не прочитано и автор не текущий пользователь
-            is_update = chat.last_message.author != request.user and not chat.last_message.is_read
-
-            if is_update:
-                if request.user in chat.members.all():
-                    chat.message_set.filter(is_read=False).exclude(author=request.user).update(is_read=True)
-                else:
-                    chat = None
-            else:
-                return JsonResponse({'result': False})
-        except Chat.DoesNotExist:
-            chat = None
-
-        context = {
-            'chat': chat,
-            'user': request.user,
-        }
-
-        result = render_to_string('messengerapp/includes/message_dialog.html', context)
-
-        return JsonResponse({'result': result})
-
-
-def get_new_mes_count(request):
-    user = request.user
-    new_mess_count = user.chat_set.unreaded(user=user).count()
-    if new_mess_count == 0:
-        return JsonResponse({'result': False})
-
-    return JsonResponse({'result': new_mess_count})
-
-
+@csrf_exempt
 def update_chats_list(request):
-    if request.is_ajax():
-        context = {
-            'user': request.user,
-            'chats': Chat.objects.filter(members__in=[request.user.id]),
-            'unread_chats': request.user.chat_set.unreaded(user=request.user)
-        }
+    if not request.is_ajax():
+        return HttpResponseBadRequest('Invalid request')
 
-        result = render_to_string('messengerapp/includes/chats_list.html', context)
+    if request.method != 'POST':
+        return JsonResponse({'status': 'Invalid request'}, status=400)
 
-        return JsonResponse({'result': result})
+    context = {
+        'user': request.user,
+        'chats': Chat.objects.filter(members__in=[request.user.id]),
+        'unread_chats': request.user.chat_set.unreaded(user=request.user),
+        'unread_msg_cnt': {}
+    }
+
+    for chat in context['chats']:
+        unread_cnt = len(Message.objects.filter(chat__pk=chat.pk, is_read=False))
+        if unread_cnt > 99:
+            unread_cnt = '99+'
+        context['unread_msg_cnt'].update({chat.pk: unread_cnt})
+
+    result = render_to_string('messengerapp/includes/chats_list.html', context)
+
+    return JsonResponse({'result': result})

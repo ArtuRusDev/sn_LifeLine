@@ -33,8 +33,14 @@
             </div>
 
             <div class="b-chat-item__last-msg">
-                {% if chat.last_message.author.pk == user.pk %}
-                    <span class="b-chat-item__last-msg-author">Вы: </span>
+                {% if chat.type == 'D' %}
+                    {% if chat.last_message.author.pk == user.pk %}
+                        <span class="b-chat-item__last-msg-author">Вы: </span>
+                    {% endif %}
+                {% else %}
+                    {% if chat.last_message.author.pk != user.pk %}
+                        <span class="b-chat-item__last-msg-author">{{ chat.last_message.author.get_name }}:</span>
+                    {% endif %}
                 {% endif %}
 
                 {% if chat.last_message %}

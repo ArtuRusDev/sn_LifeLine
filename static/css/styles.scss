@@ -945,6 +945,13 @@ select.b-form__input[multiple] {
     padding: 0 20px 30px;
 }
 
+.b-chat__content__messages.b-chat__content__messages_dialog {
+    .b-msg-item__username,
+    .b-msg-item__avatar {
+        display: none;
+    }
+}
+
 .b-chat__content__no-msg {
     padding: 20px 0;
     text-align: center;
@@ -1022,6 +1029,7 @@ select.b-form__input[multiple] {
     max-width: 72%;
     word-wrap: break-word;
     font-size: 20px;
+    height: 100%;
 }
 
 .b-msg-item__avatar {
@@ -1043,6 +1051,7 @@ select.b-form__input[multiple] {
 .b-msg-item__username__content {
     display: flex;
     align-items: end;
+    justify-content: space-between;
 }
 
 .b-msg-item__text {
@@ -1064,8 +1073,7 @@ select.b-form__input[multiple] {
 }
 
 .b-msg-item__img {
-    max-width: 100%;
-    max-height: 100%;
+    height: 220px;
 }
 
 .back_to_dialogs {
@@ -1635,6 +1643,16 @@ img.admin-panel_img-value {
     #Media queries
 \*-----------------------------------*/
 
+@media (min-width: 992px) and (max-width: 1200px) {
+    .b-navbar {
+        font-size: 16px;
+    }
+
+    .b-nav-item {
+        margin-right: 10px;
+    }
+}
+
 /***** Tablets and lower *****/
 @media (max-width: 992px) {
     /********** Header **********/
@@ -1870,6 +1888,4 @@ img.admin-panel_img-value {
             }
         }
     }
-
-
 }
