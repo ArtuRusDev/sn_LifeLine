@@ -1,0 +1,82 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Редактирование профиля | Life on Line{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="b-profile-edit bg-dark-blur">
+                    <h1 class="b-profile-edit__title">
+                        Редактирование профиля
+                    </h1>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="b-flex-wrap">
+                            <div>
+                                <div class="b-profile-edit-img unselectable  {% if object.avatar %}b-profile-edit-img_filled{% endif %}">
+                                    <span>НЕТ ФОТО</span>
+                                    <div class="b-profile-edit-img__attach js-profile-attach-img-btn">
+                                        <div class="b-profile-edit-img__icon"></div>
+                                        <span>Прикрепить</span>
+                                    </div>
+                                    <div class="b-profile-edit-img__img-wrap">
+                                        <img src="/media/{{ object.avatar }}" class="b-profile-edit-img__img"
+                                             alt="Изображение пользователя">
+                                    </div>
+                                    <div class="b-profile-edit-img__clear-btn js-profile-clear-img">
+                                        &times;
+                                    </div>
+                                </div>
+
+
+                                {{ form.avatar|as_crispy_field }}
+                            </div>
+                            <div>
+                                {{ form.username|as_crispy_field }}
+                                {{ form.first_name|as_crispy_field }}
+                                {{ form.last_name|as_crispy_field }}
+                                {{ form.patronymic|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        {{ form.bio|as_crispy_field }}
+
+                        <div class="b-flex-wrap">
+                            {{ form.gender|as_crispy_field }}
+                            {{ form.city|as_crispy_field }}
+                        </div>
+                        <div class="b-flex-wrap">
+                            {{ form.birth_date|as_crispy_field }}
+                            {{ form.relationship|as_crispy_field }}
+                        </div>
+
+                        {{ form.phone_number|as_crispy_field }}
+                        {{ form.email|as_crispy_field }}
+
+                        <div>
+                            Статус персонала: {{ form.is_staff }}
+                        </div>
+                        <div>
+                            Активен: {{ form.is_active }}
+                        </div>
+                        <div>
+                            Статус суперпользователя: {{ form.is_superuser }}
+                        </div>
+
+
+                        {{ form.errors }}
+
+                        <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins"
+                               value="Сохранить изменения">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="b-form__submit">Отменить</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/lib/js-inputmask.min.js' %}"></script>
+
+{% endblock %}

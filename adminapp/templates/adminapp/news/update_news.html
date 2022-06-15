@@ -1,0 +1,24 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+{% block title %}Изменение Новости | Life on Line{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-2">
+                <div class="b-paddings bg-dark-blur">
+                    <h2 class="b-paddings__title">Изменение Новости</h2>
+
+                    <form method="post" class="bootstrap-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <input type="submit" class="b-form__submit b-form__submit_white b-form__submit_margins" value="Изменить сообщество">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="b-form__submit">
+                            Отмена
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

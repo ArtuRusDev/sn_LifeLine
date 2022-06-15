@@ -12,23 +12,29 @@
                         {% include 'newsapp/includes/inc_news_item.html' %}
 
                         <div class="news-moderate_btns">
-                            <button onclick="accept_news({{ news_item.pk }})" class="btn btn-outline-success">
+                            <button data-url="{% url 'admin:news_moderate_update' news_item.pk %}" data-action="accept"
+                                    class="btn btn-outline-success js-moderate-news">
                                 <i class="fa fa-check" aria-hidden="true"></i>
                             </button>
 
-                            <button onclick="cancel_news({{ news_item.pk }})" class="btn btn-outline-danger">
+                            <button data-url="{% url 'admin:news_moderate_update' news_item.pk %}" data-action="deny"
+                                    class="btn btn-outline-danger js-moderate-news">
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
                 {% endfor %}
 
-            {% if not news %}
-                <p class="text-center">Нет новостей для модерации</p>
-            {% endif %}
+                {% if not news %}
+                    <div class="b-info text-center">
+                        Все новости прошли модерацию
+                    </div>
+                {% endif %}
 
-                <a href="{% url 'admin:news_read' %}" class="btn btn-success">Завершить модерирование</a>
 
+                <a href="{% url 'admin:news_read' %}" class="b-form__submit b-form__submit_white b-form__submit_margins">
+                    Завершить модерирование
+                </a>
             </div>
         </div>
     </div>

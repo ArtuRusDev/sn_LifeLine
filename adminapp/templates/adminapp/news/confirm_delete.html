@@ -9,7 +9,7 @@
 
             {% include 'newsapp/includes/inc_news_item.html' with news_item=object%}
 
-            <form action="{% url 'news:delete' object.pk %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'admin:news_delete' object.pk %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input value="Удалить новость" type="submit"
                        class="b-form__submit b-form__submit_white b-form__submit_margins text-danger">

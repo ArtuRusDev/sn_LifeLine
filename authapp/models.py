@@ -5,7 +5,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 from friendsapp.models import FriendRequests
 from sn_LifeLine import settings
 
-redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
+try:
+    redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
+except Exception:
+    redis_instance = False
 
 GENDER_CHOICES = [
     ['male', "Мужской"],
@@ -107,7 +110,9 @@ class Person(AbstractUser):
 
     @property
     def is_online(self):
-        """ Вернет Person QuerySet друзей пользователя """
+        if not redis_instance:
+            return False
+
         val = redis_instance.get(self.pk)
         if not val:
             return False

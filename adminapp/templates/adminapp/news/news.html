@@ -7,13 +7,13 @@
             <div class="col-12">
                 <h2 class="text-center mt-5 mb-5">Список новостей</h2>
 
-                <table class="table admin-table text-center">
+                <table class="table admin-table">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">id</th>
                         <th scope="col">Автор</th>
                         <th scope="col">Текст</th>
-                        <th scope="col">Дата</th>
+                        <th scope="col">Дата создания</th>
                         <th scope="col">Изображение</th>
                         <th scope="col">Модерировано</th>
                         <th scope="col">Принято</th>
@@ -25,7 +25,7 @@
                     {% for news_item in news %}
                         <tr>
                             <th scope="row">{{ news_item.pk }}</th>
-                            <td>{{ news_item.user }}</td>
+                            <td><a href="{% url 'profileapp:detail' news_item.user.pk %}">{{ news_item.user }}</a></td>
                             <td class="admin-panel_text-value">{{ news_item.text|safe }}</td>
                             <td>{{ news_item.add_datetime }}</td>
                             <td class="img-td">
@@ -33,11 +33,11 @@
                                     <img src="/media/{{ news_item.image }}" alt="Изображение новости"
                                          class="admin-panel_img-value">
                                 {% else %}
-                                    Нет
+                                    —
                                 {% endif %}
                             </td>
-                            <td>{{ news_item.is_moderated }}</td>
-                            <td>{{ news_item.is_accepted }}</td>
+                            <td>{{ news_item.is_moderated|yesno:'Да,Нет' }}</td>
+                            <td>{{ news_item.is_accepted|yesno:'Да,Нет' }}</td>
                             <td class="action-list-td">
                                 <a href="{% url 'admin:news_update' news_item.pk %}"
                                    class="btn btn-outline-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -48,11 +48,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-
-                <a href="{% url 'admin:news_create' %}" class="btn btn-success">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    Создать новость
-                </a>
             </div>
         </div>
     </div>

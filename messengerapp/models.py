@@ -48,7 +48,7 @@ class Chat(models.Model):
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, verbose_name="Чат", on_delete=models.CASCADE)
-    author = models.ForeignKey(Person, verbose_name="Пользователь", on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(Person, verbose_name="Пользователь", on_delete=models.CASCADE)
     message = models.TextField("Сообщение")
     image = models.FileField("Изображение", upload_to='messages', null=True, blank=True, default=None)
     pub_date = models.DateTimeField('Дата сообщения', default=timezone.now)

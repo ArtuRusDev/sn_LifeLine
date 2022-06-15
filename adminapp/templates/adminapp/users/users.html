@@ -36,16 +36,16 @@
                             <td>{{ user_item.last_name }}</td>
                             <td>{{ user_item.patronymic }}</td>
                             <td>{{ user_item.email }}</td>
-                            <td>{{ user_item.phone_number }}</td>
+                            <td>{{ user_item.phone_number|default:'—' }}</td>
                             <td class="img-td">
                                 {% if user_item.avatar %}
-                                    <img src="/media/{{ user_item.avatar }}" alt="Файл недоступен"
+                                    <img src="/media/{{ user_item.avatar }}" alt=""
                                          class="admin-panel_img-value">
                                 {% else %}
-                                    Нет
+                                    —
                                 {% endif %}
                             </td>
-                            <td>{{ user_item.city }}</td>
+                            <td>{{ user_item.city|default:'—' }}</td>
                             <td class="action-list-td">
                                 <a href="{% url 'admin:user_update' user_item.pk %}"
                                    class="btn btn-outline-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>

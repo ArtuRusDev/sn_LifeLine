@@ -238,6 +238,9 @@ select.b-form__input, select.b-form__submit {
   select.b-form__input option, select.b-form__submit option {
     color: #000; }
 
+.b-form__input[type="checkbox"], [type="checkbox"].b-form__submit {
+  width: auto; }
+
 select.b-form__input[multiple], select[multiple].b-form__submit {
   background-image: none;
   height: 200px;
@@ -305,6 +308,16 @@ select.b-form__input[multiple], select[multiple].b-form__submit {
   position: relative; }
   .b-news-item:hover .btn-delete-news {
     opacity: .5; }
+
+.b-news-item.b-news-item_accepted {
+  outline: 4px solid #28a745;
+  transition: .3s;
+  box-shadow: 0 0 20px 0 #28a745; }
+
+.b-news-item.b-news-item_canceled {
+  outline: 4px solid #dc3545;
+  transition: .3s;
+  box-shadow: 0 0 20px 0 #dc3545; }
 
 .btn-delete-news {
   cursor: pointer;
@@ -1038,6 +1051,8 @@ form input[type='file'] {
     padding: 0; }
   .admin-table td.admin-panel_text-value {
     max-width: 200px; }
+  .admin-table a:not(.btn) {
+    color: var(--blue); }
 
 img.admin-panel_img-value {
   max-width: 200px;
@@ -1050,16 +1065,6 @@ img.admin-panel_img-value {
   height: 4rem;
   margin: 1rem; }
 
-.news_item.accepted {
-  outline: 4px solid #28a745;
-  transition: .3s;
-  box-shadow: 0 0 20px 0 #28a745; }
-
-.news_item.canceled {
-  outline: 4px solid #dc3545;
-  transition: .3s;
-  box-shadow: 0 0 20px 0 #dc3545; }
-
 /*-----------------------------------*\
     #Communitites
 \*-----------------------------------*/
@@ -1069,7 +1074,9 @@ img.admin-panel_img-value {
 .b-profile {
   background: rgba(16, 15, 15, 0.55);
   padding: 30px;
-  border-radius: 10px; }
+  border-radius: 10px;
+  position: sticky;
+  top: 110px; }
 
 .b-profile__main-info {
   display: flex;

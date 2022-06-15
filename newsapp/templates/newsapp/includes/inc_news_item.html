@@ -42,10 +42,10 @@
                     <a href="{% url 'profile:detail' news_item.user.pk %}">
                         {{ news_item.user.get_name }}
                     </a>
-                {% endif %}
-                {% if news_item.user.is_staff %}
-                    <img src="{% static 'img/icons/staff.png' %}" class="staff_icon" alt="Статус персонала"
-                         title="Статус персонала">
+                    {% if news_item.user.is_staff %}
+                        <img src="{% static 'img/icons/staff.png' %}" class="staff_icon" alt="Статус персонала"
+                             title="Статус персонала">
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="b-news-info__date">

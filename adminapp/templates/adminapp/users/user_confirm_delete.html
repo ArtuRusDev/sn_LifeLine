@@ -1,0 +1,53 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Life on Line | Удаление Пользователя{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="b-paddings col-lg-7 offset-lg-2">
+                <h1 class="b-paddings__title">Вы уверены, что хотите удалить этого пользователя?</h1>
+
+                <div class="b-profile text-center">
+                    <div class="b-profile__main-info justify-content-center">
+                        <div style="background-image: url('/media/{{ object.avatar|default:'users_avatars/default.png' }}')"
+                             class="b-profile__avatar {% if object.is_online %} b-online {% endif %}"></div>
+                        <div class="b-profile__username">{{ object.get_name }}</div>
+                    </div>
+
+                    <div class="b-profile__info-list">
+                        {% if object.bio %}
+                            <p><span>О Себе</span>{{ object.bio }}</p>
+                        {% endif %}
+                        {% if object.email %}
+                            <p><span>Email</span> {{ object.email }}</p>
+                        {% endif %}
+                        {% if object.phone_number %}
+                            <p><span>Телефон</span>{{ object.phone_number }}</p>
+                        {% endif %}
+                        {% if object.city %}
+                            <p><span>Город</span> {{ object.city }}</p>
+                        {% endif %}
+                        {% if object.birth_date %}
+                            <p><span>День рождения</span> {{ object.birth_date }}</p>
+                        {% endif %}
+                        {% if object.get_gender %}
+                            <p><span>Пол</span> {{ object.get_gender }}</p>
+                        {% endif %}
+                        {% if object.get_rel %}
+                            <p><span>Отношения</span> {{ object.get_rel }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <form action="{% url 'admin:user_delete' object.pk %}" method="post">
+                    {% csrf_token %}
+                    <input value="Удалить пользователя" type="submit"
+                           class="b-form__submit b-form__submit_white b-form__submit_margins text-danger">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="b-form__submit">
+                        Отмена
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

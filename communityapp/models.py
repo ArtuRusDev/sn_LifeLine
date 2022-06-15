@@ -5,7 +5,7 @@ from sn_LifeLine import settings
 
 
 class Community(models.Model):
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
     name = models.CharField(blank=False, null=False, max_length=35, verbose_name="Название сообщества")
     image = models.ImageField(upload_to="communities_images", blank=True, default=None, verbose_name="Изображние")
     description = models.TextField("Описание сообщества", blank=True, max_length=1024)

@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.core.files.images import get_image_dimensions
 
@@ -8,14 +9,18 @@ from newsapp.models import NewsItem
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = Person
+
         fields = (
             'username', 'first_name', 'last_name', 'patronymic', 'email', 'phone_number', 'avatar',
-            'bio', 'city', 'birth_date', 'gender', 'relationship')
+            'bio', 'city', 'birth_date', 'gender', 'relationship', 'is_staff', 'is_active', 'is_superuser')
 
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'b-form__input'
             field.widget.attrs['placeholder'] = self.Meta.model._meta.get_field(field_name).verbose_name.capitalize
             field.help_text = ''
 
@@ -23,7 +28,9 @@ class UserUpdateForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'а'
 
             if field_name == 'phone_number':
-                field.widget.attrs['placeholder'] = '+7 (123) 456-78-90'
+                field.widget.attrs['placeholder'] = '+7 (000) 000-00-00'
+                field.widget.attrs['pattern'] = '.{18,}'
+                field.widget.attrs['class'] += ' tel'
 
             if field_name == 'email':
                 field.widget.attrs['placeholder'] = 'example@gmail.com'
@@ -37,7 +44,7 @@ class UserUpdateForm(forms.ModelForm):
         try:
             w, h = get_image_dimensions(avatar)
 
-            max_width = max_height = 1080
+            max_width = max_height = 1920
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     f'Пожалуйста, испльзуйте изображения {max_width} x {max_height} пикселов или меньше.')

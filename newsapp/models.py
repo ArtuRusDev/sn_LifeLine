@@ -4,7 +4,7 @@ from sn_LifeLine import settings
 
 
 class NewsItem(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.CASCADE)
     text = models.TextField('Текст Новости', max_length=1024)
     add_datetime = models.DateTimeField('Дата Добавления', auto_now=True)
     image = models.FileField("Изображение", upload_to='news_images', null=True, blank=True, default=None)
@@ -44,7 +44,7 @@ class Likes(models.Model):
 
 class Comments(models.Model):
     news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE, verbose_name='Комментируемая новость')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Автор')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
     text = models.TextField('Текст комментария', blank=False, null=False, max_length=1024)
     add_datetime = models.DateTimeField('Дата комментирования', auto_now_add=True)
 
